@@ -30,6 +30,7 @@
     "@rollup/plugin-html": "^0.2.3",
     "@rollup/plugin-typescript": "^8.2.5",
     "auto-changelog": "^2.3.0",
+    "cacheable-request": "^7.0.2",
     "dotenv": "^10.0.0",
     "dotenv-load": "^2.0.0",
     "np": "^7.5.0",
