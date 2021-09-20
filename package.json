@@ -1,6 +1,6 @@
 {
   "name": "@arrowhealth/bridge-sdk",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Bridge SDK provides web applications the ability to integrate with the Bridge Platform.",
   "repository": "git@github.com:arrowhealth/bridge-sdk.git",
   "contributors": [
