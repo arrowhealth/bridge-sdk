@@ -1,13 +1,18 @@
 import { EVENTS, REQUESTS } from './consts'
 import { onGetPatientResponse, onGetUserResponse } from './hooks/app'
-import { PatientInfo, UserInfo } from './models/index'
+import { PatientInfo, UserInfo } from './interfaces/index'
 import { emitToBridge } from './utils/mingle'
 export { emitToApp, emitToBridge } from './utils/mingle'
 
 export * from './hooks/app'
 export * from './hooks/bridge'
-export * from './models/index'
+export * from './interfaces/index'
 
+/**
+ * Request to get authenticated user info from Bridge
+ *
+ * @returns User info releting to the authenticated user in the EHR and Bridge
+ */
 export function getUserInfo(): Promise<UserInfo> {
   return new Promise((resolve) => {
     const off = onGetUserResponse((user: UserInfo) => {
@@ -34,7 +39,7 @@ export function getPatientInfo(): Promise<PatientInfo> {
 }
 
 /**
- * Notify bridge of a count change. Bridge will place an indicator on the icon
+ * Notify Bridge of a count change. Bridge will place an indicator on the icon
  * representing the application
  *
  * @param count
@@ -68,7 +73,7 @@ export function closeApp() {
 }
 
 /**
- * Notify bridge of a notification. Bridge will add the notification to the notifications array
+ * Notify Bridge of a notification. Bridge will add the notification to the notifications array
  * with icon representing the application
  *
  * @param count

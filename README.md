@@ -1,8 +1,8 @@
 # Bridge SDK
 
-Bridge SDK provides web applications the ability to integrate with the Bridge Platform.
+The Bridge SDK provides an API to communicate with the Bridge platform
 
-### Setup
+### Getting Started
 
 #### NPM
 
@@ -12,19 +12,19 @@ Install the npm package
 $ npm i @arrowhealth/bridge-js-sdk
 ```
 
-You can import the entire module or individual modules
+You can import the entire module or individual exports
 
 ```js
 import * as bridge from '@arrowhealth/bridge-sdk'
 ```
 
 ```js
-import { onPatientChanged } from '@arrowhealth/bridge-js-sdk'
+import { onPatientChanged } from '@arrowhealth/bridge-sdk'
 ```
 
 #### CDN
 
-Access the link below to get the latest version:
+Access the link below to get the latest version from the CDN
 
 https://unpkg.com/@arrowhealth/bridge-js-sdk
 
@@ -36,17 +36,15 @@ import {
   updateBadgeCount,
 } from '@arrowhealth/bridge-sdk'
 
-const initApp = async () => {
+const main = async () => {
   onPatientChanged(patientInfo => {
     console.log('patient:', patientInfo.ehrId, emrPatient.name)
   })
 
   updateBadgeCount(1)
 }
+
+main()
 ```
-
-### Building
-
-
 
 Arrow Health (c) 2021. All rights reserved.

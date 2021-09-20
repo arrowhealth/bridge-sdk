@@ -27,7 +27,7 @@ export const emitToBridge = (event: string, data?: any) => {
   if (window.opener) {
     win = window.opener
   }
-  // send the appId from the window name with message to bridge
+  // sends the appId from the window name with message to Bridge
   win.postMessage(
     JSON.stringify({
       data: {
