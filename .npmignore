@@ -1,0 +1,6 @@
+node_modules
+.local
+.firebase
+scripts
+src
+yarn.lock

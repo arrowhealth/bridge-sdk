@@ -1,0 +1,15 @@
+{
+  "name": "Bridge JS SDK",
+  "disableSources": true,
+  "excludeInternal": true,
+  "excludePrivate": true,
+  "hideGenerator": true,
+  "entryPoints": [
+    "src/index.ts"
+  ],
+  "exclude": [
+    "**/utils/*",
+    "**/controllers/*.ts",
+    "**/consts.ts"
+  ]
+}
