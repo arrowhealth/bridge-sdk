@@ -19,11 +19,12 @@
   },
   "scripts": {
     "changelog": "auto-changelog && git add CHANGELOG.md",
-    "build": "rollup -c --watch",
+    "build": "rollup -c",
     "docs": "npm run docs-cleanup && typedoc --out docs",
     "docs-cleanup": "./scripts/clean-docs.sh $npm_package_version",
     "release": "np --no-tests",
-    "version": "rollup -c && npm run changelog"
+    "watch": "rollup -c --watch",
+    "version": "npm run build && npm run changelog"
   },
   "main": "dist/bridge.js",
   "files": [
