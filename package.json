@@ -18,7 +18,7 @@
     "access": "public"
   },
   "scripts": {
-    "changelog": "auto-changelog && git add CHANGELOG.md",
+    "changelog": "./node_modules/auto-changelog/src/index.js && git add CHANGELOG.md",
     "build": "rollup -c --watch",
     "docs": "npm run docs-cleanup && typedoc --out docs",
     "docs-cleanup": "./scripts/clean-docs.sh $npm_package_version",
