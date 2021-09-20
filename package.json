@@ -14,6 +14,9 @@
     }
   ],
   "license": "SEE LICENSE IN <LICENSE>",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "changelog": "npm run auto-changelog && git add CHANGELOG.md",
     "build": "rollup -c --watch",
