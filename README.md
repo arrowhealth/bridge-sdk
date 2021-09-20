@@ -26,7 +26,7 @@ import { onPatientChanged } from '@arrowhealth/bridge-sdk'
 
 Access the link below to get the latest version from the CDN
 
-https://unpkg.com/@arrowhealth/bridge-js-sdk
+https://unpkg.com/@arrowhealth/bridge-sdk
 
 ### Usage
 
