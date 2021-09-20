@@ -22,7 +22,8 @@
     "build": "rollup -c --watch",
     "docs": "npm run docs-cleanup && typedoc --out docs",
     "docs-cleanup": "./scripts/clean-docs.sh $npm_package_version",
-    "release": "np --no-tests"
+    "release": "np --no-tests",
+    "version": "npm run build"
   },
   "main": "dist/bridge.js",
   "files": [
