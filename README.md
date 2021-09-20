@@ -38,7 +38,7 @@ import {
 
 const main = async () => {
   onPatientChanged(patientInfo => {
-    console.log('patient:', patientInfo.ehrId, emrPatient.name)
+    console.log('patient:', patientInfo.ehrId, patientInfo.name)
   })
 
   updateBadgeCount(1)
