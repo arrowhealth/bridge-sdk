@@ -1,11 +1,12 @@
 {
-  "name": "Bridge JS SDK",
+  "name": "Bridge SDK",
   "disableSources": true,
   "excludeInternal": true,
   "excludePrivate": true,
   "hideGenerator": true,
+  "readme": "setup.md",
   "entryPoints": [
-    "src/index.ts"
+    "src/bridge.ts"
   ],
   "exclude": [
     "**/utils/*",

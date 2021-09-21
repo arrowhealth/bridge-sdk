@@ -2,6 +2,14 @@
   "name": "@arrowhealth/bridge-sdk",
   "version": "0.0.3",
   "description": "Bridge SDK provides web applications the ability to integrate with the Bridge Platform.",
+  "keywords": [
+    "healthcare",
+    "emr",
+    "ehr",
+    "rpm",
+    "payer",
+    "labs"
+  ],
   "repository": "git@github.com:arrowhealth/bridge-sdk.git",
   "contributors": [
     {
@@ -20,8 +28,9 @@
   "scripts": {
     "changelog": "auto-changelog && git add CHANGELOG.md",
     "build": "rollup -c",
-    "docs": "npm run docs-cleanup && typedoc --out docs",
-    "docs-cleanup": "./scripts/clean-docs.sh $npm_package_version",
+    "docs:build": "npm run docs:cleanup && typedoc --out docs",
+    "docs:cleanup": "./scripts/clean-docs.sh $npm_package_version",
+    "docs:publish": "gh-pages -d docs",
     "release": "np --no-tests",
     "watch": "rollup -c --watch",
     "version": "npm run build && npm run changelog"
@@ -39,6 +48,7 @@
     "cacheable-request": "^7.0.2",
     "dotenv": "^10.0.0",
     "dotenv-load": "^2.0.0",
+    "gh-pages": "^3.2.3",
     "np": "*",
     "rollup": "^2.56.3",
     "rollup-plugin-clear": "^2.0.7",
