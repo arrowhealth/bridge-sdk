@@ -1,6 +1,6 @@
 
 
-# Bridge
+# Bridge SDK
 
 ## What is Bridge?
 
