@@ -4,23 +4,17 @@
  */
 export interface UserInfo {
   /**
-   * Represents the EHR user authenticated into
+   * Represents the EHR authenticated user
    */
   ehr: {
-    /**
-     * Represents the username of the authenticated user
-     */
     username: string
   }
 
+  /**
+   * Represents the Bridge authenticated user
+   */
   bridge: {
-    /**
-     * Represents the auth user id
-     */
     userId: string
-    /**
-     * Represents the auth username
-     */
     username: string
   }
 }

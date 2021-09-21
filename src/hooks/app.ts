@@ -8,27 +8,24 @@ import { on } from '../utils/mingle'
  *
  * @param handle
  *
- * @private
  */
-export const onPatientChanged = (
+export function onPatientChanged(
   handle: (patient: PatientInfo) => void
-): Function => {
+): Function {
   return on(EVENTS.PATIENT_CHANGED, handle)
 }
 
 /**
  * @private
  */
-export const onGetPatientResponse = (
+export function onGetPatientResponse(
   handle: (patient: PatientInfo) => void
-): Function => {
+): Function {
   return on(RESPONSE.GET_PATIENT_INFO, handle)
 }
 /**
  * @private
  */
-export const onGetUserResponse = (
-  handle: (user: UserInfo) => void
-): Function => {
+export function onGetUserResponse(handle: (user: UserInfo) => void): Function {
   return on(RESPONSE.GET_USER_INFO, handle)
 }

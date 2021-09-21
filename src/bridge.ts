@@ -9,9 +9,9 @@ export * from './hooks/bridge'
 export * from './interfaces/index'
 
 /**
- * Request to get authenticated user info from Bridge
+ * Get the authorized user's info.
  *
- * @returns User info releting to the authenticated user in the EHR and Bridge
+ * @returns
  */
 export function getUserInfo(): Promise<UserInfo> {
   return new Promise((resolve) => {
@@ -24,7 +24,9 @@ export function getUserInfo(): Promise<UserInfo> {
 }
 
 /**
- * Request from app to get the current patient
+ * Get the current patient being displayed. This is typically used on application
+ * initialization and thereafter onPatientChanged() is used to listen for additional
+ * changes.
  *
  * @returns
  */
@@ -39,8 +41,7 @@ export function getPatientInfo(): Promise<PatientInfo> {
 }
 
 /**
- * Notify Bridge of a count change. Bridge will place an indicator on the icon
- * representing the application
+ * Sets the badge count on the tile. Setting the value to 0 will cause it to go away
  *
  * @param count
  *
@@ -50,7 +51,8 @@ export function setBadgeCount(count: number = 0): void {
 }
 
 /**
- * Indicates if the tile should be displayed in the toolbar.
+ * Show or hide the tile. This is controlled by the tile itself based on the
+ * information it receives through the available hooks such as "onPatientChanged()"
  *
  * @param visible
  */
@@ -59,25 +61,25 @@ export function showTile(visible: Boolean = true) {
 }
 
 /**
- * Used by tile to open the associated application
+ * Used by tile to open linked application.
  */
 export function openApp(settings: any = {}) {
   emitToBridge(REQUESTS.OPEN_APP, settings)
 }
 
 /**
- * Used by tile to close the associated application
+ * Closes app making the request. The tile can also call this and it will close the linked application.
  */
 export function closeApp() {
   emitToBridge(REQUESTS.CLOSE_APP)
 }
 
 /**
- * Notify Bridge of a notification. Bridge will add the notification to the notifications array
+ * Bridge will add the notification to the notifications array
  * with icon representing the application
  *
- * @param count
- *
+ * @param text Message to display
+ * @param patientId EHR patient ID
  */
 export function addNotification(text: string, patientId?: any): void {
   emitToBridge(REQUESTS.ADD_NOTIFICATION, { patientId, text })
