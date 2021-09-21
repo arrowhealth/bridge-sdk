@@ -1,33 +1,6 @@
 
 
-<div style="display: flex;
-        flex-direction: column;
-        align-items: center;
-        font-family: Arial, Helvetica, sans-serif;">
-  <img
-    src="https://firebasestorage.googleapis.com/v0/b/novo00.appspot.com/o/icons%2Farrow-logo-alt.png?alt=media&token=90995e6f-7630-4194-9273-94fc720745cb" style="border-radius: 8px;box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"
-  />
-  <div style="font-size: 1.2em; margin-top: 8px; font-weight: normal;
-        margin-bottom: 50px;background: #069669;color: white;padding: 10px;width: 128px;text-align:center;border-radius:8px;box-sizing:border-box;box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Bridge</div>
-  <!-- <div style="display: flex;
-        align-items: stretch;
-        gap: 12px;
-        background: black;
-        padding: 20px;
-        text-align: left;
-        font-size: 1.0em;
-        font-weight: bold;
-        margin-bottom: 30px;
-        font-family: 'Courier New', Courier, monospace;
-        color: lime;
-        border-radius: 8px;
-        max-width: 400px;">
-    <div>&gt;</div>
-    <div class="text">
-      Spend time developing your product, not on EHR integrations
-    </div>
-  </div> -->
-</div>
+# Bridge
 
 ## What is Bridge?
 
@@ -39,8 +12,6 @@ Your company has spent a lot of time building an awesome product! As great as it
 for that clinicians time. There is the additional pain of integrating
 with EHRs. Some EHRs provide an integration, while others do not. Plus, the integration process is different for each EHR. Bridge
 alleviates these issues by placing your product front and center in the EHR.
-
-<div style="height: 30px"></div>
 
 **Example**
 
