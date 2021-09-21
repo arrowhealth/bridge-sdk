@@ -32,7 +32,7 @@ can launch without the need for the user to login each time.
 ### Real-time interaction and feedback
 
 Using the Bridge SDK you can retrieve and subscribe to patient information as it is being accessed in real-time. You can also
-provide the EHR user with information via notifications, badges and "live" tiles that change based on the patient accessed in the EHR.
+provide the EHR user with information via notifications, badges and Bridge SmartTiles&trade; that change based on the patient accessed in the EHR.
 
 ## Setup Guide and API
 
