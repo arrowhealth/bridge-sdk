@@ -1,8 +1,8 @@
 The Bridge SDK provides an API to communicate with the Bridge platform
 
-### Getting Started
+## Getting Started
 
-#### NPM
+### NPM
 
 Install the npm package
 
@@ -17,7 +17,7 @@ import * as bridge from '@arrowhealth/bridge-sdk'
 import { onPatientChanged } from '@arrowhealth/bridge-sdk'
 ```
 
-#### CDN
+### CDN
 
 Access the link below to get the latest version from the CDN
 
@@ -42,5 +42,16 @@ const main = async () => {
 
 main()
 ```
+
+### Repository
+
+https://github.com/arrowhealth/bridge-sdk
+
+### Reporting Issues
+
+https://github.com/arrowhealth/bridge-sdk/issues
+
+
+<hr />
 
 [Arrow Health](https://arrowhealth.io) (c) 2021. All rights reserved.
