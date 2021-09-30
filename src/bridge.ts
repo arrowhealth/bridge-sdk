@@ -19,7 +19,7 @@ export function getAppInfo(): Promise<AppInfo> {
       off()
       resolve(appInfo)
     })
-    emitToBridge(REQUESTS.GET_USER_INFO)
+    emitToBridge(REQUESTS.GET_APP_INFO)
   })
 }
 

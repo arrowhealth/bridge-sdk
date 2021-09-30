@@ -27,5 +27,5 @@ export function onGetPatientResponse(
  * @private
  */
 export function onGetAppResponse(handle: (appInfo: AppInfo) => void): Function {
-  return on(RESPONSE.GET_USER_INFO, handle)
+  return on(RESPONSE.GET_APP_INFO, handle)
 }
