@@ -1,6 +1,6 @@
 {
   "name": "@arrowhealth/bridge-sdk",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Bridge SDK provides web applications the ability to integrate with the Bridge Platform.",
   "keywords": [
     "healthcare",
