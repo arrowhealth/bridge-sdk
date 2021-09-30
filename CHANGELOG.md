@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v0.0.5](https://github.com/arrowhealth/bridge-sdk/compare/v0.0.4...v0.0.5)
+
+> 30 September 2021
+
+- changed onGetUserInfoRequest to onGetAppInfoRequest [`797c187`](https://github.com/arrowhealth/bridge-sdk/commit/797c187afe29e2ad7dc4a322c3d0a8b98f97ff6c)
+- updated changelog [`e04bad0`](https://github.com/arrowhealth/bridge-sdk/commit/e04bad05194caf18ede681d06c3d8b33583ec9e5)
+- fixed reference to bridge-sdk in docs [`6f92d71`](https://github.com/arrowhealth/bridge-sdk/commit/6f92d71e7f2654e798c9828fe0a8d4e8789f5256)
+
 #### [v0.0.4](https://github.com/arrowhealth/bridge-sdk/compare/v0.0.3...v0.0.4)
 
 > 30 September 2021
