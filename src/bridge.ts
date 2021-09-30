@@ -1,6 +1,6 @@
 import { EVENTS, REQUESTS } from './consts'
-import { onGetPatientResponse, onGetUserResponse } from './hooks/app'
-import { PatientInfo, UserInfo } from './interfaces/index'
+import { onGetPatientResponse, onGetAppResponse } from './hooks/app'
+import { PatientInfo, AppInfo } from './interfaces/index'
 import { emitToBridge } from './utils/mingle'
 export { emitToApp, emitToBridge } from './utils/mingle'
 
@@ -9,15 +9,15 @@ export * from './hooks/bridge'
 export * from './interfaces/index'
 
 /**
- * Get the authorized user's info.
+ * Return app and user info.
  *
  * @returns
  */
-export function getUserInfo(): Promise<UserInfo> {
+export function getAppInfo(): Promise<AppInfo> {
   return new Promise((resolve) => {
-    const off = onGetUserResponse((user: UserInfo) => {
+    const off = onGetAppResponse((appInfo: AppInfo) => {
       off()
-      resolve(user)
+      resolve(appInfo)
     })
     emitToBridge(REQUESTS.GET_USER_INFO)
   })

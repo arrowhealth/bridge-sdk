@@ -1,6 +1,6 @@
 import { EVENTS, RESPONSE } from '../consts'
 import { PatientInfo } from '../interfaces/patient'
-import { UserInfo } from '../interfaces/user'
+import { AppInfo } from '../interfaces/app'
 import { on } from '../utils/mingle'
 
 /**
@@ -26,6 +26,6 @@ export function onGetPatientResponse(
 /**
  * @private
  */
-export function onGetUserResponse(handle: (user: UserInfo) => void): Function {
+export function onGetAppResponse(handle: (appInfo: AppInfo) => void): Function {
   return on(RESPONSE.GET_USER_INFO, handle)
 }
