@@ -7,7 +7,7 @@ The Bridge SDK provides an API to communicate with the Bridge platform
 Install the npm package
 
 ```
-$ npm i @arrowhealth/bridge-js-sdk
+$ npm i @arrowhealth/bridge-sdk
 ```
 
 You can import the entire module or individual methods
