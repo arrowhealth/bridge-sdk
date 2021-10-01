@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v0.0.6](https://github.com/arrowhealth/bridge-sdk/compare/v0.0.5...v0.0.6)
+
+> 1 October 2021
+
+- changed appInfo to sessionInfo [`e78b7d7`](https://github.com/arrowhealth/bridge-sdk/commit/e78b7d7b019c96899440845608299c8645f16b8a)
+- updated changelog [`bbb07c9`](https://github.com/arrowhealth/bridge-sdk/commit/bbb07c98a92dbc49db72a02d2a5c0f5893df38d0)
+
 #### [v0.0.5](https://github.com/arrowhealth/bridge-sdk/compare/v0.0.4...v0.0.5)
 
 > 30 September 2021
