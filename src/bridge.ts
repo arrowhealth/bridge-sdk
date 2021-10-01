@@ -1,6 +1,9 @@
 import { EVENTS, REQUESTS } from './consts'
-import { onGetPatientResponse, onGetAppResponse } from './hooks/app'
-import { PatientInfo, AppInfo } from './interfaces/index'
+import {
+  onGetPatientInfoResponse,
+  onGetSessionInfoResponse as onGetSessionInfoResponse,
+} from './hooks/app'
+import { PatientInfo, SessionInfo as SessionInfo } from './interfaces/index'
 import { emitToBridge } from './utils/mingle'
 export { emitToApp, emitToBridge } from './utils/mingle'
 
@@ -9,17 +12,17 @@ export * from './hooks/bridge'
 export * from './interfaces/index'
 
 /**
- * Return app and user info.
+ * Return user session info
  *
  * @returns
  */
-export function getAppInfo(): Promise<AppInfo> {
+export function getSessionInfo(): Promise<SessionInfo> {
   return new Promise((resolve) => {
-    const off = onGetAppResponse((appInfo: AppInfo) => {
+    const off = onGetSessionInfoResponse((appInfo: SessionInfo) => {
       off()
       resolve(appInfo)
     })
-    emitToBridge(REQUESTS.GET_APP_INFO)
+    emitToBridge(REQUESTS.GET_SESSION_INFO)
   })
 }
 
@@ -32,7 +35,7 @@ export function getAppInfo(): Promise<AppInfo> {
  */
 export function getPatientInfo(): Promise<PatientInfo> {
   return new Promise((resolve) => {
-    const off = onGetPatientResponse((patient: PatientInfo) => {
+    const off = onGetPatientInfoResponse((patient: PatientInfo) => {
       off()
       resolve(patient)
     })

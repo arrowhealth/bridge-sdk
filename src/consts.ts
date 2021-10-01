@@ -7,7 +7,7 @@ export const REQUESTS = {
   ADD_NOTIFICATION: PREFIX + 'add_notification',
   CLOSE_APP: PREFIX + 'close_app',
   OPEN_APP: PREFIX + 'open_app',
-  GET_APP_INFO: PREFIX + 'get_app_info',
+  GET_SESSION_INFO: PREFIX + 'get_session_info',
   GET_PATIENT_INFO: PREFIX + 'get_patient_info',
   SET_BADGE_COUNT: PREFIX + 'set_badge_count',
   SHOW_TILE: PREFIX + 'show_tile',

@@ -1,2 +1,2 @@
 export * from './patient'
-export * from './app'
+export * from './session'

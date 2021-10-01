@@ -30,8 +30,8 @@ export const onGetPatientInfoRequest = (handle: Function): Function => {
 /**
  * @private
  */
-export const onGetAppInfoRequest = (handle: Function): Function => {
-  return on(REQUESTS.GET_APP_INFO, handle)
+export const onGetSessionInfoRequest = (handle: Function): Function => {
+  return on(REQUESTS.GET_SESSION_INFO, handle)
 }
 /**
  * @private
