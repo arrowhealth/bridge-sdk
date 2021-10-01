@@ -21,7 +21,7 @@ export function onPatientChanged(
 export function onGetPatientInfoResponse(
   handle: (patient: PatientInfo) => void
 ): Function {
-  return on(RESPONSE.GET_PATIENT_INFO, handle)
+  return on(RESPONSE.GET_PATIENT_INFO, (payload: any) => handle(payload.data))
 }
 /**
  * @private
@@ -29,5 +29,5 @@ export function onGetPatientInfoResponse(
 export function onGetSessionInfoResponse(
   handle: (appInfo: SessionInfo) => void
 ): Function {
-  return on(RESPONSE.GET_SESSION_INFO, handle)
+  return on(RESPONSE.GET_SESSION_INFO, (payload: any) => handle(payload.data))
 }

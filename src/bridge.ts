@@ -18,9 +18,9 @@ export * from './interfaces/index'
  */
 export function getSessionInfo(): Promise<SessionInfo> {
   return new Promise((resolve) => {
-    const off = onGetSessionInfoResponse((appInfo: SessionInfo) => {
+    const off = onGetSessionInfoResponse((sessionInfo: SessionInfo) => {
       off()
-      resolve(appInfo)
+      resolve(sessionInfo)
     })
     emitToBridge(REQUESTS.GET_SESSION_INFO)
   })
