@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v0.0.7](https://github.com/arrowhealth/bridge-sdk/compare/v0.0.6...v0.0.7)
+
+> 1 October 2021
+
+- fix data extraction when return response to client [`baec6fa`](https://github.com/arrowhealth/bridge-sdk/commit/baec6fad4911ea9f21bdef92a46652d1b3c98c3e)
+
 #### [v0.0.6](https://github.com/arrowhealth/bridge-sdk/compare/v0.0.5...v0.0.6)
 
 > 1 October 2021
