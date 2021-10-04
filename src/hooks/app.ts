@@ -12,7 +12,7 @@ import { on } from '../utils/mingle'
 export function onPatientChanged(
   handle: (patient: PatientInfo) => void
 ): Function {
-  return on(EVENTS.PATIENT_CHANGED, handle)
+  return on(EVENTS.PATIENT_CHANGED, (payload: any) => handle(payload.data))
 }
 
 /**
