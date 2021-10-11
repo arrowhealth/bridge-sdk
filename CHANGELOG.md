@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v0.0.8](https://github.com/arrowhealth/bridge-sdk/compare/v0.0.7...v0.0.8)
+
+> 4 October 2021
+
+- returning only data onPatientChanged [`8faefc9`](https://github.com/arrowhealth/bridge-sdk/commit/8faefc9905303f58050ff17661e34b6c656f4161)
+
 #### [v0.0.7](https://github.com/arrowhealth/bridge-sdk/compare/v0.0.6...v0.0.7)
 
 > 1 October 2021
