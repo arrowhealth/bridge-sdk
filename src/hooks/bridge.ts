@@ -11,6 +11,13 @@ export const setPatientInfo = (app: Window, data?: any) => {
 /**
  * @private
  */
+export const onAppAuthenticated = (handle: Function): Function => {
+  return on(EVENTS.AUTHENTICATED, handle)
+}
+
+/**
+ * @private
+ */
 export const onAppClosed = (handle: Function): Function => {
   return on(EVENTS.APP_CLOSED, handle)
 }

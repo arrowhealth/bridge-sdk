@@ -64,6 +64,13 @@ export function showTile(visible: Boolean = true) {
 }
 
 /**
+ * Invoked by your application once authentication is complete.
+ */
+export function authenticated() {
+  emitToBridge(EVENTS.AUTHENTICATED)
+}
+
+/**
  * Used by tile to open linked application.
  */
 export function openApp(settings: any = {}) {
