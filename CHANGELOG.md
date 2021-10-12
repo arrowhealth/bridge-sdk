@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v0.0.9](https://github.com/arrowhealth/bridge-sdk/compare/v0.0.8...v0.0.9)
+
+> 11 October 2021
+
+- added authenticated hook [`4a54e17`](https://github.com/arrowhealth/bridge-sdk/commit/4a54e1778f8ab943b6ff39b84f9255cb44b57f94)
+
 #### [v0.0.8](https://github.com/arrowhealth/bridge-sdk/compare/v0.0.7...v0.0.8)
 
 > 4 October 2021
