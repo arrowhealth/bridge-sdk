@@ -11,8 +11,8 @@ export const setPatientInfo = (app: Window, data?: any) => {
 /**
  * @private
  */
-export const onAppAuthenticated = (handle: Function): Function => {
-  return on(EVENTS.AUTHENTICATED, handle)
+export const onAppAuthStatusChanged = (handle: Function): Function => {
+  return on(EVENTS.APP_UPDATE_AUTH_STATUS, handle)
 }
 
 /**

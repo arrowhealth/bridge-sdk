@@ -66,8 +66,8 @@ export function showTile(visible: Boolean = true) {
 /**
  * Invoked by your application once authentication is complete.
  */
-export function authenticated() {
-  emitToBridge(EVENTS.AUTHENTICATED)
+export function updateAuthStatus({ isAuthenticated = true }) {
+  emitToBridge(EVENTS.APP_UPDATE_AUTH_STATUS, { isAuthenticated })
 }
 
 /**

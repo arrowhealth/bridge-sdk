@@ -23,7 +23,7 @@ export const RESPONSE = REQUESTS
  */
 export const EVENTS = {
   APP_CLOSED: PREFIX + 'app_closed',
-  AUTHENTICATED: PREFIX + 'authenticated',
+  APP_UPDATE_AUTH_STATUS: PREFIX + 'app_update_auth_status',
   BRIDGE_CLOSED: PREFIX + 'bridge_closed',
   PATIENT_CHANGED: PREFIX + 'patient_changed',
 }
