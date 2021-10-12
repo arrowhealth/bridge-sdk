@@ -3,7 +3,7 @@ import {
   onGetPatientInfoResponse,
   onGetSessionInfoResponse as onGetSessionInfoResponse,
 } from './hooks/app'
-import { PatientInfo, SessionInfo as SessionInfo } from './interfaces/index'
+import { PatientInfo, SessionInfo, AuthStatus } from './interfaces/index'
 import { emitToBridge } from './utils/mingle'
 export { emitToApp, emitToBridge } from './utils/mingle'
 
@@ -64,10 +64,18 @@ export function showTile(visible: Boolean = true) {
 }
 
 /**
- * Invoked by your application once authentication is complete.
+ * Tells bridge when authentication is complete. Set isAuthenticated
+ * to false when authentication is required. This will open the
+ * authentication panel where you have declared your Authentication
+ * page.
+ *
+ * @param status
+ * @default { isAuthenticated: true }
  */
-export function updateAuthStatus({ isAuthenticated = true }) {
-  emitToBridge(EVENTS.APP_UPDATE_AUTH_STATUS, { isAuthenticated })
+export function updateAuthStatus(
+  status: AuthStatus = { isAuthenticated: false }
+) {
+  emitToBridge(EVENTS.APP_UPDATE_AUTH_STATUS, status)
 }
 
 /**
