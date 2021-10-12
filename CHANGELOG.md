@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v0.0.10](https://github.com/arrowhealth/bridge-sdk/compare/v0.0.9...v0.0.10)
+
+> 12 October 2021
+
+- changed authenticated to updateAuthStatus [`3347884`](https://github.com/arrowhealth/bridge-sdk/commit/33478840baec78951f09918c954a39fdcb9f1993)
+
 #### [v0.0.9](https://github.com/arrowhealth/bridge-sdk/compare/v0.0.8...v0.0.9)
 
 > 11 October 2021
