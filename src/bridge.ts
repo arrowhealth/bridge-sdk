@@ -70,7 +70,7 @@ export function showTile(visible: Boolean = true) {
  * page.
  *
  * @param status
- * @default { isAuthenticated: true }
+ * @default { isAuthenticated: false }
  */
 export function updateAuthStatus(
   status: AuthStatus = { isAuthenticated: false }
