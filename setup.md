@@ -31,21 +31,22 @@ import {
   onPatientChanged
 } from '@arrowhealth/bridge-sdk'
 
-const main = async () => {
-  const patientInfo = await getPatientInfo()
-  console.log('patient::init', patientInfo)
+getPatientInfo().then( 
+  patientInfo => console.log('patient::init', patientInfo)
+)
 
-  onPatientChanged(patientInfo => {
-    console.log('patient::changed', patientInfo.ehrId, patientInfo.name)
-  })
-}
-
-main()
+onPatientChanged(patientInfo => {
+  console.log('patient::changed', patientInfo.ehrId, patientInfo.name)
+})
 ```
 
 ### Repository
 
 https://github.com/arrowhealth/bridge-sdk
+
+### Changelog
+
+https://github.com/arrowhealth/bridge-sdk/releases
 
 ### Reporting Issues
 
