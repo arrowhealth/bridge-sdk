@@ -28,6 +28,14 @@ export const onAppClosed = (handle: Function): Function => {
 export const onOpenAppRequest = (handle: Function): Function => {
   return on(REQUESTS.OPEN_APP, handle)
 }
+
+/**
+ * @private
+ */
+export const onGetConfigInfoRequest = (handle: Function): Function => {
+  return on(REQUESTS.GET_CONFIG_INFO, handle)
+}
+
 /**
  * @private
  */
