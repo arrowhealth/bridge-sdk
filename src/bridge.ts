@@ -127,15 +127,17 @@ window.addEventListener(
   'load',
   () => {
     if (window.opener) {
-      window.addEventListener(
-        'beforeunload',
-        (evt) => {
-          evt.preventDefault()
-          emitToBridge(EVENTS.APP_CLOSED, { name: window.name })
-          return true
-        },
-        true
-      )
+      setTimeout(() => {
+        window.addEventListener(
+          'beforeunload',
+          (evt) => {
+            evt.preventDefault()
+            emitToBridge(EVENTS.APP_CLOSED, { name: window.name })
+            return true
+          },
+          true
+        )
+      }, 1000)
     }
   },
   { capture: true }
