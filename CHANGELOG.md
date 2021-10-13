@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v0.0.13](https://github.com/arrowhealth/bridge-sdk/compare/v0.0.12...v0.0.13)
+
+> 13 October 2021
+
+- added bridge request [`a460255`](https://github.com/arrowhealth/bridge-sdk/commit/a460255c98b289048f7cbc20cbe133cbb5702f3a)
+
 #### [v0.0.12](https://github.com/arrowhealth/bridge-sdk/compare/v0.0.11...v0.0.12)
 
 > 13 October 2021
