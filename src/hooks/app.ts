@@ -1,3 +1,4 @@
+import { ConfigInfo } from '../bridge'
 import { EVENTS, RESPONSE } from '../consts'
 import { PatientInfo } from '../interfaces/patient'
 import { SessionInfo } from '../interfaces/session'
@@ -18,11 +19,21 @@ export function onPatientChanged(
 /**
  * @private
  */
+export function onGetConfigInfoResponse(
+  handle: (config: ConfigInfo) => void
+): Function {
+  return on(RESPONSE.GET_CONFIG_INFO, (payload: any) => handle(payload.data))
+}
+
+/**
+ * @private
+ */
 export function onGetPatientInfoResponse(
   handle: (patient: PatientInfo) => void
 ): Function {
   return on(RESPONSE.GET_PATIENT_INFO, (payload: any) => handle(payload.data))
 }
+
 /**
  * @private
  */

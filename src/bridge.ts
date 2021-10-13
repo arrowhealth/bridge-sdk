@@ -1,15 +1,35 @@
 import { EVENTS, REQUESTS } from './consts'
 import {
+  onGetConfigInfoResponse,
   onGetPatientInfoResponse,
-  onGetSessionInfoResponse as onGetSessionInfoResponse,
+  onGetSessionInfoResponse,
 } from './hooks/app'
-import { PatientInfo, SessionInfo, AuthStatus } from './interfaces/index'
+import {
+  PatientInfo,
+  SessionInfo,
+  AuthStatus,
+  ConfigInfo,
+} from './interfaces/index'
 import { emitToBridge } from './utils/mingle'
 export { emitToApp, emitToBridge } from './utils/mingle'
 
 export * from './hooks/app'
 export * from './hooks/bridge'
 export * from './interfaces/index'
+
+/**
+ * Returns the configuration settings for your application. Custom settings provided
+ * by user will reside in the setting field.
+ */
+export function getConfigInfo(): Promise<ConfigInfo> {
+  return new Promise((resolve) => {
+    const off = onGetConfigInfoResponse((config: ConfigInfo) => {
+      off()
+      resolve(config)
+    })
+    emitToBridge(REQUESTS.GET_CONFIG_INFO)
+  })
+}
 
 /**
  * Return user session info

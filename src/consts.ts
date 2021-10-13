@@ -5,6 +5,7 @@ const PREFIX = 'bridge::'
  */
 export const REQUESTS = {
   ADD_NOTIFICATION: PREFIX + 'add_notification',
+  GET_CONFIG_INFO: PREFIX + 'get_config',
   CLOSE_APP: PREFIX + 'close_app',
   OPEN_APP: PREFIX + 'open_app',
   GET_SESSION_INFO: PREFIX + 'get_session_info',
