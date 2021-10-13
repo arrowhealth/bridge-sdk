@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v0.0.12](https://github.com/arrowhealth/bridge-sdk/compare/v0.0.11...v0.0.12)
+
+> 13 October 2021
+
+- added getConfig [`dd5363a`](https://github.com/arrowhealth/bridge-sdk/commit/dd5363aac965197ef7d1893168d679e776d3e11b)
+- updated setup docs [`c7ca62c`](https://github.com/arrowhealth/bridge-sdk/commit/c7ca62ce5a85eccafd3d1b83483fecb71b08223d)
+- updated docs [`0fa5606`](https://github.com/arrowhealth/bridge-sdk/commit/0fa56062f1dcf6e7edac84ae5b531ffc57921c2c)
+
 #### [v0.0.11](https://github.com/arrowhealth/bridge-sdk/compare/v0.0.10...v0.0.11)
 
 > 12 October 2021
