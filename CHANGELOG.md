@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+### [v1.0.0](https://github.com/arrowhealth/bridge-sdk/compare/v0.0.14...v1.0.0)
+
+> 22 February 2022
+
+- added onCloseAppRequest; checks app exists on emitToApp [`c202876`](https://github.com/arrowhealth/bridge-sdk/commit/c202876dc2170a75ecbffa97c3317bbefb27108b)
+- updated dev deps [`33b47bc`](https://github.com/arrowhealth/bridge-sdk/commit/33b47bc2dfa5854bff5e876c8ba6f97b8de159aa)
+
 #### [v0.0.14](https://github.com/arrowhealth/bridge-sdk/compare/v0.0.13...v0.0.14)
 
 > 13 October 2021
