@@ -36,7 +36,6 @@
     "dist/*"
   ],
   "devDependencies": {
-    "@convergencelabs/typedoc-theme": "^1.3.0",
     "@rollup/plugin-html": "^0.2.4",
     "@rollup/plugin-typescript": "^8.3.0",
     "ansi-regex": ">=6.0.1",

@@ -55,4 +55,4 @@ https://github.com/arrowhealth/bridge-sdk/issues
 
 <hr />
 
-[Arrow Health](https://arrowhealth.io) (c) 2021. All rights reserved.
+[Arrow Health](https://arrowhealth.io) (c) 2021-present. All rights reserved.

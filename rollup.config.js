@@ -6,7 +6,7 @@ import { version } from './package.json'
 
 const preamble = `/**
  * Bridge SDK v${version}
- * Arrow Health 2021. All rights reserved.
+ * Arrow Health 2021-present. All rights reserved.
  */`
 
 export default {
