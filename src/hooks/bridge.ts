@@ -32,6 +32,13 @@ export const onOpenAppRequest = (handle: Function): Function => {
 /**
  * @private
  */
+export const onCloseAppRequest = (handle: Function): Function => {
+  return on(REQUESTS.CLOSE_APP, handle)
+}
+
+/**
+ * @private
+ */
 export const onGetConfigInfoRequest = (handle: Function): Function => {
   return on(REQUESTS.GET_CONFIG_INFO, handle)
 }

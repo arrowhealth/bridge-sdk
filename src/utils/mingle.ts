@@ -6,14 +6,18 @@ const EVENT_TYPE = 'BRIDGE_EVENT'
  * @private
  */
 export const emitToApp = (app: Window, event: string, data?: any) => {
-  app.postMessage(
-    JSON.stringify({
-      data,
-      event,
-      eventType: EVENT_TYPE,
-    }),
-    CHILD_ORIGIN
-  )
+  if(app && app.postMessage) {
+    app.postMessage(
+      JSON.stringify({
+        data,
+        event,
+        eventType: EVENT_TYPE,
+      }),
+      CHILD_ORIGIN
+    )
+  } else {
+    console.warn('[ BRIDGE SDK ] :: emitToApp is missing required "app" param')
+  }
 }
 
 /**
