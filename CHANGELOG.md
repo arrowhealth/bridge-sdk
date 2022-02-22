@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v0.0.14](https://github.com/arrowhealth/bridge-sdk/compare/v0.0.13...v0.0.14)
+
+> 13 October 2021
+
+- added timeout around beforeunload [`c680ce8`](https://github.com/arrowhealth/bridge-sdk/commit/c680ce8d7d5d565fecd1984095eeb9596dc0215a)
+
 #### [v0.0.13](https://github.com/arrowhealth/bridge-sdk/compare/v0.0.12...v0.0.13)
 
 > 13 October 2021
