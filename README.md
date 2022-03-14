@@ -6,7 +6,7 @@
 
 Bridge is a platform that allows applications reside directly into any EHR with minimal setup.
 
-## Who is this for??
+## Who is this for?
 
 Bridge is for companies who have applications and services HealthCare providers use as part of their business.
 
