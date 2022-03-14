@@ -2,7 +2,7 @@
  * Represents the patient that is currently active
  *
  */
-export interface SessionInfo {
+export declare interface SessionInfo {
   /**
    * Application Bridge resides in
    */

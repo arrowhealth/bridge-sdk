@@ -4,14 +4,16 @@
 
 ## What is Bridge?
 
-Bridge is a platform that resides inside any EHR. It extends the EHR with applications provided by vendors. 
+Bridge is a platform that allows applications reside directly into any EHR with minimal setup.
+
+## Who is this for??
+
+Bridge is for companies who have applications and services HealthCare providers use as part of their business.
 
 ## Why do I need Bridge?
 
-Your company has spent a lot of time building an awesome product! As great as it may be, you are still competing
-for that clinicians time. There is the additional pain of integrating
-with EHRs. Some EHRs provide an integration, while others do not. Plus, the integration process is different for each EHR. Bridge
-alleviates these issues by placing your product front and center in the EHR.
+Bridge will save companies time and money by integrating once into Bridge and be available in any EHR. The SDK provides
+an API to communicate with Bridge and get the data you need from the EHR.
 
 **Example**
 
