@@ -32,11 +32,11 @@ import {
 } from '@arrowhealth/bridge-sdk'
 
 getPatientInfo().then( 
-  patientInfo => console.log('patient::init', patientInfo)
+  patientInfo => console.log('patient', patientInfo)
 )
 
 onPatientChanged(patientInfo => {
-  console.log('patient::changed', patientInfo.ehrId, patientInfo.name)
+  console.log('patient:changed', patientInfo.id)
 })
 ```
 
