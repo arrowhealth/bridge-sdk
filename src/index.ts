@@ -2,13 +2,13 @@ export * from './interfaces'
 export * from './app'
 
 /**
- * Bridge account represents the functionaly used to perform SSO behaviors for the Bridge platform.
+ * $$ represents the functionaly used to establish setup and SSO.
  * @private
  */
-export * as internal from './internal'
+export * as $$ from './internal'
 
 /**
- * Bridge platform represents the events bridge receives from the hosted applications.
+ * $ represents the requests bridge receives from hosted applications.
  * @private
  */
-export * as platform from './platform'
+export * as $ from './platform'
