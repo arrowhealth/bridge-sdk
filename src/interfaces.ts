@@ -2,24 +2,13 @@
  * Indicates the current status auth status of application.
  * Only applies to applications using SSO through authUrl
  */
-export declare interface AppStatus {
-  isAuthenticated: boolean
+
+export declare interface KeyValue {
+  [key: string]: any
 }
 
-/**
- * Represents the application configuration as it exists for this user session.
- */
-export declare interface AppConfig {
-  id: string
-  title: string
-  icon: string
-  url: string
-  width: number
-  height: number
-  patientOnly: boolean
-  tileUrl: string
-  authUrl: string
-  settings: any
+export declare interface AppStatus {
+  isAuthenticated: boolean
 }
 
 /**

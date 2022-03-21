@@ -1,5 +1,5 @@
 import { EVENTS, REQUESTS } from './consts'
-import { AppConfig, AppStatus, AuthUser, Org, PatientInfo, UserSession } from './interfaces'
+import { AppStatus, AuthUser, Org, PatientInfo, UserSession } from './interfaces'
 import { emitToChild, on, Request } from './utils/mingle'
 
 /**
@@ -15,9 +15,9 @@ export const setPatientInfo = (win: Window, patientInfo: PatientInfo | null) => 
  * 
  * @returns off
  */
-export const onOrgChanged = (handle: (org: Org) => void): Function => {
+export const onOrgChanged = (handle: (appId: string, org: Org) => void): Function => {
   return on(EVENTS.ORG_CHANGED, (request: Request) => {
-    handle(request.data?.org)
+    handle(request.appId, request.data?.org)
   })
 }
 
@@ -26,9 +26,9 @@ export const onOrgChanged = (handle: (org: Org) => void): Function => {
  * 
  * @returns off
  */
-export const onAuthUserChanged = (handle: (authUser: AuthUser) => void): Function => {
+export const onAuthUserChanged = (handle: (appId: string, authUser: AuthUser) => void): Function => {
   return on(EVENTS.AUTH_USER_CHANGED, (request: Request) => {
-    handle(request.data?.authUser)
+    handle(request.appId, request.data?.authUser)
   })
 }
 
@@ -38,9 +38,9 @@ export const onAuthUserChanged = (handle: (authUser: AuthUser) => void): Functio
  * 
  * @returns off
  */
-export const onOpenAppRequest = (handle: ({ appId: string }) => void): Function => {
+export const onOpenAppRequest = (handle: (appId: string) => void): Function => {
   return on(REQUESTS.OPEN_APP, (request: Request) => {
-    handle({ appId: request.win.name })
+    handle(request.appId)
   })
 }
 
@@ -49,22 +49,9 @@ export const onOpenAppRequest = (handle: ({ appId: string }) => void): Function 
  * 
  * @returns off
  */
-export const onCloseAppRequest = (handle: ({ appId: string }) => void): Function => {
+export const onCloseAppRequest = (handle: (appId: string) => void): Function => {
   return on(REQUESTS.CLOSE_APP, (request: Request) => {
-    handle({ appId: request.win.name })
-  })
-}
-
-/**
- * Request to get the application config. Can be performed by application or smart tile.
- * 
- * @returns off
- */
-export const onGetAppConfigRequest = (handle: (appId: string, sendResponse: (appConfig: AppConfig) => void, data?: any) => void): Function => {
-  return on(REQUESTS.GET_APP_CONFIG, (request: Request) => {
-    handle(request.win.name, (appConfig: AppConfig) => {
-      emitToChild(request.win, request.event, appConfig)
-    }, request.data)
+    handle(request.appId)
   })
 }
 
@@ -75,7 +62,7 @@ export const onGetAppConfigRequest = (handle: (appId: string, sendResponse: (app
  */
 export const onGetAppStatusRequest = (handle: (appId: string, sendResponse: (appStatus: AppStatus) => void, data?: any) => void): Function => {
   return on(REQUESTS.GET_APP_STATUS, (request: Request) => {
-    handle(request.win.name, (appStatus: AppStatus) => {
+    handle(request.appId, (appStatus: AppStatus) => {
       emitToChild(request.win, request.event, appStatus)
     }, request.data)
   })
@@ -86,9 +73,9 @@ export const onGetAppStatusRequest = (handle: (appId: string, sendResponse: (app
  * 
  * @returns off
  */
-export const onGetPatientInfoRequest = (handle: (sendResponse: (patientInfo: PatientInfo | null) => void) => void): Function => {
+export const onGetPatientInfoRequest = (handle: (appId: string, sendResponse: (patientInfo: PatientInfo | null) => void) => void): Function => {
   return on(REQUESTS.GET_PATIENT_INFO, (request: Request) => {
-    handle((patientInfo: PatientInfo | null) => {
+    handle(request.appId, (patientInfo: PatientInfo | null) => {
       emitToChild(request.win, request.event, patientInfo)
     })
   })
@@ -99,9 +86,9 @@ export const onGetPatientInfoRequest = (handle: (sendResponse: (patientInfo: Pat
  * 
  * @returns off
  */
-export const onGetAuthUserRequest = (handle: (sendResponse: (authUser: AuthUser) => void) => void): Function => {
-  return on(REQUESTS.GET_USER_SESSION, (request: Request) => {
-    handle((authUser: AuthUser) => {
+export const onGetAuthUserRequest = (handle: (appId: string, sendResponse: (authUser: AuthUser) => void) => void): Function => {
+  return on(REQUESTS.GET_AUTH_USER, (request: Request) => {
+    handle(request.appId, (authUser: AuthUser) => {
       emitToChild(request.win, request.event, authUser)
     })
   })
@@ -112,9 +99,9 @@ export const onGetAuthUserRequest = (handle: (sendResponse: (authUser: AuthUser)
  * 
  * @returns off
  */
-export const onGetUserSessionRequest = (handle: (sendResponse: (userSession: UserSession) => void) => void): Function => {
+export const onGetUserSessionRequest = (handle: (appId: string, sendResponse: (userSession: UserSession) => void) => void): Function => {
   return on(REQUESTS.GET_USER_SESSION, (request: Request) => {
-    handle((userSession: UserSession) => {
+    handle(request.appId, (userSession: UserSession) => {
       emitToChild(request.win, request.event, userSession)
     })
   })
@@ -136,22 +123,28 @@ export const onSetBadgeCountRequest = (handle: (appId: string, count: number) =>
  * Request to push notification to bridge. Can be performed by application or smart tile.
  * @returns off
  */
-export const onPushNotificationRequest = (handle: () => void): Function => {
-  return on(REQUESTS.PUSH_NOTIFICATION, handle)
+export const onPushNotificationRequest = (handle: (appId: string, content: { title: string; text: string }) => void): Function => {
+  return on(REQUESTS.PUSH_NOTIFICATION, (request: Request) => {
+    handle(request.appId, request.data)
+  })
 }
 
 /**
  * Request to hide tile. Can be performed by application or smart tile.
  * @returns off
  */
-export const onHideTileRequest = (handle: () => void): Function => {
-  return on(REQUESTS.HIDE_TILE, handle)
+export const onHideTileRequest = (handle: (appId: string) => void): Function => {
+  return on(REQUESTS.HIDE_TILE, (request: Request) => {
+    handle(request.appId)
+  })
 }
 
 /**
  * Request to show tile. Can be performed by application or smart tile.
  * @returns off
  */
-export const onShowTileRequest = (handle: () => void): Function => {
-  return on(REQUESTS.SHOW_TILE, handle)
+export const onShowTileRequest = (handle: (appId: string) => void): Function => {
+  return on(REQUESTS.SHOW_TILE, (request: Request) => {
+    handle(request.appId)
+  })
 }

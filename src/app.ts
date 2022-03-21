@@ -1,20 +1,6 @@
 import { EVENTS, REQUESTS, RESPONSE } from './consts'
 import { emitToParent, on } from './utils/mingle'
-import { AppConfig, AppStatus, AuthUser, PatientInfo } from './interfaces'
-
-/**
- * Returns the configuration settings for your application. Custom settings provided
- * by user will reside in the setting field.
- */
-export function getAppConfig(): Promise<AppConfig> {
-  return new Promise((resolve) => {
-    const off = onGetAppConfigResponse((config: AppConfig) => {
-      off()
-      resolve(config)
-    })
-    emitToParent(REQUESTS.GET_APP_CONFIG)
-  })
-}
+import { AppStatus, AuthUser, PatientInfo } from './interfaces'
 
 /**
  * Return user session info
@@ -139,16 +125,6 @@ export function onPatientChanged(
   handle: (patientInfo: PatientInfo) => void
 ): Function {
   return on(EVENTS.PATIENT_CHANGED, (payload: any) => handle(payload.data))
-}
-
-/**
- * @private
- * @returns off
- */
-export function onGetAppConfigResponse(
-  handle: (appConfig: AppConfig) => void
-): Function {
-  return on(RESPONSE.GET_APP_CONFIG, (payload: any) => handle(payload.data))
 }
 
 /**
