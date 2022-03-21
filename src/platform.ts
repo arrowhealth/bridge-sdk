@@ -15,7 +15,7 @@ export const setPatient = (win: Window, patient: Patient | null) => {
  * 
  * @returns off
  */
-export const onSetOrg = (handle: (appId: string, org: Org) => void): Function => {
+export const onSetOrgRequest = (handle: (appId: string, org: Org) => void): Function => {
   return on(EVENTS.SET_ORG, (request: Request) => {
     handle(request.appId, request.data?.org)
   })
@@ -26,7 +26,7 @@ export const onSetOrg = (handle: (appId: string, org: Org) => void): Function =>
  * 
  * @returns off
  */
-export const onAuthUserChanged = (handle: (appId: string, authUser: AuthUser) => void): Function => {
+export const onSetAuthUserRequest = (handle: (appId: string, authUser: AuthUser) => void): Function => {
   return on(EVENTS.SET_AUTH_USER, (request: Request) => {
     handle(request.appId, request.data?.authUser)
   })
@@ -69,6 +69,18 @@ export const onGetAppStatusRequest = (handle: (appId: string, sendResponse: (app
 }
 
 /**
+ * Used by the Bridge Platform and Account for applications handling their own auth through OIDC or other means
+ * 
+ * @private
+ * @returns off
+ */
+export const onSetAppStatusRequest = (handle: (appId: string, isAuthenticated: boolean) => void): Function => {
+  return on(EVENTS.SET_APP_STATUS, (request: Request) => {
+    handle(request.appId, request.data?.isAuthenticated || false )
+  })
+}
+
+/**
  * Request to get patient info. Can be performed by application or smart tile.
  * 
  * @returns off
@@ -86,7 +98,7 @@ export const onGetPatientRequest = (handle: (appId: string, sendResponse: (patie
  * 
  * @returns off
  */
-export const onGetAuthUserRequest = (handle: (appId: string, sendResponse: (authUser: AuthUser) => void) => void): Function => {
+export const onGetAuthUserRequest = (handle: (appId: string, sendResponse: (authUser?: AuthUser) => void) => void): Function => {
   return on(EVENTS.GET_AUTH_USER, (request: Request) => {
     handle(request.appId, (authUser: AuthUser) => {
       emitToChild(request.win, request.event, authUser)

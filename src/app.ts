@@ -9,11 +9,11 @@ import { AppStatus, AuthUser, Patient } from './interfaces'
  */
 export function getAuthUser(): Promise<AuthUser> {
   return new Promise((resolve) => {
-    const off = onGetAuthUserResponse((sessionInfo: AuthUser) => {
+    const off = on(EVENTS.GET_AUTH_USER, ({ data }) => {
       off()
-      resolve(sessionInfo)
+      resolve(data)
     })
-    emitToParent(EVENTS.GET_USER_SESSION)
+    emitToParent(EVENTS.GET_AUTH_USER)
   })
 }
 
@@ -24,11 +24,11 @@ export function getAuthUser(): Promise<AuthUser> {
  *
  * @returns
  */
-export function getPatient(): Promise<Patient> {
-  return new Promise((resolve) => {
-    const off = onGetPatientResponse((patient: Patient) => {
+export const getPatient = async (): Promise<Patient> => {
+  return new Promise(resolve => {
+    const off = on(EVENTS.GET_PATIENT_INFO, ({ data }) => {
       off()
-      resolve(patient)
+      resolve(data)
     })
     emitToParent(EVENTS.GET_PATIENT_INFO)
   })
@@ -52,7 +52,6 @@ export function showTile() {
   emitToParent(EVENTS.SHOW_TILE)
 }
 
-
 /**
  * Hide tile. Controlled by a Smart Tile tile based on the
  * information it receives through the available hooks such as "onPatientChanged()"
@@ -61,15 +60,14 @@ export function hideTile() {
   emitToParent(EVENTS.HIDE_TILE)
 }
 
-
 /**
  * Returns the status of the application known to Bridge set by application
  */
 export function getAppStatus(): Promise<AppStatus> {
   return new Promise((resolve) => {
-    const off = onGetAppStatusResponse((status: AppStatus) => {
+    const off = on(EVENTS.GET_APP_STATUS, ({ data }) => {
       off()
-      resolve(status)
+      resolve(data)
     })
     emitToParent(EVENTS.GET_APP_STATUS)
   })
@@ -125,34 +123,4 @@ export function onPatientChanged(
   handle: (patient: Patient) => void
 ): Function {
   return on(EVENTS.SET_PATIENT_INFO, (payload: any) => handle(payload.data))
-}
-
-/**
- * @private
- * @returns off
- */
-export function onGetAppStatusResponse(
-  handle: (appStatus: AppStatus) => void
-): Function {
-  return on(EVENTS.GET_APP_STATUS, (payload: any) => handle(payload.data))
-}
-
-/**
- * @private
- * @returns off
- */
-export function onGetPatientResponse(
-  handle: (patient: Patient) => void
-): Function {
-  return on(EVENTS.GET_PATIENT_INFO, (payload: any) => handle(payload.data))
-}
-
-/**
- * @private
- * @returns off
- */
-export function onGetAuthUserResponse(
-  handle: (authUser: AuthUser) => void
-): Function {
-  return on(EVENTS.GET_AUTH_USER, (payload: any) => handle(payload.data))
 }

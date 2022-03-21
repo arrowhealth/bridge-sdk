@@ -5,7 +5,7 @@ export * from './app'
  * Bridge account represents the functionaly used to perform SSO behaviors for the Bridge platform.
  * @private
  */
-export * as auth from './auth'
+export * as internal from './internal'
 
 /**
  * Bridge platform represents the events bridge receives from the hosted applications.
