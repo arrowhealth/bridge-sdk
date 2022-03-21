@@ -1,13 +1,13 @@
-import { EVENTS, REQUESTS } from './consts'
-import { AppStatus, AuthUser, Org, PatientInfo, UserSession } from './interfaces'
+import { EVENTS } from './consts'
+import { AppStatus, AuthUser, Org, Patient, UserSession } from './interfaces'
 import { emitToChild, on, Request } from './utils/mingle'
 
 /**
  * Sends patient info to an application
  * 
  */
-export const setPatientInfo = (win: Window, patientInfo: PatientInfo | null) => {
-  emitToChild(win, EVENTS.PATIENT_CHANGED, patientInfo)
+export const setPatient = (win: Window, patient: Patient | null) => {
+  emitToChild(win, EVENTS.SET_PATIENT_INFO, patient)
 }
 
 /**
@@ -15,8 +15,8 @@ export const setPatientInfo = (win: Window, patientInfo: PatientInfo | null) => 
  * 
  * @returns off
  */
-export const onOrgChanged = (handle: (appId: string, org: Org) => void): Function => {
-  return on(EVENTS.ORG_CHANGED, (request: Request) => {
+export const onSetOrg = (handle: (appId: string, org: Org) => void): Function => {
+  return on(EVENTS.SET_ORG, (request: Request) => {
     handle(request.appId, request.data?.org)
   })
 }
@@ -27,7 +27,7 @@ export const onOrgChanged = (handle: (appId: string, org: Org) => void): Functio
  * @returns off
  */
 export const onAuthUserChanged = (handle: (appId: string, authUser: AuthUser) => void): Function => {
-  return on(EVENTS.AUTH_USER_CHANGED, (request: Request) => {
+  return on(EVENTS.SET_AUTH_USER, (request: Request) => {
     handle(request.appId, request.data?.authUser)
   })
 }
@@ -39,7 +39,7 @@ export const onAuthUserChanged = (handle: (appId: string, authUser: AuthUser) =>
  * @returns off
  */
 export const onOpenAppRequest = (handle: (appId: string) => void): Function => {
-  return on(REQUESTS.OPEN_APP, (request: Request) => {
+  return on(EVENTS.OPEN_APP, (request: Request) => {
     handle(request.appId)
   })
 }
@@ -50,7 +50,7 @@ export const onOpenAppRequest = (handle: (appId: string) => void): Function => {
  * @returns off
  */
 export const onCloseAppRequest = (handle: (appId: string) => void): Function => {
-  return on(REQUESTS.CLOSE_APP, (request: Request) => {
+  return on(EVENTS.CLOSE_APP, (request: Request) => {
     handle(request.appId)
   })
 }
@@ -61,7 +61,7 @@ export const onCloseAppRequest = (handle: (appId: string) => void): Function => 
  * @returns off
  */
 export const onGetAppStatusRequest = (handle: (appId: string, sendResponse: (appStatus: AppStatus) => void, data?: any) => void): Function => {
-  return on(REQUESTS.GET_APP_STATUS, (request: Request) => {
+  return on(EVENTS.GET_APP_STATUS, (request: Request) => {
     handle(request.appId, (appStatus: AppStatus) => {
       emitToChild(request.win, request.event, appStatus)
     }, request.data)
@@ -73,10 +73,10 @@ export const onGetAppStatusRequest = (handle: (appId: string, sendResponse: (app
  * 
  * @returns off
  */
-export const onGetPatientInfoRequest = (handle: (appId: string, sendResponse: (patientInfo: PatientInfo | null) => void) => void): Function => {
-  return on(REQUESTS.GET_PATIENT_INFO, (request: Request) => {
-    handle(request.appId, (patientInfo: PatientInfo | null) => {
-      emitToChild(request.win, request.event, patientInfo)
+export const onGetPatientRequest = (handle: (appId: string, sendResponse: (patient: Patient | null) => void) => void): Function => {
+  return on(EVENTS.GET_PATIENT_INFO, (request: Request) => {
+    handle(request.appId, (patient: Patient | null) => {
+      emitToChild(request.win, request.event, patient)
     })
   })
 }
@@ -87,7 +87,7 @@ export const onGetPatientInfoRequest = (handle: (appId: string, sendResponse: (p
  * @returns off
  */
 export const onGetAuthUserRequest = (handle: (appId: string, sendResponse: (authUser: AuthUser) => void) => void): Function => {
-  return on(REQUESTS.GET_AUTH_USER, (request: Request) => {
+  return on(EVENTS.GET_AUTH_USER, (request: Request) => {
     handle(request.appId, (authUser: AuthUser) => {
       emitToChild(request.win, request.event, authUser)
     })
@@ -100,7 +100,7 @@ export const onGetAuthUserRequest = (handle: (appId: string, sendResponse: (auth
  * @returns off
  */
 export const onGetUserSessionRequest = (handle: (appId: string, sendResponse: (userSession: UserSession) => void) => void): Function => {
-  return on(REQUESTS.GET_USER_SESSION, (request: Request) => {
+  return on(EVENTS.GET_USER_SESSION, (request: Request) => {
     handle(request.appId, (userSession: UserSession) => {
       emitToChild(request.win, request.event, userSession)
     })
@@ -113,7 +113,7 @@ export const onGetUserSessionRequest = (handle: (appId: string, sendResponse: (u
  * @returns off
  */
 export const onSetBadgeCountRequest = (handle: (appId: string, count: number) => void): Function => {
-  return on(REQUESTS.SET_BADGE_COUNT, (request: Request) => {
+  return on(EVENTS.SET_BADGE_COUNT, (request: Request) => {
     const count = request.data as number
     handle(request.appId, count || 0)
   })
@@ -124,7 +124,7 @@ export const onSetBadgeCountRequest = (handle: (appId: string, count: number) =>
  * @returns off
  */
 export const onPushNotificationRequest = (handle: (appId: string, content: { title: string; text: string }) => void): Function => {
-  return on(REQUESTS.PUSH_NOTIFICATION, (request: Request) => {
+  return on(EVENTS.PUSH_NOTIFICATION, (request: Request) => {
     handle(request.appId, request.data)
   })
 }
@@ -134,7 +134,7 @@ export const onPushNotificationRequest = (handle: (appId: string, content: { tit
  * @returns off
  */
 export const onHideTileRequest = (handle: (appId: string) => void): Function => {
-  return on(REQUESTS.HIDE_TILE, (request: Request) => {
+  return on(EVENTS.HIDE_TILE, (request: Request) => {
     handle(request.appId)
   })
 }
@@ -144,7 +144,7 @@ export const onHideTileRequest = (handle: (appId: string) => void): Function => 
  * @returns off
  */
 export const onShowTileRequest = (handle: (appId: string) => void): Function => {
-  return on(REQUESTS.SHOW_TILE, (request: Request) => {
+  return on(EVENTS.SHOW_TILE, (request: Request) => {
     handle(request.appId)
   })
 }

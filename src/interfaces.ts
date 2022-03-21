@@ -3,10 +3,6 @@
  * Only applies to applications using SSO through authUrl
  */
 
-export declare interface KeyValue {
-  [key: string]: any
-}
-
 export declare interface AppStatus {
   isAuthenticated: boolean
 }
@@ -51,7 +47,7 @@ export declare interface UserSession {
 
 /**
  * User session
- *
+ * @private
  */
 export declare interface Org {
   /**
@@ -64,7 +60,7 @@ export declare interface Org {
  * Represents the Patient being viewed in the EHR
  *
  */
-export declare interface PatientInfo {
+export declare interface Patient {
   /**
    * EHR Patient ID
    */

@@ -27,16 +27,16 @@ https://unpkg.com/@arrowhealth/bridge-sdk
 
 ```js
 import {
-  getPatientInfo,
+  getPatient,
   onPatientChanged
 } from '@arrowhealth/bridge-sdk'
 
-getPatientInfo().then( 
-  patientInfo => console.log('patient', patientInfo)
+getPatient().then( 
+  patient => console.log('patient', patient)
 )
 
-onPatientChanged(patientInfo => {
-  console.log('patient:changed', patientInfo.id)
+onPatientChanged(patient => {
+  console.log('patient:changed', patient.id)
 })
 ```
 

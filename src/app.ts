@@ -1,6 +1,6 @@
-import { EVENTS, REQUESTS, RESPONSE } from './consts'
+import { EVENTS } from './consts'
 import { emitToParent, on } from './utils/mingle'
-import { AppStatus, AuthUser, PatientInfo } from './interfaces'
+import { AppStatus, AuthUser, Patient } from './interfaces'
 
 /**
  * Return user session info
@@ -13,7 +13,7 @@ export function getAuthUser(): Promise<AuthUser> {
       off()
       resolve(sessionInfo)
     })
-    emitToParent(REQUESTS.GET_USER_SESSION)
+    emitToParent(EVENTS.GET_USER_SESSION)
   })
 }
 
@@ -24,13 +24,13 @@ export function getAuthUser(): Promise<AuthUser> {
  *
  * @returns
  */
-export function getPatientInfo(): Promise<PatientInfo> {
+export function getPatient(): Promise<Patient> {
   return new Promise((resolve) => {
-    const off = onGetPatientInfoResponse((patient: PatientInfo) => {
+    const off = onGetPatientResponse((patient: Patient) => {
       off()
       resolve(patient)
     })
-    emitToParent(REQUESTS.GET_PATIENT_INFO)
+    emitToParent(EVENTS.GET_PATIENT_INFO)
   })
 }
 
@@ -41,7 +41,7 @@ export function getPatientInfo(): Promise<PatientInfo> {
  *
  */
 export function setBadgeCount(count: number = 0): void {
-  emitToParent(REQUESTS.SET_BADGE_COUNT, count)
+  emitToParent(EVENTS.SET_BADGE_COUNT, count)
 }
 
 /**
@@ -49,7 +49,7 @@ export function setBadgeCount(count: number = 0): void {
  * information it receives through the available hooks such as "onPatientChanged()"
  */
 export function showTile() {
-  emitToParent(REQUESTS.SHOW_TILE)
+  emitToParent(EVENTS.SHOW_TILE)
 }
 
 
@@ -58,7 +58,7 @@ export function showTile() {
  * information it receives through the available hooks such as "onPatientChanged()"
  */
 export function hideTile() {
-  emitToParent(REQUESTS.HIDE_TILE)
+  emitToParent(EVENTS.HIDE_TILE)
 }
 
 
@@ -71,7 +71,7 @@ export function getAppStatus(): Promise<AppStatus> {
       off()
       resolve(status)
     })
-    emitToParent(REQUESTS.GET_APP_STATUS)
+    emitToParent(EVENTS.GET_APP_STATUS)
   })
 }
 
@@ -87,21 +87,21 @@ export function getAppStatus(): Promise<AppStatus> {
 export function setAppStatus(
   status: AppStatus = { isAuthenticated: false }
 ) {
-  emitToParent(EVENTS.APP_STATUS_CHANGED, status)
+  emitToParent(EVENTS.SET_APP_STATUS, status)
 }
 
 /**
  * Used by tile to open linked application.
  */
 export function openApp() {
-  emitToParent(REQUESTS.OPEN_APP)
+  emitToParent(EVENTS.OPEN_APP)
 }
 
 /**
  * Closes app making the request. The tile can also call this and it will close the linked application.
  */
 export function closeApp() {
-  emitToParent(REQUESTS.CLOSE_APP)
+  emitToParent(EVENTS.CLOSE_APP)
 }
 
 /**
@@ -112,7 +112,7 @@ export function closeApp() {
  * @param patientId EHR patient ID
  */
 export function pushNotification(text: string, patientId?: any): void {
-  emitToParent(REQUESTS.PUSH_NOTIFICATION, { patientId, text })
+  emitToParent(EVENTS.PUSH_NOTIFICATION, { patientId, text })
 }
 
 /**
@@ -122,9 +122,9 @@ export function pushNotification(text: string, patientId?: any): void {
  * @returns off
  */
 export function onPatientChanged(
-  handle: (patientInfo: PatientInfo) => void
+  handle: (patient: Patient) => void
 ): Function {
-  return on(EVENTS.PATIENT_CHANGED, (payload: any) => handle(payload.data))
+  return on(EVENTS.SET_PATIENT_INFO, (payload: any) => handle(payload.data))
 }
 
 /**
@@ -134,17 +134,17 @@ export function onPatientChanged(
 export function onGetAppStatusResponse(
   handle: (appStatus: AppStatus) => void
 ): Function {
-  return on(RESPONSE.GET_APP_STATUS, (payload: any) => handle(payload.data))
+  return on(EVENTS.GET_APP_STATUS, (payload: any) => handle(payload.data))
 }
 
 /**
  * @private
  * @returns off
  */
-export function onGetPatientInfoResponse(
-  handle: (patientInfo: PatientInfo) => void
+export function onGetPatientResponse(
+  handle: (patient: Patient) => void
 ): Function {
-  return on(RESPONSE.GET_PATIENT_INFO, (payload: any) => handle(payload.data))
+  return on(EVENTS.GET_PATIENT_INFO, (payload: any) => handle(payload.data))
 }
 
 /**
@@ -154,5 +154,5 @@ export function onGetPatientInfoResponse(
 export function onGetAuthUserResponse(
   handle: (authUser: AuthUser) => void
 ): Function {
-  return on(RESPONSE.GET_AUTH_USER, (payload: any) => handle(payload.data))
+  return on(EVENTS.GET_AUTH_USER, (payload: any) => handle(payload.data))
 }

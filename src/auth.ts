@@ -1,4 +1,4 @@
-import { EVENTS, REQUESTS, RESPONSE } from "./consts"
+import { EVENTS } from "./consts"
 import { AuthUser, Org, UserSession } from "./interfaces"
 import { emitToParent, on, Request } from "./utils/mingle"
 
@@ -9,7 +9,7 @@ import { emitToParent, on, Request } from "./utils/mingle"
  * @param org 
  */
 export function setOrg(org: Org | null) {
-  emitToParent(EVENTS.ORG_CHANGED, org)
+  emitToParent(EVENTS.SET_ORG, org)
 }
 
 /**
@@ -19,7 +19,7 @@ export function setOrg(org: Org | null) {
  * @param authUser
  */
 export function setAuthUser(authUser: AuthUser | null) {
-  emitToParent(EVENTS.AUTH_USER_CHANGED, authUser)
+  emitToParent(EVENTS.SET_AUTH_USER, authUser)
 }
 
 /**
@@ -34,10 +34,11 @@ export function getUserSession(): Promise<UserSession> {
       off()
       resolve(userSession)
     })
-    emitToParent(REQUESTS.GET_USER_SESSION)
+    emitToParent(EVENTS.GET_USER_SESSION)
   })
 }
 
+// TODO: There is another one of these in platform
 /**
  * @private
  * @returns off
@@ -45,18 +46,17 @@ export function getUserSession(): Promise<UserSession> {
 export function onGetUserSessionResponse(
   handle: (userSession: UserSession) => void
 ): Function {
-  return on(RESPONSE.GET_USER_SESSION, (payload: any) => handle(payload.data))
+  return on(EVENTS.GET_USER_SESSION, (payload: any) => handle(payload.data))
 }
 
 /**
- * Used by the Bridge Account for applications handling their own auth either
- * through OIDC or other
+ * Used by the Bridge Account for applications handling their own auth through OIDC or other means
  * 
  * @private
  * @returns off
  */
-export const onAppStatusChanged = (handle: ({ appId: string, isAuthenticated: boolean }) => void): Function => {
-  return on(EVENTS.APP_STATUS_CHANGED, (request: Request) => {
+export const onSetAppStatus = (handle: ({ appId: string, isAuthenticated: boolean }) => void): Function => {
+  return on(EVENTS.SET_APP_STATUS, (request: Request) => {
     handle({ appId: request.win.name, isAuthenticated: request.data?.isAuthenticated || false })
   })
 }
