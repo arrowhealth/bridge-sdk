@@ -2,6 +2,10 @@ import { EVENTS } from './consts'
 import { AppStatus, AuthUser, Org, Patient, UserSession } from './interfaces'
 import { emitToChild, on, Request } from './utils/mingle'
 
+// !! PLATFORM USE ONLY !!
+// Calling these functions will do nothing. Other applications and
+// platforms cannot invoke these methods
+
 /**
  * Sends patient info to an application
  * 
@@ -11,13 +15,27 @@ export const setPatient = (win: Window, patient: Patient | null) => {
 }
 
 /**
+ * Request to get the org stored in chrome storage
+ * 
+ * @returns off
+ */
+export const onGetOrgRequest = (handle: (appId: string, sendResponse: (org?: Org) => void) => void): Function => {
+  return on(EVENTS.GET_ORG, (request: Request) => {
+    handle(request.appId, (org?: Org) => {
+      emitToChild(request.win, request.event, org)
+    })
+  })
+}
+
+
+/**
  * Used by platform to perform SSO
  * 
  * @returns off
  */
-export const onSetOrgRequest = (handle: (appId: string, org: Org) => void): Function => {
+export const onSetOrgRequest = (handle: (appId: string, org: Org | null) => void): Function => {
   return on(EVENTS.SET_ORG, (request: Request) => {
-    handle(request.appId, request.data?.org)
+    handle(request.appId, request.data)
   })
 }
 
@@ -26,9 +44,10 @@ export const onSetOrgRequest = (handle: (appId: string, org: Org) => void): Func
  * 
  * @returns off
  */
-export const onSetAuthUserRequest = (handle: (appId: string, authUser: AuthUser) => void): Function => {
+export const onSetAuthUserRequest = (handle: (appId: string, authUser: AuthUser | null) => void): Function => {
   return on(EVENTS.SET_AUTH_USER, (request: Request) => {
-    handle(request.appId, request.data?.authUser)
+    console.log('onSetAuthUserRequest', request.data)
+    handle(request.appId, request.data)
   })
 }
 
@@ -98,7 +117,7 @@ export const onGetPatientRequest = (handle: (appId: string, sendResponse: (patie
  * 
  * @returns off
  */
-export const onGetAuthUserRequest = (handle: (appId: string, sendResponse: (authUser?: AuthUser) => void) => void): Function => {
+export const onGetAuthUserRequest = (handle: (appId: string, sendResponse: (authUser: AuthUser | null) => void) => void): Function => {
   return on(EVENTS.GET_AUTH_USER, (request: Request) => {
     handle(request.appId, (authUser: AuthUser) => {
       emitToChild(request.win, request.event, authUser)
@@ -111,9 +130,9 @@ export const onGetAuthUserRequest = (handle: (appId: string, sendResponse: (auth
  * 
  * @returns off
  */
-export const onGetUserSessionRequest = (handle: (appId: string, sendResponse: (userSession: UserSession) => void) => void): Function => {
+export const onGetUserSessionRequest = (handle: (appId: string, sendResponse: (userSession: UserSession | null) => void) => void): Function => {
   return on(EVENTS.GET_USER_SESSION, (request: Request) => {
-    handle(request.appId, (userSession: UserSession) => {
+    handle(request.appId, (userSession?: UserSession) => {
       emitToChild(request.win, request.event, userSession)
     })
   })

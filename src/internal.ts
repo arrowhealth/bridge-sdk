@@ -2,8 +2,29 @@ import { EVENTS } from "./consts"
 import { AuthUser, Org, UserSession } from "./interfaces"
 import { emitToParent, on } from "./utils/mingle"
 
+// !! INTERNAL USE ONLY !!
+// Calling these functions will do nothing. Other applications and
+// platforms cannot invoke these methods
+
 /**
- * Allows BRIDGE ACCOUNT to set the org
+ * Permits account to get the assigned org from chrome storage
+ * 
+ * @private
+ * @returns
+ */
+export function getOrg(): Promise<Org> {
+  return new Promise((resolve) => {
+    const off = on(EVENTS.GET_ORG, ({ data }) => {
+      off()
+      resolve(data)
+    })
+    emitToParent(EVENTS.GET_ORG)
+  })
+}
+
+
+/**
+ * Permits account to set the org
  * @private
  * 
  * @param org 
@@ -13,7 +34,7 @@ export function setOrg(org: Org | null) {
 }
 
 /**
- * Allows BRIDGE ACCOUNT to set authenticated user
+ * Permist account to set authenticated user
  * @private
  * 
  * @param authUser
@@ -23,7 +44,7 @@ export function setAuthUser(authUser: AuthUser | null) {
 }
 
 /**
- * Allows BRIDGE ACCOUNT to get the current User Session
+ * Permits account to get the current user's session
  * 
  * @private
  * @returns

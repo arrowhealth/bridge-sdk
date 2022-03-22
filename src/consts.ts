@@ -4,6 +4,7 @@ const PREFIX = 'bridge::'
  * @private
  */
 export const EVENTS = {
+  GET_ORG: PREFIX + 'get_org',
   SET_ORG: PREFIX + 'set_org',
 
   PUSH_NOTIFICATION: PREFIX + 'push_notification',
