@@ -93,9 +93,9 @@ export const onGetAppStatusRequest = (handle: (appId: string, sendResponse: (app
  * @private
  * @returns off
  */
-export const onSetAppStatusRequest = (handle: (appId: string, isAuthenticated: boolean) => void): Function => {
+export const onSetAppStatusRequest = (handle: (appId: string, status: AppStatus) => void): Function => {
   return on(EVENTS.SET_APP_STATUS, (request: Request) => {
-    handle(request.appId, request.data?.isAuthenticated || false )
+    handle(request.appId, request.data )
   })
 }
 

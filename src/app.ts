@@ -80,11 +80,8 @@ export function getAppStatus(): Promise<AppStatus> {
  * page.
  *
  * @param status
- * @default { isAuthenticated: false }
  */
-export function setAppStatus(
-  status: AppStatus = { isAuthenticated: false }
-) {
+export function setAppStatus(status: AppStatus) {
   emitToParent(EVENTS.SET_APP_STATUS, status)
 }
 

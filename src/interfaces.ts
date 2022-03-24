@@ -1,10 +1,12 @@
 /**
  * Indicates the current status auth status of application.
  * Only applies to applications using SSO through authUrl
+ * 
+ * ready - enables the tile for use
+ * auth_required - displays a special badge on tile to indicate failed in SSO and needs to be addressed by user
  */
-
 export declare interface AppStatus {
-  isAuthenticated: boolean
+  status: 'ready' | 'auth_required'
 }
 
 /**
