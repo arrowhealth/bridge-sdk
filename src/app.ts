@@ -1,6 +1,6 @@
 import { EVENTS } from './consts'
 import { emitToParent, on } from './utils/mingle'
-import { AppStatus, AuthUser, Patient } from './interfaces'
+import { AuthStatus, AuthUser, Patient } from './interfaces'
 
 /**
  * Return user session info
@@ -63,13 +63,13 @@ export function hideTile() {
 /**
  * Returns the status of the application known to Bridge set by application
  */
-export function getAppStatus(): Promise<AppStatus> {
+export function getAuthStatus(): Promise<AuthStatus> {
   return new Promise((resolve) => {
-    const off = on(EVENTS.GET_APP_STATUS, ({ data }) => {
+    const off = on(EVENTS.GET_AUTH_STATUS, ({ data }) => {
       off()
-      resolve(data)
+      resolve(data || 'ready')
     })
-    emitToParent(EVENTS.GET_APP_STATUS)
+    emitToParent(EVENTS.GET_AUTH_STATUS)
   })
 }
 
@@ -81,8 +81,8 @@ export function getAppStatus(): Promise<AppStatus> {
  *
  * @param status
  */
-export function setAppStatus(status: AppStatus) {
-  emitToParent(EVENTS.SET_APP_STATUS, status)
+export function setAuthStatus(status: AuthStatus) {
+  emitToParent(EVENTS.SET_AUTH_STATUS, status)
 }
 
 /**

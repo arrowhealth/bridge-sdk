@@ -1,5 +1,5 @@
 import { EVENTS } from './consts'
-import { AppStatus, AuthUser, Org, Patient, UserSession } from './interfaces'
+import { AuthStatus, AuthUser, Org, Patient, UserSession } from './interfaces'
 import { emitToChild, on, Request } from './utils/mingle'
 
 // !! PLATFORM USE ONLY !!
@@ -79,10 +79,10 @@ export const onCloseAppRequest = (handle: (appId: string) => void): Function => 
  * 
  * @returns off
  */
-export const onGetAppStatusRequest = (handle: (appId: string, sendResponse: (appStatus: AppStatus) => void, data?: any) => void): Function => {
-  return on(EVENTS.GET_APP_STATUS, (request: Request) => {
-    handle(request.appId, (appStatus: AppStatus) => {
-      emitToChild(request.win, request.event, appStatus)
+export const onGetAuthStatusRequest = (handle: (appId: string, sendResponse: (authStatus: AuthStatus) => void, data?: any) => void): Function => {
+  return on(EVENTS.GET_AUTH_STATUS, (request: Request) => {
+    handle(request.appId, (authStatus: AuthStatus) => {
+      emitToChild(request.win, request.event, authStatus)
     }, request.data)
   })
 }
@@ -93,8 +93,8 @@ export const onGetAppStatusRequest = (handle: (appId: string, sendResponse: (app
  * @private
  * @returns off
  */
-export const onSetAppStatusRequest = (handle: (appId: string, status: AppStatus) => void): Function => {
-  return on(EVENTS.SET_APP_STATUS, (request: Request) => {
+export const onSetAuthStatusRequest = (handle: (appId: string, status: AuthStatus) => void): Function => {
+  return on(EVENTS.SET_AUTH_STATUS, (request: Request) => {
     handle(request.appId, request.data )
   })
 }

@@ -9,8 +9,8 @@ export const EVENTS = {
 
   PUSH_NOTIFICATION: PREFIX + 'push_notification',
   
-  GET_APP_STATUS: PREFIX + 'get_app_status',
-  SET_APP_STATUS: PREFIX + 'set_app_status',
+  GET_AUTH_STATUS: PREFIX + 'get_auth_status',
+  SET_AUTH_STATUS: PREFIX + 'set_auth_status',
 
   OPEN_APP: PREFIX + 'open_app',
   CLOSE_APP: PREFIX + 'close_app',

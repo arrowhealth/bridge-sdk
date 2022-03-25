@@ -1,13 +1,13 @@
 /**
  * Indicates the current status auth status of application.
  * Only applies to applications using SSO through authUrl
- * 
- * ready - enables the tile for use
- * auth_required - displays a special badge on tile to indicate failed in SSO and needs to be addressed by user
+ *
+ * pending - initial state of application using SSO via Auth URL
+ * require - indicates the application requires user to authenticate in order for application to work properly
+ * fail - an unrecoverable failure occurred. application cannot authenticate at this time.
+ * pass - state of application once authentication succeeds. Needs to be set by apps using Auth URL.
  */
-export declare interface AppStatus {
-  status: 'ready' | 'auth_required'
-}
+export declare type AuthStatus = 'pending' | 'require' | 'fail' | 'pass'
 
 /**
  * Bridge Authenticated User
