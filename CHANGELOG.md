@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v1.0.1](https://github.com/arrowhealth/bridge-sdk/compare/v1.0.0...v1.0.1)
+
+> 22 February 2022
+
+- updated packages [`1e35151`](https://github.com/arrowhealth/bridge-sdk/commit/1e35151a7199dba1881f0d6fc86e4280906b6f42)
+
 ### [v1.0.0](https://github.com/arrowhealth/bridge-sdk/compare/v0.0.14...v1.0.0)
 
 > 22 February 2022
