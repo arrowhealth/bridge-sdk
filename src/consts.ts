@@ -3,28 +3,34 @@ const PREFIX = 'bridge::'
 /**
  * @private
  */
-export const REQUESTS = {
-  ADD_NOTIFICATION: PREFIX + 'add_notification',
-  GET_CONFIG_INFO: PREFIX + 'get_config',
-  CLOSE_APP: PREFIX + 'close_app',
-  OPEN_APP: PREFIX + 'open_app',
-  GET_SESSION_INFO: PREFIX + 'get_session_info',
-  GET_PATIENT_INFO: PREFIX + 'get_patient_info',
-  SET_BADGE_COUNT: PREFIX + 'set_badge_count',
-  SHOW_TILE: PREFIX + 'show_tile',
-}
-
-/**
- * @private
- */
-export const RESPONSE = REQUESTS
-
-/**
- * @private
- */
 export const EVENTS = {
-  APP_CLOSED: PREFIX + 'app_closed',
-  APP_UPDATE_AUTH_STATUS: PREFIX + 'app_update_auth_status',
-  BRIDGE_CLOSED: PREFIX + 'bridge_closed',
-  PATIENT_CHANGED: PREFIX + 'patient_changed',
+  GET_ORG: PREFIX + 'get_org',
+  SET_ORG: PREFIX + 'set_org',
+
+  PUSH_NOTIFICATION: PREFIX + 'push_notification',
+  
+  GET_AUTH_STATUS: PREFIX + 'get_auth_status',
+  SET_AUTH_STATUS: PREFIX + 'set_auth_status',
+
+  OPEN_APP: PREFIX + 'open_app',
+  CLOSE_APP: PREFIX + 'close_app',
+
+  CAPTURE_USER_EVENTS: PREFIX + 'capture_user_events',
+  RELEASE_USER_EVENTS: PREFIX + 'release_user_events',
+  
+  GET_AUTH_USER: PREFIX + 'get_auth_user',
+  SET_AUTH_USER: PREFIX + 'set_auth_user',
+
+  GET_USER_SESSION: PREFIX + 'get_user_session',
+
+  GET_PATIENT_INFO: PREFIX + 'get_patient',
+  SET_PATIENT_INFO: PREFIX + 'set_patient',
+
+  SET_BADGE_COUNT: PREFIX + 'set_badge_count',
+
+  SHOW_TILE: PREFIX + 'show_tile',
+  HIDE_TILE: PREFIX + 'hide_tile',
+
+  ENABLE_TILE: PREFIX + 'enable_tile',
+  DISABLE_TILE: PREFIX + 'disable_tile',
 }

@@ -10,8 +10,21 @@ const preamble = `/**
  */`
 
 export default {
-  input: 'src/bridge.ts',
+  input: 'src/index.ts',
   output: [
+    {
+      file: 'dist/index.js',
+      name: 'bridge',
+      format: 'es',
+      plugins: [
+        terser({
+          output: {
+            beautify: true,
+            preamble,
+          },
+        }),
+      ],
+    },
     {
       file: 'dist/bridge.js',
       name: 'bridge',

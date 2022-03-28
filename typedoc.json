@@ -6,7 +6,7 @@
   "hideGenerator": true,
   "readme": "setup.md",
   "entryPoints": [
-    "src/bridge.ts"
+    "src/index.ts"
   ],
   "exclude": [
     "**/utils/*",

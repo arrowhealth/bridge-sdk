@@ -2,12 +2,19 @@ const PARENT_ORIGIN = '*'
 const CHILD_ORIGIN = '*'
 const EVENT_TYPE = 'BRIDGE_EVENT'
 
+export interface Request {
+  appId: string
+  event: string
+  win: Window
+  data?: any
+}
+
 /**
  * @private
  */
-export const emitToApp = (app: Window, event: string, data?: any) => {
-  if(app && app.postMessage) {
-    app.postMessage(
+export const emitToChild = (win: Window, event: string, data?: any) => {
+  if (win && win.postMessage) {
+    win.postMessage(
       JSON.stringify({
         data,
         event,
@@ -16,17 +23,16 @@ export const emitToApp = (app: Window, event: string, data?: any) => {
       CHILD_ORIGIN
     )
   } else {
-    console.warn('[ BRIDGE SDK ] :: emitToApp is missing required "app" param')
+    console.warn('[ BRIDGE SDK ] :: emitToChild is missing required "win" param')
   }
 }
 
 /**
  * @private
  */
-export const emitToBridge = (event: string, data?: any) => {
+export const emitToParent = (event: string, data?: any) => {
   // window.parent for iframe
   let win = window.parent
-
   // if window.opener exists then it is a popup and needs to use the opener
   if (window.opener) {
     win = window.opener
@@ -34,10 +40,8 @@ export const emitToBridge = (event: string, data?: any) => {
   // sends the appId from the window name with message to Bridge
   win.postMessage(
     JSON.stringify({
-      data: {
-        ...data,
-        appId: window.name,
-      },
+      appId: window.name,
+      data,
       event,
       eventType: EVENT_TYPE,
     }),
@@ -45,9 +49,9 @@ export const emitToBridge = (event: string, data?: any) => {
   )
 }
 
-export const on = (event: string, handle: Function): Function => {
-  const f = (payload: any) => {
-    handle(payload)
+export const on = (event: string, handle: (request: Request) => void): Function => {
+  const f = (request: any) => {
+    handle(request)
   }
   window.addEventListener(event, (evt: CustomEvent) => {
     f(evt.detail || {})
@@ -65,7 +69,7 @@ window.addEventListener(
     try {
       if (typeof evt.data === 'string') {
         payload = JSON.parse(evt.data)
-        payload.app = evt.source
+        payload.win = evt.source
         if (payload.eventType === EVENT_TYPE) {
           window.dispatchEvent(
             new CustomEvent(payload.event, { detail: payload })

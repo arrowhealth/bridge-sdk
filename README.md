@@ -1,6 +1,6 @@
 
 
-# Bridge SDK
+# Bridge SDK 2.x
 
 ## What is Bridge?
 
@@ -28,7 +28,7 @@ first application in less than an hour. Once your application has been published
 
 ### Single Sign-On (SSO)
 
-Bridge also allows you to integrate into its authentication layer using well known authentication protocols such as OIDC. Your application
+Bridge also allows you to integrate into its authentication layer using well known authentication protocols such as OIDC and SAML. Your application
 can launch without the need for the user to login each time. 
 
 ### Real-time interaction and feedback
