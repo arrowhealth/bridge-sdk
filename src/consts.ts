@@ -14,6 +14,9 @@ export const EVENTS = {
 
   OPEN_APP: PREFIX + 'open_app',
   CLOSE_APP: PREFIX + 'close_app',
+
+  CAPTURE_USER_EVENTS: PREFIX + 'capture_user_events',
+  RELEASE_USER_EVENTS: PREFIX + 'release_user_events',
   
   GET_AUTH_USER: PREFIX + 'get_auth_user',
   SET_AUTH_USER: PREFIX + 'set_auth_user',
@@ -27,4 +30,7 @@ export const EVENTS = {
 
   SHOW_TILE: PREFIX + 'show_tile',
   HIDE_TILE: PREFIX + 'hide_tile',
+
+  ENABLE_TILE: PREFIX + 'enable_tile',
+  DISABLE_TILE: PREFIX + 'disable_tile',
 }

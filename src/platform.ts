@@ -16,7 +16,6 @@ export const setPatient = (win: Window, patient: Patient | null) => {
 
 /**
  * Request to get the org stored in chrome storage
- * 
  * @returns off
  */
 export const onGetOrgRequest = (handle: (appId: string, sendResponse: (org?: Org) => void) => void): Function => {
@@ -30,7 +29,6 @@ export const onGetOrgRequest = (handle: (appId: string, sendResponse: (org?: Org
 
 /**
  * Used by platform to perform SSO
- * 
  * @returns off
  */
 export const onSetOrgRequest = (handle: (appId: string, org: Org | null) => void): Function => {
@@ -41,7 +39,6 @@ export const onSetOrgRequest = (handle: (appId: string, org: Org | null) => void
 
 /**
  * Used by platorm to perform SSO
- * 
  * @returns off
  */
 export const onSetAuthUserRequest = (handle: (appId: string, authUser: AuthUser | null) => void): Function => {
@@ -54,7 +51,6 @@ export const onSetAuthUserRequest = (handle: (appId: string, authUser: AuthUser 
 
 /**
  * Request to open application. Can only be performed by smart tile.
- * 
  * @returns off
  */
 export const onOpenAppRequest = (handle: (appId: string) => void): Function => {
@@ -65,7 +61,6 @@ export const onOpenAppRequest = (handle: (appId: string) => void): Function => {
 
 /**
  * Request to close application. Can be performed by application or smart tile.
- * 
  * @returns off
  */
 export const onCloseAppRequest = (handle: (appId: string) => void): Function => {
@@ -76,7 +71,6 @@ export const onCloseAppRequest = (handle: (appId: string) => void): Function => 
 
 /**
  * Request to get the application status. Can be performed by application or smart tile.
- * 
  * @returns off
  */
 export const onGetAuthStatusRequest = (handle: (appId: string, sendResponse: (authStatus: AuthStatus) => void, data?: any) => void): Function => {
@@ -89,7 +83,6 @@ export const onGetAuthStatusRequest = (handle: (appId: string, sendResponse: (au
 
 /**
  * Used by the Bridge Platform and Account for applications handling their own auth through OIDC or other means
- * 
  * @private
  * @returns off
  */
@@ -101,7 +94,6 @@ export const onSetAuthStatusRequest = (handle: (appId: string, status: AuthStatu
 
 /**
  * Request to get patient info. Can be performed by application or smart tile.
- * 
  * @returns off
  */
 export const onGetPatientRequest = (handle: (appId: string, sendResponse: (patient: Patient | null) => void) => void): Function => {
@@ -114,7 +106,6 @@ export const onGetPatientRequest = (handle: (appId: string, sendResponse: (patie
 
 /**
  * Request to get user session. Can be performed by application or smart tile.
- * 
  * @returns off
  */
 export const onGetAuthUserRequest = (handle: (appId: string, sendResponse: (authUser: AuthUser | null) => void) => void): Function => {
@@ -127,7 +118,6 @@ export const onGetAuthUserRequest = (handle: (appId: string, sendResponse: (auth
 
 /**
  * Request to get user session. Can be performed by application or smart tile.
- * 
  * @returns off
  */
 export const onGetUserSessionRequest = (handle: (appId: string, sendResponse: (userSession: UserSession | null) => void) => void): Function => {
@@ -140,7 +130,6 @@ export const onGetUserSessionRequest = (handle: (appId: string, sendResponse: (u
 
 /**
  * Request to set badge count on tile. Can be performed by application or smart tile.
- * 
  * @returns off
  */
 export const onSetBadgeCountRequest = (handle: (appId: string, count: number) => void): Function => {
@@ -176,6 +165,44 @@ export const onHideTileRequest = (handle: (appId: string) => void): Function => 
  */
 export const onShowTileRequest = (handle: (appId: string) => void): Function => {
   return on(EVENTS.SHOW_TILE, (request: Request) => {
+    handle(request.appId)
+  })
+}
+
+/**
+ * Request to disable tile. Can be performed by application or smart tile.
+ * @returns off
+ */
+export const onDisableTileRequest = (handle: (appId: string) => void): Function => {
+  return on(EVENTS.DISABLE_TILE, (request: Request) => {
+    handle(request.appId)
+  })
+}
+
+/**
+ * Request to enabled tile. Can be performed by application or smart tile.
+ * @returns off
+ */
+export const onEnableTileRequest = (handle: (appId: string) => void): Function => {
+  return on(EVENTS.ENABLE_TILE, (request: Request) => {
+    handle(request.appId)
+  })
+}
+
+/**
+ * Request from smart tile to capture user events
+ */
+export const onCaptureUserEventsRequest = (handle: (appId: string) => void): Function => {
+  return on(EVENTS.CAPTURE_USER_EVENTS, (request: Request) => {
+    handle(request.appId)
+  })
+}
+
+/**
+ * Request from smart tile to release user events back to bridge
+ */
+export const onReleaseUserEventsRequest = (handle: (appId: string) => void): Function => {
+  return on(EVENTS.RELEASE_USER_EVENTS, (request: Request) => {
     handle(request.appId)
   })
 }

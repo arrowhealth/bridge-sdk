@@ -8,7 +8,6 @@ import { emitToParent, on } from "./utils/mingle"
 
 /**
  * Permits account to get the assigned org from chrome storage
- * 
  * @private
  * @returns
  */
@@ -26,7 +25,6 @@ export function getOrg(): Promise<Org> {
 /**
  * Permits account to set the org
  * @private
- * 
  * @param org 
  */
 export function setOrg(org: Org | null) {
@@ -36,7 +34,6 @@ export function setOrg(org: Org | null) {
 /**
  * Permist account to set authenticated user
  * @private
- * 
  * @param authUser
  */
 export function setAuthUser(authUser: AuthUser | null) {
@@ -45,7 +42,6 @@ export function setAuthUser(authUser: AuthUser | null) {
 
 /**
  * Permits account to get the current user's session
- * 
  * @private
  * @returns
  */
@@ -57,4 +53,12 @@ export function getUserSession(): Promise<UserSession> {
     })
     emitToParent(EVENTS.GET_USER_SESSION)
   })
+}
+
+/**
+ * Permits account to open account application
+ * @private
+ */
+export function openApp() {
+  emitToParent(EVENTS.OPEN_APP)
 }

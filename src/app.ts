@@ -61,6 +61,22 @@ export function hideTile() {
 }
 
 /**
+ * Enables tile allowing event handling. Controlled by a Smart Tile based on the
+ * information it receives through the available hooks such as "onPatientChanged()"
+ */
+export function enableTile() {
+  emitToParent(EVENTS.ENABLE_TILE)
+}
+
+/**
+ * Disables tile preventing user events. Controlled by a Smart Tile tile based on the
+ * information it receives through the available hooks such as "onPatientChanged()"
+ */
+export function disableTile() {
+  emitToParent(EVENTS.DISABLE_TILE)
+}
+
+/**
  * Returns the status of the application known to Bridge set by application
  */
 export function getAuthStatus(): Promise<AuthStatus> {
@@ -86,10 +102,19 @@ export function setAuthStatus(status: AuthStatus) {
 }
 
 /**
- * Used by tile to open linked application.
+ * Smart tile request to capture user events. Bridge will not open an application while
+ * tile is capturing user events.
  */
-export function openApp() {
-  emitToParent(EVENTS.OPEN_APP)
+export function captureUserEvents() {
+  emitToParent(EVENTS.CAPTURE_USER_EVENTS)
+}
+
+/**
+ * Smart tile returns the capturing user events back to Bridge. Bridge can only open
+ * application when Bridge is capturing user events.
+ */
+export function releaseUserEvents() {
+  emitToParent(EVENTS.RELEASE_USER_EVENTS)
 }
 
 /**
