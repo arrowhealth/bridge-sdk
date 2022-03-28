@@ -43,7 +43,6 @@ export const onSetOrgRequest = (handle: (appId: string, org: Org | null) => void
  */
 export const onSetAuthUserRequest = (handle: (appId: string, authUser: AuthUser | null) => void): Function => {
   return on(EVENTS.SET_AUTH_USER, (request: Request) => {
-    console.log('onSetAuthUserRequest', request.data)
     handle(request.appId, request.data)
   })
 }
