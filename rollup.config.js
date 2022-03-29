@@ -1,13 +1,11 @@
 import typescript from '@rollup/plugin-typescript'
+import versionInjector from 'rollup-plugin-version-injector'
 import clear from 'rollup-plugin-clear'
 import filesize from 'rollup-plugin-filesize'
 import { terser } from 'rollup-plugin-terser'
-import { version } from './package.json'
+import striptease from './plugins/striptease'
 
-const preamble = `/**
- * Bridge SDK v${version}
- * Arrow Health 2021-present. All rights reserved.
- */`
+const preamble = `/* Bridge SDK provided by Arrow Health 2021-present. All rights reserved. */`
 
 export default {
   input: 'src/index.ts',
@@ -59,7 +57,11 @@ export default {
       targets: ['dist'],
       watch: true,
     }),
+    versionInjector({
+      logLevel: 'warn'
+    }),
     typescript({ tsconfig: './tsconfig.json' }),
     filesize(),
+    striptease()
   ],
 }

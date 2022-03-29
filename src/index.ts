@@ -12,3 +12,8 @@ export * as $$ from './internal'
  * @private
  */
 export * as $ from './platform'
+
+/**
+ * Returns the version of Bridge being used within the application.
+ */
+export const version = '[VI]{version}[/VI]'

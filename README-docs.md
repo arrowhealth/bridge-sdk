@@ -10,10 +10,15 @@ Install the npm package
 $ npm i @arrowhealth/bridge-sdk
 ```
 
-You can import the entire module or individual methods
+You can import the entire module...
 
 ```js
 import * as bridge from '@arrowhealth/bridge-sdk'
+```
+
+Or you can import the methods you want to use...
+
+```js
 import { onPatientChanged } from '@arrowhealth/bridge-sdk'
 ```
 
@@ -21,7 +26,7 @@ import { onPatientChanged } from '@arrowhealth/bridge-sdk'
 
 Access the link below to get the latest version from the CDN
 
-https://unpkg.com/@arrowhealth/bridge-sdk
+https://unpkg.com/@arrowhealth/bridge-sdk@latest/dist/bridge.min.js
 
 ### Usage
 

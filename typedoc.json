@@ -1,10 +1,10 @@
 {
-  "name": "Bridge SDK",
+  "name": "Bridge 2.x SDK",
   "disableSources": true,
   "excludeInternal": true,
   "excludePrivate": true,
   "hideGenerator": true,
-  "readme": "setup.md",
+  "readme": "README-docs.md",
   "entryPoints": [
     "src/index.ts"
   ],
