@@ -1,6 +1,6 @@
 
 
-# Bridge SDK 2.x
+# Bridge SDK
 
 ## What is Bridge?
 
