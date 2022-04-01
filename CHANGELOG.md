@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v2.0.1](https://github.com/arrowhealth/bridge-sdk/compare/v2.0.0...v2.0.1)
+
+> 29 March 2022
+
+- added version; updated docs; cleanup build [`e7fa115`](https://github.com/arrowhealth/bridge-sdk/commit/e7fa1156403627c6fd1bd1a424907ca1a9303d33)
+- updated readme [`1d101b2`](https://github.com/arrowhealth/bridge-sdk/commit/1d101b200298a37c214e445b12695dc6adc224c5)
+- removed console.log [`caaf089`](https://github.com/arrowhealth/bridge-sdk/commit/caaf089e96ba420976de2af19f691d009fba6eda)
+
 ### [v2.0.0](https://github.com/arrowhealth/bridge-sdk/compare/v1.0.1...v2.0.0)
 
 > 28 March 2022
