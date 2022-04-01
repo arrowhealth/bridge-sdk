@@ -110,3 +110,19 @@ export declare interface PatientDetail {
    */
   data: string
 }
+
+
+export declare interface PushNotification {
+  /**
+   * Text to display in notification
+   */
+  text: string; 
+  /**
+   * Optional title to display in notification 
+   */
+  title?: string; 
+  /**
+   * Data that will be passed back to application when it is opened
+   */
+  data: any
+}

@@ -1,6 +1,6 @@
 import { EVENTS } from './consts'
 import { emitToParent, on } from './utils/mingle'
-import { AuthStatus, AuthUser, Patient } from './interfaces'
+import { AuthStatus, AuthUser, Patient, PushNotification } from './interfaces'
 
 /**
  * Return user session info
@@ -131,8 +131,8 @@ export function closeApp() {
  * @param text Message to display
  * @param patientId EHR patient ID
  */
-export function pushNotification(text: string, patientId?: any): void {
-  emitToParent(EVENTS.PUSH_NOTIFICATION, { patientId, text })
+export function pushNotification(notification: PushNotification): void {
+  emitToParent(EVENTS.PUSH_NOTIFICATION, notification)
 }
 
 /**

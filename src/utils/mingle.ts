@@ -37,6 +37,14 @@ export const emitToParent = (event: string, data?: any) => {
   if (window.opener) {
     win = window.opener
   }
+  if (window === win) {
+    console.warn('Cannot post message to self. No parent window found.')
+    return
+  }
+  if(!window.name) {
+    console.warn('No app id assigned. Cannot post request.')
+    return
+  }
   // sends the appId from the window name with message to Bridge
   win.postMessage(
     JSON.stringify({

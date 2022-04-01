@@ -1,5 +1,5 @@
 import { EVENTS } from './consts'
-import { AuthStatus, AuthUser, Org, Patient, UserSession } from './interfaces'
+import { AuthStatus, AuthUser, Org, Patient, PushNotification, UserSession } from './interfaces'
 import { emitToChild, on, Request } from './utils/mingle'
 
 // !! PLATFORM USE ONLY !!
@@ -87,7 +87,7 @@ export const onGetAuthStatusRequest = (handle: (appId: string, sendResponse: (au
  */
 export const onSetAuthStatusRequest = (handle: (appId: string, status: AuthStatus) => void): Function => {
   return on(EVENTS.SET_AUTH_STATUS, (request: Request) => {
-    handle(request.appId, request.data )
+    handle(request.appId, request.data)
   })
 }
 
@@ -142,7 +142,7 @@ export const onSetBadgeCountRequest = (handle: (appId: string, count: number) =>
  * Request to push notification to bridge. Can be performed by application or smart tile.
  * @returns off
  */
-export const onPushNotificationRequest = (handle: (appId: string, content: { title: string; text: string }) => void): Function => {
+export const onPushNotificationRequest = (handle: (appId: string, notification: PushNotification) => void): Function => {
   return on(EVENTS.PUSH_NOTIFICATION, (request: Request) => {
     handle(request.appId, request.data)
   })
@@ -202,6 +202,18 @@ export const onCaptureUserEventsRequest = (handle: (appId: string) => void): Fun
  */
 export const onReleaseUserEventsRequest = (handle: (appId: string) => void): Function => {
   return on(EVENTS.RELEASE_USER_EVENTS, (request: Request) => {
+    handle(request.appId)
+  })
+}
+
+/**
+ * Request to indicate bridge proxy is ready
+ * 
+ * @param handle 
+ * @returns 
+ */
+export const onProxyReady = (handle: (appId: string) => void): Function => {
+  return on(EVENTS.PROXY_READY, (request: Request) => {
     handle(request.appId)
   })
 }

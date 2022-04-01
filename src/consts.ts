@@ -33,4 +33,6 @@ export const EVENTS = {
 
   ENABLE_TILE: PREFIX + 'enable_tile',
   DISABLE_TILE: PREFIX + 'disable_tile',
+
+  PROXY_READY: PREFIX + 'proxy_ready'
 }

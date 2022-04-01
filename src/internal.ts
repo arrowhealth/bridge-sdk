@@ -62,3 +62,10 @@ export function getUserSession(): Promise<UserSession> {
 export function openApp() {
   emitToParent(EVENTS.OPEN_APP)
 }
+
+/**
+ * Used by bridge proxy to indicate ready
+ */
+export function proxyReady() {
+  emitToParent(EVENTS.PROXY_READY)
+}
