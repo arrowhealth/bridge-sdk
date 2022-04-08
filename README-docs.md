@@ -34,9 +34,11 @@ getPatient().then(
   patient => console.log('patient', patient)
 )
 
-onPatientChanged(patient => {
+const offPatientChanged = onPatientChanged(patient => {
   console.log('patient:changed', patient.id)
 })
+
+// offPatientChanged() call when page or application unloads
 ```
 
 
@@ -58,9 +60,11 @@ bridge.getPatient().then(
   patient => console.log('patient', patient)
 )
 
-bridge.onPatientChanged(patient => {
+const offPatientChanged = bridge.onPatientChanged(patient => {
   console.log('patient:changed', patient.id)
 })
+
+// offPatientChanged() call when page or application unloads
 ```
 
 ### Repository
