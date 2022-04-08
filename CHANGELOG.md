@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v2.2.0](https://github.com/arrowhealth/bridge-sdk/compare/v2.1.0...v2.2.0)
+
+> 8 April 2022
+
+- added checks;  updated AuthUser [`f883dc4`](https://github.com/arrowhealth/bridge-sdk/commit/f883dc446895aff4eccc02123183e97c05a6e9cb)
+
 #### [v2.1.0](https://github.com/arrowhealth/bridge-sdk/compare/v2.0.1...v2.1.0)
 
 > 1 April 2022
