@@ -7,7 +7,7 @@ The Bridge SDK provides an API to communicate with the Bridge platform
 Install the npm package
 
 ```
-$ npm i @arrowhealth/bridge-sdk
+npm i @arrowhealth/bridge-sdk
 ```
 
 You can import the entire module...
@@ -22,13 +22,7 @@ Or you can import the methods you want to use...
 import { onPatientChanged } from '@arrowhealth/bridge-sdk'
 ```
 
-### CDN
-
-Access the link below to get the latest version from the CDN
-
-https://unpkg.com/@arrowhealth/bridge-sdk@latest/dist/bridge.min.js
-
-### Usage
+#### Usage
 
 ```js
 import {
@@ -41,6 +35,30 @@ getPatient().then(
 )
 
 onPatientChanged(patient => {
+  console.log('patient:changed', patient.id)
+})
+```
+
+
+### CDN
+
+Add the following to the `header` tag:
+
+
+```html
+<script src="https://unpkg.com/@arrowhealth/bridge-sdk/dist/bridge.min.js"></script>
+```
+
+#### Usage
+
+The Bridge SDK can be globally accessed.
+
+```js
+bridge.getPatient().then( 
+  patient => console.log('patient', patient)
+)
+
+bridge.onPatientChanged(patient => {
   console.log('patient:changed', patient.id)
 })
 ```

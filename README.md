@@ -4,7 +4,7 @@
 
 ## What is Bridge?
 
-Bridge is a platform that allows applications reside directly into any EHR with minimal setup.
+Bridge is a platform that allows applications reside directly into any environment with minimal setup.
 
 ## Who is this for?
 
