@@ -16,13 +16,13 @@ export * as $$ from './internal'
  */
 export * as $ from './platform'
 
-/*
- * Indicates if application is running inside of popout
-*/
+/**
+ * Indicates if application is running inside of popout (tab or window)
+ */
 export const inPopout = consts.inPopout
 
 /**
- * Indicates if application is running inside of iframe
+ * Indicates if application is running inside of `iframe`
  */
 export const inIframe = consts.inIframe
 
