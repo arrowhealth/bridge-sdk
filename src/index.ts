@@ -1,5 +1,8 @@
+import * as consts from './consts'
 export * from './interfaces'
 export * from './app'
+
+
 
 /**
  * $$ represents the functionaly used to establish setup and SSO.
@@ -13,7 +16,22 @@ export * as $$ from './internal'
  */
 export * as $ from './platform'
 
+/*
+ * Indicates if application is running inside of popout
+*/
+export const inPopout = consts.inPopout
+
+/**
+ * Indicates if application is running inside of iframe
+ */
+export const inIframe = consts.inIframe
+
+/**
+ * Indicates if application is running inside of Bridge
+ */
+export const inBridge = consts.inBridge
+
 /**
  * Returns the version of Bridge being used within the application.
  */
-export const version = '[VI]{version}[/VI]'
+export const version = consts.version

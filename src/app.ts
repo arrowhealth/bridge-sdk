@@ -1,4 +1,4 @@
-import { EVENTS } from './consts'
+import { EVENTS, inBridge } from './consts'
 import { emitToParent, on } from './utils/mingle'
 import { AuthStatus, AuthUser, Patient, PushNotification } from './interfaces'
 
@@ -9,6 +9,7 @@ import { AuthStatus, AuthUser, Patient, PushNotification } from './interfaces'
  */
 export function getAuthUser(): Promise<AuthUser> {
   return new Promise((resolve) => {
+    if (!inBridge) resolve(null)
     const off = on(EVENTS.GET_AUTH_USER, ({ data }) => {
       off()
       resolve(data)
@@ -26,6 +27,7 @@ export function getAuthUser(): Promise<AuthUser> {
  */
 export const getPatient = async (): Promise<Patient> => {
   return new Promise(resolve => {
+    if (!inBridge) resolve(null)
     const off = on(EVENTS.GET_PATIENT_INFO, ({ data }) => {
       off()
       resolve(data)
@@ -81,6 +83,7 @@ export function disableTile() {
  */
 export function getAuthStatus(): Promise<AuthStatus> {
   return new Promise((resolve) => {
+    if (!inBridge) resolve(null)
     const off = on(EVENTS.GET_AUTH_STATUS, ({ data }) => {
       off()
       resolve(data || 'ready')

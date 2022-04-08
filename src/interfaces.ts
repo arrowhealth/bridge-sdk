@@ -19,13 +19,17 @@ export declare interface AuthUser {
     */
   id: string
   /**
-   * First name of authenticated user
+   * First name of authenticated user. *(May not be present)*
    */
   firstName?: string
   /**
-   * Last name of authenticated user
+   * Last name of authenticated user. *(May not be present)*
    */
   lastName?: string
+  /**
+   * Bridge username *(requires permission to access)*
+   */
+  email?: string
 }
 
 /**

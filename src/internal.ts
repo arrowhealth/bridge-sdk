@@ -1,4 +1,4 @@
-import { EVENTS } from "./consts"
+import { EVENTS, inBridge } from "./consts"
 import { AuthUser, Org, UserSession } from "./interfaces"
 import { emitToParent, on } from "./utils/mingle"
 
@@ -13,6 +13,7 @@ import { emitToParent, on } from "./utils/mingle"
  */
 export function getOrg(): Promise<Org> {
   return new Promise((resolve) => {
+    if (!inBridge) resolve(null)
     const off = on(EVENTS.GET_ORG, ({ data }) => {
       off()
       resolve(data)
@@ -47,6 +48,7 @@ export function setAuthUser(authUser: AuthUser | null) {
  */
 export function getUserSession(): Promise<UserSession> {
   return new Promise((resolve) => {
+    if (!inBridge) resolve(null)
     const off = on(EVENTS.GET_USER_SESSION, ({ data }) => {
       off()
       resolve(data)

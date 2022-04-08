@@ -1,38 +1,59 @@
-const PREFIX = 'bridge::'
+const EVENT_PREFIX = 'bridge::'
+const WINDOW_PREFIX = 'bridge_'
+
+/**
+ * Indicates if application is running inside of popout
+ */
+export const inPopout: boolean = !!(window.opener && window.opener !== window)
+
+/**
+ * Indicates if application is running inside of iframe
+ */
+export const inIframe: boolean = !inPopout && window.parent !== window
+
+/**
+ * Indicates if application is running inside of Bridge
+ */
+export const inBridge: boolean = (window.name + '').includes(WINDOW_PREFIX)
+
+/**
+ * Indicates the current version
+ */
+export const version = '[VI]{version}[/VI]'
 
 /**
  * @private
  */
 export const EVENTS = {
-  GET_ORG: PREFIX + 'get_org',
-  SET_ORG: PREFIX + 'set_org',
+  GET_ORG: EVENT_PREFIX + 'get_org',
+  SET_ORG: EVENT_PREFIX + 'set_org',
 
-  PUSH_NOTIFICATION: PREFIX + 'push_notification',
-  
-  GET_AUTH_STATUS: PREFIX + 'get_auth_status',
-  SET_AUTH_STATUS: PREFIX + 'set_auth_status',
+  PUSH_NOTIFICATION: EVENT_PREFIX + 'push_notification',
 
-  OPEN_APP: PREFIX + 'open_app',
-  CLOSE_APP: PREFIX + 'close_app',
+  GET_AUTH_STATUS: EVENT_PREFIX + 'get_auth_status',
+  SET_AUTH_STATUS: EVENT_PREFIX + 'set_auth_status',
 
-  CAPTURE_USER_EVENTS: PREFIX + 'capture_user_events',
-  RELEASE_USER_EVENTS: PREFIX + 'release_user_events',
-  
-  GET_AUTH_USER: PREFIX + 'get_auth_user',
-  SET_AUTH_USER: PREFIX + 'set_auth_user',
+  OPEN_APP: EVENT_PREFIX + 'open_app',
+  CLOSE_APP: EVENT_PREFIX + 'close_app',
 
-  GET_USER_SESSION: PREFIX + 'get_user_session',
+  CAPTURE_USER_EVENTS: EVENT_PREFIX + 'capture_user_events',
+  RELEASE_USER_EVENTS: EVENT_PREFIX + 'release_user_events',
 
-  GET_PATIENT_INFO: PREFIX + 'get_patient',
-  SET_PATIENT_INFO: PREFIX + 'set_patient',
+  GET_AUTH_USER: EVENT_PREFIX + 'get_auth_user',
+  SET_AUTH_USER: EVENT_PREFIX + 'set_auth_user',
 
-  SET_BADGE_COUNT: PREFIX + 'set_badge_count',
+  GET_USER_SESSION: EVENT_PREFIX + 'get_user_session',
 
-  SHOW_TILE: PREFIX + 'show_tile',
-  HIDE_TILE: PREFIX + 'hide_tile',
+  GET_PATIENT_INFO: EVENT_PREFIX + 'get_patient',
+  SET_PATIENT_INFO: EVENT_PREFIX + 'set_patient',
 
-  ENABLE_TILE: PREFIX + 'enable_tile',
-  DISABLE_TILE: PREFIX + 'disable_tile',
+  SET_BADGE_COUNT: EVENT_PREFIX + 'set_badge_count',
 
-  PROXY_READY: PREFIX + 'proxy_ready'
+  SHOW_TILE: EVENT_PREFIX + 'show_tile',
+  HIDE_TILE: EVENT_PREFIX + 'hide_tile',
+
+  ENABLE_TILE: EVENT_PREFIX + 'enable_tile',
+  DISABLE_TILE: EVENT_PREFIX + 'disable_tile',
+
+  PROXY_READY: EVENT_PREFIX + 'proxy_ready'
 }
