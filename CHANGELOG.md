@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v2.1.0](https://github.com/arrowhealth/bridge-sdk/compare/v2.0.1...v2.1.0)
+
+> 1 April 2022
+
+- added proxy; updated push notification [`3b24a08`](https://github.com/arrowhealth/bridge-sdk/commit/3b24a0876dda2796c593f1cd12eca1133911754f)
+- updated typedoc [`227fc72`](https://github.com/arrowhealth/bridge-sdk/commit/227fc723d4a95daf068148fab2a2c8727fa7fd15)
+
 #### [v2.0.1](https://github.com/arrowhealth/bridge-sdk/compare/v2.0.0...v2.0.1)
 
 > 29 March 2022
