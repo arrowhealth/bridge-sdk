@@ -58,15 +58,13 @@ export const emitToParent = (event: string, data?: any) => {
 }
 
 export const on = (event: string, handle: (request: Request) => void): Function => {
-  const f = (request: any) => {
-    handle(request)
+  const eventHandler = (evt: CustomEvent) => {
+    handle(evt.detail || {})
   }
-  window.addEventListener(event, (evt: CustomEvent) => {
-    f(evt.detail || {})
-  })
+  window.addEventListener(event, eventHandler)
 
   return () => {
-    return window.removeEventListener(event, f)
+    return window.removeEventListener(event, eventHandler)
   }
 }
 
