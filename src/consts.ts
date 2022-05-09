@@ -55,5 +55,7 @@ export const EVENTS = {
   ENABLE_TILE: EVENT_PREFIX + 'enable_tile',
   DISABLE_TILE: EVENT_PREFIX + 'disable_tile',
 
-  PROXY_READY: EVENT_PREFIX + 'proxy_ready'
+  PROXY_READY: EVENT_PREFIX + 'proxy_ready',
+
+  CLEAR_CACHE: EVENT_PREFIX + 'clear_cache'
 }

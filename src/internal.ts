@@ -66,6 +66,14 @@ export function openApp() {
 }
 
 /**
+ * Clear internal storage cache set by bridge
+ * @private
+ */
+export function clearCache() {
+  emitToParent(EVENTS.CLEAR_CACHE)
+}
+
+/**
  * Used by bridge proxy to indicate ready
  */
 export function proxyReady() {

@@ -190,6 +190,7 @@ export const onEnableTileRequest = (handle: (appId: string) => void): Function =
 
 /**
  * Request from smart tile to capture user events
+ * @returns off
  */
 export const onCaptureUserEventsRequest = (handle: (appId: string) => void): Function => {
   return on(EVENTS.CAPTURE_USER_EVENTS, (request: Request) => {
@@ -199,6 +200,7 @@ export const onCaptureUserEventsRequest = (handle: (appId: string) => void): Fun
 
 /**
  * Request from smart tile to release user events back to bridge
+ * @returns off
  */
 export const onReleaseUserEventsRequest = (handle: (appId: string) => void): Function => {
   return on(EVENTS.RELEASE_USER_EVENTS, (request: Request) => {
@@ -207,10 +209,20 @@ export const onReleaseUserEventsRequest = (handle: (appId: string) => void): Fun
 }
 
 /**
+ * Request clear all cached items store in bridge
+ * @returns off
+ */
+export const onClearCacheRequest = (handle: (appId: string) => void): Function => {
+  return on(EVENTS.CLEAR_CACHE, (request: Request) => {
+    handle(request.appId)
+  })
+}
+
+/**
  * Request to indicate bridge proxy is ready
  * 
  * @param handle 
- * @returns 
+ * @returns off
  */
 export const onProxyReady = (handle: (appId: string) => void): Function => {
   return on(EVENTS.PROXY_READY, (request: Request) => {
