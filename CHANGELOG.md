@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v2.2.1](https://github.com/arrowhealth/bridge-sdk/compare/v2.2.0...v2.2.1)
+
+> 8 April 2022
+
+- updated readme [`a79ecfe`](https://github.com/arrowhealth/bridge-sdk/commit/a79ecfee47ba864df42b94bcf2bc34b811e16a5e)
+- fixed event listener leak [`0db378c`](https://github.com/arrowhealth/bridge-sdk/commit/0db378c802f2cd8999ae9c4a83123577d086c72f)
+- updated comments for docs [`492f1f0`](https://github.com/arrowhealth/bridge-sdk/commit/492f1f0cb1e1a83f994fd4c8988b4652fbef6f93)
+
 #### [v2.2.0](https://github.com/arrowhealth/bridge-sdk/compare/v2.1.0...v2.2.0)
 
 > 8 April 2022
