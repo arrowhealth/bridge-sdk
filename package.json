@@ -22,14 +22,13 @@
     "access": "public"
   },
   "scripts": {
-    "changelog": "auto-changelog && git add CHANGELOG.md",
+    "release": "np --no-tests",
     "build": "rollup -c",
     "docs:build": "npm run docs:cleanup && typedoc --out docs",
     "docs:cleanup": "./scripts/clean-docs.sh $npm_package_version",
     "docs:publish": "gh-pages -d docs",
-    "release": "np --no-tests",
     "watch": "rollup -c --watch",
-    "version": "npm run build && npm run changelog"
+    "version": "npm run build"
   },
   "main": "dist/index.js",
   "files": [
@@ -38,7 +37,6 @@
   "devDependencies": {
     "@rollup/plugin-html": "^0.2.4",
     "@rollup/plugin-typescript": "^8.3.1",
-    "auto-changelog": "^2.4.0",
     "cacheable-request": "^7.0.2",
     "dotenv": "^14.3.2",
     "dotenv-load": "^2.0.1",
