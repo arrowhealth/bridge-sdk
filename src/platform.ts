@@ -1,5 +1,13 @@
 import { EVENTS } from './consts'
-import { AuthStatus, AuthUser, Org, Patient, PushNotification, UserSession } from './interfaces'
+import {
+  AuthStatus,
+  AuthUser,
+  Org,
+  PageDetails,
+  Patient,
+  PushNotification,
+  UserSession,
+} from './interfaces'
 import { emitToChild, on, Request } from './utils/mingle'
 
 // !! PLATFORM USE ONLY !!
@@ -8,7 +16,7 @@ import { emitToChild, on, Request } from './utils/mingle'
 
 /**
  * Sends patient info to an application
- * 
+ *
  */
 export const setPatient = (win: Window, patient: Patient | null) => {
   emitToChild(win, EVENTS.SET_PATIENT_INFO, patient)
@@ -18,7 +26,9 @@ export const setPatient = (win: Window, patient: Patient | null) => {
  * Request to get the org stored in chrome storage
  * @returns off
  */
-export const onGetOrgRequest = (handle: (appId: string, sendResponse: (org?: Org) => void) => void): Function => {
+export const onGetOrgRequest = (
+  handle: (appId: string, sendResponse: (org?: Org) => void) => void
+): Function => {
   return on(EVENTS.GET_ORG, (request: Request) => {
     handle(request.appId, (org?: Org) => {
       emitToChild(request.win, request.event, org)
@@ -26,12 +36,13 @@ export const onGetOrgRequest = (handle: (appId: string, sendResponse: (org?: Org
   })
 }
 
-
 /**
  * Used by platform to perform SSO
  * @returns off
  */
-export const onSetOrgRequest = (handle: (appId: string, org: Org | null) => void): Function => {
+export const onSetOrgRequest = (
+  handle: (appId: string, org: Org | null) => void
+): Function => {
   return on(EVENTS.SET_ORG, (request: Request) => {
     handle(request.appId, request.data)
   })
@@ -41,12 +52,13 @@ export const onSetOrgRequest = (handle: (appId: string, org: Org | null) => void
  * Used by platorm to perform SSO
  * @returns off
  */
-export const onSetAuthUserRequest = (handle: (appId: string, authUser: AuthUser | null) => void): Function => {
+export const onSetAuthUserRequest = (
+  handle: (appId: string, authUser: AuthUser | null) => void
+): Function => {
   return on(EVENTS.SET_AUTH_USER, (request: Request) => {
     handle(request.appId, request.data)
   })
 }
-
 
 /**
  * Request to open application. Can only be performed by smart tile.
@@ -62,7 +74,9 @@ export const onOpenAppRequest = (handle: (appId: string) => void): Function => {
  * Request to close application. Can be performed by application or smart tile.
  * @returns off
  */
-export const onCloseAppRequest = (handle: (appId: string) => void): Function => {
+export const onCloseAppRequest = (
+  handle: (appId: string) => void
+): Function => {
   return on(EVENTS.CLOSE_APP, (request: Request) => {
     handle(request.appId)
   })
@@ -72,11 +86,21 @@ export const onCloseAppRequest = (handle: (appId: string) => void): Function => 
  * Request to get the application status. Can be performed by application or smart tile.
  * @returns off
  */
-export const onGetAuthStatusRequest = (handle: (appId: string, sendResponse: (authStatus: AuthStatus) => void, data?: any) => void): Function => {
+export const onGetAuthStatusRequest = (
+  handle: (
+    appId: string,
+    sendResponse: (authStatus: AuthStatus) => void,
+    data?: any
+  ) => void
+): Function => {
   return on(EVENTS.GET_AUTH_STATUS, (request: Request) => {
-    handle(request.appId, (authStatus: AuthStatus) => {
-      emitToChild(request.win, request.event, authStatus)
-    }, request.data)
+    handle(
+      request.appId,
+      (authStatus: AuthStatus) => {
+        emitToChild(request.win, request.event, authStatus)
+      },
+      request.data
+    )
   })
 }
 
@@ -85,7 +109,9 @@ export const onGetAuthStatusRequest = (handle: (appId: string, sendResponse: (au
  * @private
  * @returns off
  */
-export const onSetAuthStatusRequest = (handle: (appId: string, status: AuthStatus) => void): Function => {
+export const onSetAuthStatusRequest = (
+  handle: (appId: string, status: AuthStatus) => void
+): Function => {
   return on(EVENTS.SET_AUTH_STATUS, (request: Request) => {
     handle(request.appId, request.data)
   })
@@ -95,7 +121,12 @@ export const onSetAuthStatusRequest = (handle: (appId: string, status: AuthStatu
  * Request to get patient info. Can be performed by application or smart tile.
  * @returns off
  */
-export const onGetPatientRequest = (handle: (appId: string, sendResponse: (patient: Patient | null) => void) => void): Function => {
+export const onGetPatientRequest = (
+  handle: (
+    appId: string,
+    sendResponse: (patient: Patient | null) => void
+  ) => void
+): Function => {
   return on(EVENTS.GET_PATIENT_INFO, (request: Request) => {
     handle(request.appId, (patient: Patient | null) => {
       emitToChild(request.win, request.event, patient)
@@ -107,7 +138,12 @@ export const onGetPatientRequest = (handle: (appId: string, sendResponse: (patie
  * Request to get user session. Can be performed by application or smart tile.
  * @returns off
  */
-export const onGetAuthUserRequest = (handle: (appId: string, sendResponse: (authUser: AuthUser | null) => void) => void): Function => {
+export const onGetAuthUserRequest = (
+  handle: (
+    appId: string,
+    sendResponse: (authUser: AuthUser | null) => void
+  ) => void
+): Function => {
   return on(EVENTS.GET_AUTH_USER, (request: Request) => {
     handle(request.appId, (authUser: AuthUser) => {
       emitToChild(request.win, request.event, authUser)
@@ -119,7 +155,12 @@ export const onGetAuthUserRequest = (handle: (appId: string, sendResponse: (auth
  * Request to get user session. Can be performed by application or smart tile.
  * @returns off
  */
-export const onGetUserSessionRequest = (handle: (appId: string, sendResponse: (userSession: UserSession | null) => void) => void): Function => {
+export const onGetUserSessionRequest = (
+  handle: (
+    appId: string,
+    sendResponse: (userSession: UserSession | null) => void
+  ) => void
+): Function => {
   return on(EVENTS.GET_USER_SESSION, (request: Request) => {
     handle(request.appId, (userSession?: UserSession) => {
       emitToChild(request.win, request.event, userSession)
@@ -131,7 +172,9 @@ export const onGetUserSessionRequest = (handle: (appId: string, sendResponse: (u
  * Request to set badge count on tile. Can be performed by application or smart tile.
  * @returns off
  */
-export const onSetBadgeCountRequest = (handle: (appId: string, count: number) => void): Function => {
+export const onSetBadgeCountRequest = (
+  handle: (appId: string, count: number) => void
+): Function => {
   return on(EVENTS.SET_BADGE_COUNT, (request: Request) => {
     const count = request.data as number
     handle(request.appId, count || 0)
@@ -142,7 +185,9 @@ export const onSetBadgeCountRequest = (handle: (appId: string, count: number) =>
  * Request to push notification to bridge. Can be performed by application or smart tile.
  * @returns off
  */
-export const onPushNotificationRequest = (handle: (appId: string, notification: PushNotification) => void): Function => {
+export const onPushNotificationRequest = (
+  handle: (appId: string, notification: PushNotification) => void
+): Function => {
   return on(EVENTS.PUSH_NOTIFICATION, (request: Request) => {
     handle(request.appId, request.data)
   })
@@ -152,7 +197,9 @@ export const onPushNotificationRequest = (handle: (appId: string, notification: 
  * Request to hide tile. Can be performed by application or smart tile.
  * @returns off
  */
-export const onHideTileRequest = (handle: (appId: string) => void): Function => {
+export const onHideTileRequest = (
+  handle: (appId: string) => void
+): Function => {
   return on(EVENTS.HIDE_TILE, (request: Request) => {
     handle(request.appId)
   })
@@ -162,7 +209,9 @@ export const onHideTileRequest = (handle: (appId: string) => void): Function => 
  * Request to show tile. Can be performed by application or smart tile.
  * @returns off
  */
-export const onShowTileRequest = (handle: (appId: string) => void): Function => {
+export const onShowTileRequest = (
+  handle: (appId: string) => void
+): Function => {
   return on(EVENTS.SHOW_TILE, (request: Request) => {
     handle(request.appId)
   })
@@ -172,7 +221,9 @@ export const onShowTileRequest = (handle: (appId: string) => void): Function => 
  * Request to disable tile. Can be performed by application or smart tile.
  * @returns off
  */
-export const onDisableTileRequest = (handle: (appId: string) => void): Function => {
+export const onDisableTileRequest = (
+  handle: (appId: string) => void
+): Function => {
   return on(EVENTS.DISABLE_TILE, (request: Request) => {
     handle(request.appId)
   })
@@ -182,7 +233,9 @@ export const onDisableTileRequest = (handle: (appId: string) => void): Function 
  * Request to enabled tile. Can be performed by application or smart tile.
  * @returns off
  */
-export const onEnableTileRequest = (handle: (appId: string) => void): Function => {
+export const onEnableTileRequest = (
+  handle: (appId: string) => void
+): Function => {
   return on(EVENTS.ENABLE_TILE, (request: Request) => {
     handle(request.appId)
   })
@@ -192,7 +245,9 @@ export const onEnableTileRequest = (handle: (appId: string) => void): Function =
  * Request from smart tile to capture user events
  * @returns off
  */
-export const onCaptureUserEventsRequest = (handle: (appId: string) => void): Function => {
+export const onCaptureUserEventsRequest = (
+  handle: (appId: string) => void
+): Function => {
   return on(EVENTS.CAPTURE_USER_EVENTS, (request: Request) => {
     handle(request.appId)
   })
@@ -202,7 +257,9 @@ export const onCaptureUserEventsRequest = (handle: (appId: string) => void): Fun
  * Request from smart tile to release user events back to bridge
  * @returns off
  */
-export const onReleaseUserEventsRequest = (handle: (appId: string) => void): Function => {
+export const onReleaseUserEventsRequest = (
+  handle: (appId: string) => void
+): Function => {
   return on(EVENTS.RELEASE_USER_EVENTS, (request: Request) => {
     handle(request.appId)
   })
@@ -212,16 +269,37 @@ export const onReleaseUserEventsRequest = (handle: (appId: string) => void): Fun
  * Request clear all cached items store in bridge
  * @returns off
  */
-export const onClearCacheRequest = (handle: (appId: string) => void): Function => {
+export const onClearCacheRequest = (
+  handle: (appId: string) => void
+): Function => {
   return on(EVENTS.CLEAR_CACHE, (request: Request) => {
     handle(request.appId)
   })
 }
 
 /**
+ * Request to get the details of page currently being displayed
+ *
+ * @param handle
+ * @returns off
+ */
+export const onGetPageDetailsRequest = (
+  handle: (
+    appId: string,
+    sendResponse: (pageDetails?: PageDetails) => void
+  ) => void
+): Function => {
+  return on(EVENTS.GET_PAGE_DETAILS, (request: Request) => {
+    handle(request.appId, (pageDetails?: PageDetails) => {
+      emitToChild(request.win, request.event, pageDetails)
+    })
+  })
+}
+
+/**
  * Request to indicate bridge proxy is ready
- * 
- * @param handle 
+ *
+ * @param handle
  * @returns off
  */
 export const onProxyReady = (handle: (appId: string) => void): Function => {

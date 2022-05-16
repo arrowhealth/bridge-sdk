@@ -94,7 +94,7 @@ export declare interface Patient {
 }
 
 /**
- * TODO: Experimental. Not implemented
+ * //TODO: Experimental. Not implemented
  * 
  * @private
  */
@@ -129,4 +129,19 @@ export declare interface PushNotification {
    * Data that will be passed back to application when it is opened
    */
   data: any
+}
+
+/**
+ * Page details used for debugging and support
+ * @private
+ */
+export declare interface PageDetails {
+  /**
+   * Page title
+   */
+  title: string;
+  /**
+   * Page origin
+   */
+  origin: string;
 }

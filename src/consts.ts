@@ -57,5 +57,7 @@ export const EVENTS = {
 
   PROXY_READY: EVENT_PREFIX + 'proxy_ready',
 
+  GET_PAGE_DETAILS: EVENT_PREFIX + 'get_page_details',
+
   CLEAR_CACHE: EVENT_PREFIX + 'clear_cache'
 }

@@ -1,6 +1,6 @@
-import { EVENTS, inBridge } from "./consts"
-import { AuthUser, Org, UserSession } from "./interfaces"
-import { emitToParent, on } from "./utils/mingle"
+import { EVENTS, inBridge } from './consts'
+import { AuthUser, Org, PageDetails, UserSession } from './interfaces'
+import { emitToParent, on } from './utils/mingle'
 
 // !! INTERNAL USE ONLY !!
 // Calling these functions will do nothing. Other applications and
@@ -22,11 +22,10 @@ export function getOrg(): Promise<Org> {
   })
 }
 
-
 /**
  * Permits account to set the org
  * @private
- * @param org 
+ * @param org
  */
 export function setOrg(org: Org | null) {
   emitToParent(EVENTS.SET_ORG, org)
@@ -71,6 +70,23 @@ export function openApp() {
  */
 export function clearCache() {
   emitToParent(EVENTS.CLEAR_CACHE)
+}
+
+
+/**
+ * Requests page details
+ * 
+ * @returns 
+ */
+export function getPageDetails(): Promise<PageDetails> {
+  return new Promise((resolve) => {
+    if (!inBridge) resolve(null)
+    const off = on(EVENTS.GET_PAGE_DETAILS, ({ data }) => {
+      off()
+      resolve(data)
+    })
+    emitToParent(EVENTS.GET_PAGE_DETAILS)
+  })
 }
 
 /**
