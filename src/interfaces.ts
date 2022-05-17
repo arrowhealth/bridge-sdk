@@ -144,4 +144,8 @@ export declare interface PageDetails {
    * Page origin
    */
   origin: string;
+  /**
+   * Page is in incognito mode
+   */
+  isIncognito: boolean;
 }
