@@ -137,6 +137,22 @@ export declare interface PushNotification {
  */
 export declare interface RuntimeDetails {
   /**
+   * Extension name
+   */
+  name: string
+  /**
+   * Extension version
+   */
+  version: string
+  /**
+   * Extension Origin
+   */
+  origin: string
+  /**
+   * Browser is in incognito mode
+   */
+  incognito: boolean
+  /**
    * Page title
    */
   pageTitle: string
@@ -144,12 +160,4 @@ export declare interface RuntimeDetails {
    * Page origin
    */
   pageOrigin: string
-  /**
-   * Browser is in incognito mode
-   */
-  incognito: boolean
-  /**
-   * Extension Origin
-   */
-  origin: String
 }
