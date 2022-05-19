@@ -132,20 +132,24 @@ export declare interface PushNotification {
 }
 
 /**
- * Page details used for debugging and support
+ * Extension runtime details used for various operations such as debugging and support
  * @private
  */
-export declare interface PageDetails {
+export declare interface RuntimeDetails {
   /**
    * Page title
    */
-  title: string;
+  pageTitle: string
   /**
    * Page origin
    */
-  origin: string;
+  pageOrigin: string
   /**
-   * Page is in incognito mode
+   * Browser is in incognito mode
    */
-  isIncognito: boolean;
+  incognito: boolean
+  /**
+   * Extension Origin
+   */
+  origin: String
 }

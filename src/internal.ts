@@ -1,5 +1,5 @@
 import { EVENTS, inBridge } from './consts'
-import { AuthUser, Org, PageDetails, UserSession } from './interfaces'
+import { AuthUser, Org, RuntimeDetails, UserSession } from './interfaces'
 import { emitToParent, on } from './utils/mingle'
 
 // !! INTERNAL USE ONLY !!
@@ -78,7 +78,7 @@ export function clearCache() {
  * 
  * @returns 
  */
-export function getPageDetails(): Promise<PageDetails> {
+export function getRuntimeDetails(): Promise<RuntimeDetails> {
   return new Promise((resolve) => {
     if (!inBridge) resolve(null)
     const off = on(EVENTS.GET_PAGE_DETAILS, ({ data }) => {

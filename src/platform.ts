@@ -3,9 +3,9 @@ import {
   AuthStatus,
   AuthUser,
   Org,
-  PageDetails,
   Patient,
   PushNotification,
+  RuntimeDetails,
   UserSession,
 } from './interfaces'
 import { emitToChild, on, Request } from './utils/mingle'
@@ -283,15 +283,15 @@ export const onClearCacheRequest = (
  * @param handle
  * @returns off
  */
-export const onGetPageDetailsRequest = (
+export const onGetRuntimeDetailsRequest = (
   handle: (
     appId: string,
-    sendResponse: (pageDetails?: PageDetails) => void
+    sendResponse: (runtimeDetails?: RuntimeDetails) => void
   ) => void
 ): Function => {
   return on(EVENTS.GET_PAGE_DETAILS, (request: Request) => {
-    handle(request.appId, (pageDetails?: PageDetails) => {
-      emitToChild(request.win, request.event, pageDetails)
+    handle(request.appId, (runtimeDetails?: RuntimeDetails) => {
+      emitToChild(request.win, request.event, runtimeDetails)
     })
   })
 }
