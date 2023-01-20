@@ -1,6 +1,7 @@
-
+<img src="assets/bridge_banner.png" style="margin-bottom: 50px;border-radius: 8px;box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
 
 # Bridge SDK
+
 
 ## What is Bridge?
 
@@ -14,10 +15,6 @@ Bridge is for companies who have applications and services HealthCare providers 
 
 Bridge will save companies time and money by integrating once into Bridge and be available in any EHR. The SDK provides
 an API to communicate with Bridge and get the data you need from the EHR.
-
-**Example**
-
-<img src="https://firebasestorage.googleapis.com/v0/b/novo00.appspot.com/o/icons%2Fmock-app.png?alt=media&token=d18a5706-0feb-44a2-9c16-e504bd8a9648" style="margin-bottom: 50px;border-radius: 8px;box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
 
 ## Bridge platform
 

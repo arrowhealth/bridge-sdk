@@ -73,6 +73,11 @@ export declare interface Patient {
   id: string
 
   /**
+   * EHR Alternative Patient IDs
+   */
+  altIds?: string[]
+
+  /**
    * Patient's first name
    */
   first?: string
