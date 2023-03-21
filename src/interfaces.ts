@@ -32,6 +32,11 @@ export declare interface AuthUser {
   email?: string
 }
 
+export declare interface DomDump {
+    html: string;
+    href: string;
+}
+
 /**
  * Represents user authenticated by application (EHR)
  * @private

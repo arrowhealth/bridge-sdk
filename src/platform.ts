@@ -2,6 +2,7 @@ import { EVENTS } from './consts'
 import {
   AuthStatus,
   AuthUser,
+  DomDump,
   Org,
   Patient,
   PushNotification,
@@ -130,6 +131,23 @@ export const onGetPatientRequest = (
   return on(EVENTS.GET_PATIENT_INFO, (request: Request) => {
     handle(request.appId, (patient: Patient | null) => {
       emitToChild(request.win, request.event, patient)
+    })
+  })
+}
+
+/**
+ * Request to get DOM dump. Can be performed by application or smart tile.
+ * @returns off
+ */
+export const onGetDomDumpRequest = (
+  handle: (
+    appId: string,
+    sendResponse: (domDump: DomDump) => void
+  ) => void
+): Function => {
+  return on(EVENTS.GET_DOM_DUMP, (request: Request) => {
+    handle(request.appId, (domDump: DomDump) => {
+      emitToChild(request.win, request.event, domDump)
     })
   })
 }
