@@ -125,15 +125,11 @@ export declare interface PushNotification {
   /**
    * Text to display in notification
    */
-  text: string; 
+  text: string;
   /**
-   * Optional title to display in notification 
+   * Open associated application when notification is clicked. *(Default: true)*
    */
-  title?: string; 
-  /**
-   * Data that will be passed back to application when it is opened
-   */
-  data: any
+  openOnClick?: boolean;
 }
 
 /**
