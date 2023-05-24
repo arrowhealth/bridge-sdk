@@ -3,6 +3,7 @@ import {
   AuthStatus,
   AuthUser,
   Org,
+  Page,
   Patient,
   PushNotification,
   RuntimeDetails,
@@ -130,6 +131,23 @@ export const onGetPatientRequest = (
   return on(EVENTS.GET_PATIENT_INFO, (request: Request) => {
     handle(request.appId, (patient: Patient | null) => {
       emitToChild(request.win, request.event, patient)
+    })
+  })
+}
+
+/**
+ * Request to get page. Can be performed by application or smart tile.
+ * @returns off
+ */
+export const onGetPageRequest = (
+  handle: (
+    appId: string,
+    sendResponse: (page: Page) => void
+  ) => void
+): Function => {
+  return on(EVENTS.GET_PAGE, (request: Request) => {
+    handle(request.appId, (page: Page) => {
+      emitToChild(request.win, request.event, page)
     })
   })
 }

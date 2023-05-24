@@ -1,6 +1,6 @@
 import { EVENTS, inBridge } from './consts'
 import { emitToParent, on } from './utils/mingle'
-import { AuthStatus, AuthUser, Patient, PushNotification } from './interfaces'
+import { AuthStatus, AuthUser, Page, Patient, PushNotification } from './interfaces'
 
 /**
  * Return user session info
@@ -15,6 +15,22 @@ export function getAuthUser(): Promise<AuthUser> {
       resolve(data)
     })
     emitToParent(EVENTS.GET_AUTH_USER)
+  })
+}
+
+/**
+ * Return the current page HTML and href.
+ * 
+ * @returns 
+ */
+export function getPage(): Promise<Page> {
+  return new Promise((resolve) => {
+    if (!inBridge) resolve(null)
+    const off = on(EVENTS.GET_PAGE, ({ data }) => {
+      off()
+      resolve(data)
+    })
+    emitToParent(EVENTS.GET_PAGE)
   })
 }
 
