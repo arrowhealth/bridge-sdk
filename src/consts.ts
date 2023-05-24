@@ -61,5 +61,5 @@ export const EVENTS = {
 
   CLEAR_CACHE: EVENT_PREFIX + 'clear_cache',
 
-  GET_DOM_DUMP: EVENT_PREFIX + 'get_dom_dump',
+  GET_PAGE: EVENT_PREFIX + 'get_page',
 }

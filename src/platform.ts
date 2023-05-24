@@ -2,8 +2,8 @@ import { EVENTS } from './consts'
 import {
   AuthStatus,
   AuthUser,
-  DomDump,
   Org,
+  Page,
   Patient,
   PushNotification,
   RuntimeDetails,
@@ -136,18 +136,18 @@ export const onGetPatientRequest = (
 }
 
 /**
- * Request to get DOM dump. Can be performed by application or smart tile.
+ * Request to get page. Can be performed by application or smart tile.
  * @returns off
  */
-export const onGetDomDumpRequest = (
+export const onGetPageRequest = (
   handle: (
     appId: string,
-    sendResponse: (domDump: DomDump) => void
+    sendResponse: (page: Page) => void
   ) => void
 ): Function => {
-  return on(EVENTS.GET_DOM_DUMP, (request: Request) => {
-    handle(request.appId, (domDump: DomDump) => {
-      emitToChild(request.win, request.event, domDump)
+  return on(EVENTS.GET_PAGE, (request: Request) => {
+    handle(request.appId, (page: Page) => {
+      emitToChild(request.win, request.event, page)
     })
   })
 }

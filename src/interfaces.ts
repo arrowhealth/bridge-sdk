@@ -11,7 +11,6 @@ export declare type AuthStatus = 'pending' | 'require' | 'fail' | 'pass'
 
 /**
  * Bridge Authenticated User
- *
  */
 export declare interface AuthUser {
   /**
@@ -32,7 +31,10 @@ export declare interface AuthUser {
   email?: string
 }
 
-export declare interface DomDump {
+/**
+ * Represents the current page being viewed in the EHR.
+ */
+export declare interface Page {
     html: string;
     href: string;
 }
