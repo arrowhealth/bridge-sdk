@@ -41,7 +41,7 @@
     "dotenv": "^14.3.2",
     "dotenv-load": "^2.0.1",
     "gh-pages": "^3.2.3",
-    "np": "7.6.0",
+    "np": "7.7.0",
     "rollup": "^2.70.1",
     "rollup-plugin-clear": "^2.0.7",
     "rollup-plugin-filesize": "^9.1.2",
