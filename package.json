@@ -35,20 +35,20 @@
     "dist/*"
   ],
   "devDependencies": {
-    "@rollup/plugin-html": "^0.2.4",
-    "@rollup/plugin-typescript": "^8.3.1",
-    "cacheable-request": "^7.0.2",
-    "dotenv": "^14.3.2",
+    "@rollup/plugin-html": "^1.0.2",
+    "@rollup/plugin-typescript": "^11.1.2",
+    "cacheable-request": "^10.2.12",
+    "dotenv": "^16.3.1",
     "dotenv-load": "^2.0.1",
-    "gh-pages": "^3.2.3",
-    "np": "7.7.0",
-    "rollup": "^2.70.1",
+    "gh-pages": "^5.0.0",
+    "np": "8.0.4",
+    "rollup": "^3.25.3",
     "rollup-plugin-clear": "^2.0.7",
-    "rollup-plugin-filesize": "^9.1.2",
+    "rollup-plugin-filesize": "^10.0.0",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-version-injector": "^1.3.3",
-    "tslib": "^2.3.1",
-    "typedoc": "^0.22.13",
-    "typescript": "^4.6.2"
+    "tslib": "^2.6.0",
+    "typedoc": "^0.24.8",
+    "typescript": "^5.1.6"
   }
 }
