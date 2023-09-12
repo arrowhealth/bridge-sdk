@@ -5,6 +5,7 @@ import {
   Org,
   Page,
   Patient,
+  Platform,
   PushNotification,
   RuntimeDetails,
   UserSession,
@@ -149,6 +150,28 @@ export const onGetPageRequest = (
     handle(request.appId, (page: Page) => {
       emitToChild(request.win, request.event, page)
     })
+  })
+}
+
+/**
+ * Request to get platform (e.g. Athena info, eCW, etc.) information. Can be performed by application or smart tile.
+ * @returns off
+ */
+export function onGetPlatformRequest(handle: (appId: string, respond: (platform: Platform) => void) => void): Function {
+  return on(EVENTS.GET_PLATFORM, (request: Request) => {
+    handle(request.appId, (platform: Platform) => {
+      emitToChild(request.win, request.event, platform)
+    })
+  })
+}
+
+/**
+ * Used by integrations to set additional platform information.
+ * @returns off
+ */
+export function onSetPlatformDataRequest(handle: (appId: string, data: any) => void): Function {
+  return on(EVENTS.SET_PLATFORM_DATA, (request: Request) => {
+    handle(request.appId, request.data)
   })
 }
 

@@ -90,8 +90,9 @@ export function getRuntimeDetails(): Promise<RuntimeDetails> {
 }
 
 /**
- * Used by bridge proxy to indicate ready
+ * Permits integrations to set data about the platform.
+ * @param data
  */
-export function proxyReady() {
-  emitToParent(EVENTS.PROXY_READY)
+export function setPlatformData(data: any) {
+  emitToParent(EVENTS.SET_PLATFORM_DATA, data)
 }
