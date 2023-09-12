@@ -136,7 +136,7 @@ export declare interface Platform {
   data?: any
 }
 
-export declare enum PlatformKind {
+export enum PlatformKind {
   Other = "Other",
   Athena = "Athena",
   eCW = "eCW"
