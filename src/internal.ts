@@ -88,10 +88,3 @@ export function getRuntimeDetails(): Promise<RuntimeDetails> {
     emitToParent(EVENTS.GET_PAGE_DETAILS)
   })
 }
-
-/**
- * Used by bridge proxy to indicate ready
- */
-export function proxyReady() {
-  emitToParent(EVENTS.PROXY_READY)
-}

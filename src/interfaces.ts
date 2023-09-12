@@ -127,6 +127,20 @@ export declare interface PatientDetail {
   data: string
 }
 
+/**
+ * Information about the platform Bridge is running on. `data` is platform specific.
+ */
+export declare interface Platform {
+  kind: PlatformKind
+  username?: string
+  data?: any
+}
+
+export enum PlatformKind {
+  Other = "Other",
+  Athena = "Athena",
+  eCW = "eCW"
+}
 
 export declare interface PushNotification {
   /**

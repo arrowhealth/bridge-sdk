@@ -1,6 +1,6 @@
 import { EVENTS, inBridge } from './consts'
 import { emitToParent, on } from './utils/mingle'
-import { AuthStatus, AuthUser, Page, Patient, PushNotification } from './interfaces'
+import { AuthStatus, AuthUser, Page, Patient, Platform, PushNotification } from './interfaces'
 
 /**
  * Return user session info
@@ -49,6 +49,17 @@ export const getPatient = async (): Promise<Patient> => {
       resolve(data)
     })
     emitToParent(EVENTS.GET_PATIENT_INFO)
+  })
+}
+
+export async function getPlatform(): Promise<Platform> {
+  return new Promise(resolve => {
+    if (!inBridge) resolve(null)
+    const off = on(EVENTS.GET_PLATFORM, ({ data }) => {
+      off()
+      resolve(data)
+    })
+    emitToParent(EVENTS.GET_PLATFORM)
   })
 }
 
