@@ -166,16 +166,6 @@ export function onGetPlatformRequest(handle: (appId: string, respond: (platform:
 }
 
 /**
- * Used by integrations to set additional platform information.
- * @returns off
- */
-export function onSetPlatformDataRequest(handle: (appId: string, data: any) => void): Function {
-  return on(EVENTS.SET_PLATFORM_DATA, (request: Request) => {
-    handle(request.appId, request.data)
-  })
-}
-
-/**
  * Request to get user session. Can be performed by application or smart tile.
  * @returns off
  */

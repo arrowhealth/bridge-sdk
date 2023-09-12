@@ -88,11 +88,3 @@ export function getRuntimeDetails(): Promise<RuntimeDetails> {
     emitToParent(EVENTS.GET_PAGE_DETAILS)
   })
 }
-
-/**
- * Permits integrations to set data about the platform.
- * @param data
- */
-export function setPlatformData(data: any) {
-  emitToParent(EVENTS.SET_PLATFORM_DATA, data)
-}
