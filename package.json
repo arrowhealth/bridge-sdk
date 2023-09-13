@@ -10,13 +10,10 @@
     "payer",
     "labs"
   ],
+  "engines": {
+    "node": ">=12.0.0"
+  },
   "repository": "git@github.com:arrowhealth/bridge-sdk.git",
-  "contributors": [
-    {
-      "name": "Rob Taylor",
-      "email": "rob@arrowhealth.io"
-    }
-  ],
   "license": "SEE LICENSE",
   "publishConfig": {
     "access": "public"
