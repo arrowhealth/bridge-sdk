@@ -1,10 +1,18 @@
 import { EVENTS, inBridge } from './consts'
-import { AuthUser, Org, RuntimeDetails, UserSession } from './interfaces'
+import { AuthUser, LoginResult, Org, RuntimeDetails, UserSession } from './interfaces'
 import { emitToParent, on } from './utils/mingle'
 
 // !! INTERNAL USE ONLY !!
 // Calling these functions will do nothing. Other applications and
 // platforms cannot invoke these methods
+
+/**
+ * Clear internal storage cache set by bridge
+ * @private
+ */
+export function clearCache() {
+  emitToParent(EVENTS.CLEAR_CACHE)
+}
 
 /**
  * Permits account to get the assigned org from chrome storage
@@ -23,21 +31,19 @@ export function getOrg(): Promise<Org> {
 }
 
 /**
- * Permits account to set the org
- * @private
- * @param org
+ * Requests page details
+ *
+ * @returns
  */
-export function setOrg(org: Org | null) {
-  emitToParent(EVENTS.SET_ORG, org)
-}
-
-/**
- * Permist account to set authenticated user
- * @private
- * @param authUser
- */
-export function setAuthUser(authUser: AuthUser | null) {
-  emitToParent(EVENTS.SET_AUTH_USER, authUser)
+export function getRuntimeDetails(): Promise<RuntimeDetails> {
+  return new Promise((resolve) => {
+    if (!inBridge) resolve(null)
+    const off = on(EVENTS.GET_PAGE_DETAILS, ({ data }) => {
+      off()
+      resolve(data)
+    })
+    emitToParent(EVENTS.GET_PAGE_DETAILS)
+  })
 }
 
 /**
@@ -57,6 +63,21 @@ export function getUserSession(): Promise<UserSession> {
 }
 
 /**
+ * Permits account to login.
+ * @private
+ */
+export function login(realm: string, user: string, pw: string): Promise<LoginResult> {
+  return new Promise((resolve) => {
+    if (!inBridge) resolve(null)
+    const off = on(EVENTS.LOGIN, ({ data }) => {
+      off()
+      resolve(data)
+    })
+    emitToParent(EVENTS.LOGIN)
+  })
+}
+
+/**
  * Permits account to open account application
  * @private
  */
@@ -65,26 +86,19 @@ export function openApp() {
 }
 
 /**
- * Clear internal storage cache set by bridge
+ * Permits account to set authenticated user
  * @private
+ * @param authUser
  */
-export function clearCache() {
-  emitToParent(EVENTS.CLEAR_CACHE)
+export function setAuthUser(authUser: AuthUser | null) {
+  emitToParent(EVENTS.SET_AUTH_USER, authUser)
 }
 
-
 /**
- * Requests page details
- * 
- * @returns 
+ * Permits account to set the org
+ * @private
+ * @param org
  */
-export function getRuntimeDetails(): Promise<RuntimeDetails> {
-  return new Promise((resolve) => {
-    if (!inBridge) resolve(null)
-    const off = on(EVENTS.GET_PAGE_DETAILS, ({ data }) => {
-      off()
-      resolve(data)
-    })
-    emitToParent(EVENTS.GET_PAGE_DETAILS)
-  })
+export function setOrg(org: Org | null) {
+  emitToParent(EVENTS.SET_ORG, org)
 }
