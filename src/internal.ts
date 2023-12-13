@@ -73,7 +73,7 @@ export function login(realm: string, user: string, pw: string): Promise<LoginRes
       off()
       resolve(data)
     })
-    emitToParent(EVENTS.LOGIN)
+    emitToParent(EVENTS.LOGIN, { realm, user, pw })
   })
 }
 
