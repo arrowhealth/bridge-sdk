@@ -36,6 +36,7 @@ export declare interface LoginResult {
   unknownUser?: boolean
   invalidPw?: boolean
   error?: string
+  id?: string
   email?: string
 }
 
