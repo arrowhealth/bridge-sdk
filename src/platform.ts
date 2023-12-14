@@ -186,6 +186,12 @@ export function onLoginRequest(handle: (appId: string, realm: string, user: stri
   })
 }
 
+export function onLogoutRequest(handle: (appId: string, sendResponse: () => void) => void): Function {
+  return on(EVENTS.LOGOUT, (request: Request) => {
+    handle(request.appId, () => emitToChild(request.win, request.event))
+  })
+}
+
 /**
  * Request to open application. Can only be performed by smart tile.
  * @returns off

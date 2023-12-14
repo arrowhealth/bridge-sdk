@@ -40,6 +40,7 @@ export const EVENTS = {
   GET_USER_SESSION: EVENT_PREFIX + 'get_user_session',
   HIDE_TILE: EVENT_PREFIX + 'hide_tile',
   LOGIN: EVENT_PREFIX + 'login',
+  LOGOUT: EVENT_PREFIX + 'logout',
   OPEN_APP: EVENT_PREFIX + 'open_app',
   PROXY_READY: EVENT_PREFIX + 'proxy_ready',
   PUSH_NOTIFICATION: EVENT_PREFIX + 'push_notification',

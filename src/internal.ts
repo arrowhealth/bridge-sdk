@@ -78,6 +78,21 @@ export function login(realm: string, user: string, pw: string): Promise<LoginRes
 }
 
 /**
+ * Permits account to logout.
+ * @private
+ */
+export function logout(): Promise<void> {
+  return new Promise((resolve) => {
+    if (!inBridge) resolve(null)
+    const off = on(EVENTS.LOGOUT, () => {
+      off()
+      resolve()
+    })
+    emitToParent(EVENTS.LOGOUT)
+  })
+}
+
+/**
  * Permits account to open account application
  * @private
  */
