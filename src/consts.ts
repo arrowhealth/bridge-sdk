@@ -25,42 +25,30 @@ export const version = '[VI]{version}[/VI]'
  * @private
  */
 export const EVENTS = {
-  GET_ORG: EVENT_PREFIX + 'get_org',
-  SET_ORG: EVENT_PREFIX + 'set_org',
-
-  PUSH_NOTIFICATION: EVENT_PREFIX + 'push_notification',
-
-  GET_AUTH_STATUS: EVENT_PREFIX + 'get_auth_status',
-  SET_AUTH_STATUS: EVENT_PREFIX + 'set_auth_status',
-
-  OPEN_APP: EVENT_PREFIX + 'open_app',
-  CLOSE_APP: EVENT_PREFIX + 'close_app',
-
   CAPTURE_USER_EVENTS: EVENT_PREFIX + 'capture_user_events',
-  RELEASE_USER_EVENTS: EVENT_PREFIX + 'release_user_events',
-
-  GET_AUTH_USER: EVENT_PREFIX + 'get_auth_user',
-  SET_AUTH_USER: EVENT_PREFIX + 'set_auth_user',
-
-  GET_USER_SESSION: EVENT_PREFIX + 'get_user_session',
-
-  GET_PATIENT_INFO: EVENT_PREFIX + 'get_patient',
-  SET_PATIENT_INFO: EVENT_PREFIX + 'set_patient',
-
-  SET_BADGE_COUNT: EVENT_PREFIX + 'set_badge_count',
-
-  SHOW_TILE: EVENT_PREFIX + 'show_tile',
-  HIDE_TILE: EVENT_PREFIX + 'hide_tile',
-
-  ENABLE_TILE: EVENT_PREFIX + 'enable_tile',
-  DISABLE_TILE: EVENT_PREFIX + 'disable_tile',
-
-  PROXY_READY: EVENT_PREFIX + 'proxy_ready',
-
-  GET_PAGE_DETAILS: EVENT_PREFIX + 'get_page_details',
-
   CLEAR_CACHE: EVENT_PREFIX + 'clear_cache',
-
+  CLOSE_APP: EVENT_PREFIX + 'close_app',
+  DISABLE_TILE: EVENT_PREFIX + 'disable_tile',
+  ENABLE_TILE: EVENT_PREFIX + 'enable_tile',
+  GET_AUTH_STATUS: EVENT_PREFIX + 'get_auth_status',
+  GET_AUTH_USER: EVENT_PREFIX + 'get_auth_user',
+  GET_ORG: EVENT_PREFIX + 'get_org',
   GET_PAGE: EVENT_PREFIX + 'get_page',
+  GET_PAGE_DETAILS: EVENT_PREFIX + 'get_page_details',
+  GET_PATIENT_INFO: EVENT_PREFIX + 'get_patient',
   GET_PLATFORM: EVENT_PREFIX + 'get_platform',
+  GET_USER_SESSION: EVENT_PREFIX + 'get_user_session',
+  HIDE_TILE: EVENT_PREFIX + 'hide_tile',
+  LOGIN: EVENT_PREFIX + 'login',
+  LOGOUT: EVENT_PREFIX + 'logout',
+  OPEN_APP: EVENT_PREFIX + 'open_app',
+  PROXY_READY: EVENT_PREFIX + 'proxy_ready',
+  PUSH_NOTIFICATION: EVENT_PREFIX + 'push_notification',
+  RELEASE_USER_EVENTS: EVENT_PREFIX + 'release_user_events',
+  SET_AUTH_STATUS: EVENT_PREFIX + 'set_auth_status',
+  SET_AUTH_USER: EVENT_PREFIX + 'set_auth_user',
+  SET_BADGE_COUNT: EVENT_PREFIX + 'set_badge_count',
+  SET_ORG: EVENT_PREFIX + 'set_org',
+  SET_PATIENT_INFO: EVENT_PREFIX + 'set_patient',
+  SHOW_TILE: EVENT_PREFIX + 'show_tile',
 }

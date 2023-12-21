@@ -31,6 +31,15 @@ export declare interface AuthUser {
   email?: string
 }
 
+export declare interface LoginResult {
+  success?: boolean
+  unknownUser?: boolean
+  invalidPw?: boolean
+  error?: string
+  id?: string
+  email?: string
+}
+
 /**
  * Represents the current page being viewed in the EHR.
  */
