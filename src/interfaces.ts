@@ -49,6 +49,7 @@ export declare interface Page {
   /**
    * frames is an optional property that recursively contains the html, href, and frames of all descendant frames.
    * Returned by getPage(true). getPage(false) and getPage() will not return frames.
+   * NOTE: only contains frames that are from the same origin as the parent frame.
    */
   frames?: Page[];
 }
