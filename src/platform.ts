@@ -122,9 +122,9 @@ export function onGetOrgRequest(handle: (appId: string, sendResponse: (org?: Org
  * Request to get page. Can be performed by application or smart tile.
  * @returns off
  */
-export function onGetPageRequest(handle: (appId: string, sendResponse: (page: Page) => void) => void): Function {
+export function onGetPageRequest(handle: (appId: string, deep: boolean, sendResponse: (page: Page) => void) => void): Function {
   return on(EVENTS.GET_PAGE, (request: Request) => {
-    handle(request.appId, (page: Page) => {
+    handle(request.appId, !!request.data?.deep, (page: Page) => {
       emitToChild(request.win, request.event, page)
     })
   })

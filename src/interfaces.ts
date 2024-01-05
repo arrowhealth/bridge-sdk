@@ -46,6 +46,7 @@ export declare interface LoginResult {
 export declare interface Page {
     html: string;
     href: string;
+    frames: Page[];
 }
 
 /**

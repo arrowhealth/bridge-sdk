@@ -23,14 +23,14 @@ export function getAuthUser(): Promise<AuthUser> {
  * 
  * @returns 
  */
-export function getPage(): Promise<Page> {
+export function getPage(deep: boolean = false): Promise<Page> {
   return new Promise((resolve) => {
     if (!inBridge) resolve(null)
     const off = on(EVENTS.GET_PAGE, ({ data }) => {
       off()
       resolve(data)
     })
-    emitToParent(EVENTS.GET_PAGE)
+    emitToParent(EVENTS.GET_PAGE, { deep })
   })
 }
 
@@ -41,7 +41,7 @@ export function getPage(): Promise<Page> {
  *
  * @returns
  */
-export const getPatient = async (): Promise<Patient> => {
+export async function getPatient(): Promise<Patient> {
   return new Promise(resolve => {
     if (!inBridge) resolve(null)
     const off = on(EVENTS.GET_PATIENT_INFO, ({ data }) => {
@@ -82,7 +82,7 @@ export function showTile() {
 }
 
 /**
- * Hide tile. Controlled by a Smart Tile tile based on the
+ * Hide tile. Controlled by a Smart Tile based on the
  * information it receives through the available hooks such as "onPatientChanged()"
  */
 export function hideTile() {
@@ -98,7 +98,7 @@ export function enableTile() {
 }
 
 /**
- * Disables tile preventing user events. Controlled by a Smart Tile tile based on the
+ * Disables tile preventing user events. Controlled by a Smart Tile based on the
  * information it receives through the available hooks such as "onPatientChanged()"
  */
 export function disableTile() {
@@ -120,7 +120,7 @@ export function getAuthStatus(): Promise<AuthStatus> {
 }
 
 /**
- * Tells Bidge when authentication is complete. Set isAuthenticated
+ * Tells Bridge when authentication is complete. Set isAuthenticated
  * to false when authentication is required. This will open the
  * authentication panel where you have declared your Authentication
  * page.
