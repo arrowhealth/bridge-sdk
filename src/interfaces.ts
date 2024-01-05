@@ -44,9 +44,13 @@ export declare interface LoginResult {
  * Represents the current page being viewed in the EHR.
  */
 export declare interface Page {
-    html: string;
-    href: string;
-    frames: Page[];
+  html: string;
+  href: string;
+  /**
+   * frames is an optional property that recursively contains the html, href, and frames of all descendant frames.
+   * Returned by getPage(true). getPage(false) and getPage() will not return frames.
+   */
+  frames?: Page[];
 }
 
 /**
