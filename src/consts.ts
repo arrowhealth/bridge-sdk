@@ -42,7 +42,6 @@ export const EVENTS = {
   LOGIN: EVENT_PREFIX + 'login',
   LOGOUT: EVENT_PREFIX + 'logout',
   OPEN_APP: EVENT_PREFIX + 'open_app',
-  PROXY_READY: EVENT_PREFIX + 'proxy_ready',
   PUSH_NOTIFICATION: EVENT_PREFIX + 'push_notification',
   RELEASE_USER_EVENTS: EVENT_PREFIX + 'release_user_events',
   SET_AUTH_STATUS: EVENT_PREFIX + 'set_auth_status',

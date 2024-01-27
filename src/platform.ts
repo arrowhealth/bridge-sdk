@@ -203,18 +203,6 @@ export function onOpenAppRequest(handle: (appId: string) => void): Function {
 }
 
 /**
- * Request to indicate bridge proxy is ready
- *
- * @param handle
- * @returns off
- */
-export function onProxyReady(handle: (appId: string) => void): Function {
-  return on(EVENTS.PROXY_READY, (request: Request) => {
-    handle(request.appId)
-  })
-}
-
-/**
  * Request to push notification to bridge. Can be performed by application or smart tile.
  * @returns off
  */
