@@ -2,6 +2,10 @@ import { EVENTS, inBridge } from './consts'
 import { emitToParent, on } from './utils/mingle'
 import { AuthStatus, AuthUser, Page, Patient, Platform, PushNotification } from './interfaces'
 
+export function apolloAddIcd10ToEncounter(icd10: string) {
+  emitToParent(EVENTS.APOLLO_ADD_ICD10_TO_ENCOUNTER, icd10)
+}
+
 /**
  * Return user session info
  *

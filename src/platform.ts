@@ -15,6 +15,11 @@ import { emitToChild, on, Request } from './utils/mingle'
 // !! PLATFORM USE ONLY !!
 // Calling these functions will do nothing. Other applications and
 // platforms cannot invoke these methods
+export function onApolloAddIcd10ToEncounterRequest(handle: (appId: string, icd10: string) => void): Function {
+  return on(EVENTS.APOLLO_ADD_ICD10_TO_ENCOUNTER, (request: Request) => {
+    handle(request.appId, request.data)
+  })
+}
 
 /**
  * Request from smart tile to capture user events
