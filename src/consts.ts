@@ -25,6 +25,7 @@ export const version = '[VI]{version}[/VI]'
  * @private
  */
 export const EVENTS = {
+  APOLLO_ADD_ICD10_TO_ENCOUNTER: EVENT_PREFIX + 'apollo_add_icd10_to_encounter',
   CAPTURE_USER_EVENTS: EVENT_PREFIX + 'capture_user_events',
   CLEAR_CACHE: EVENT_PREFIX + 'clear_cache',
   CLOSE_APP: EVENT_PREFIX + 'close_app',
