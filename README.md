@@ -21,12 +21,12 @@ an API to communicate with Bridge and get the data you need from the EHR.
 ### Integrate once, access everywhere
 
 Spend time developing your product, not integrating into EHRs. Bridge is easy and fast to get started with. You can setup your
-first application in less than an hour. Once your application has been published, it will be available in any EHR. 
+first application in less than an hour. Once your application has been published, it will be available in any EHR.
 
 ### Single Sign-On (SSO)
 
 Bridge also allows you to integrate into its authentication layer using well known authentication protocols such as OIDC and SAML. Your application
-can launch without the need for the user to login each time. 
+can launch without the need for the user to login each time.
 
 ### Real-time interaction and feedback
 
@@ -43,4 +43,4 @@ https://arrowhealth.github.io/bridge-sdk/
 
 <hr />
 
-[Arrow Health](https://arrowhealth.io) (c) 2021-present. All rights reserved.
+[Arrowhealth](https://arrowhealth.io) (c) 2021-present. All rights reserved.
