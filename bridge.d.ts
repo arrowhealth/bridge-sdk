@@ -147,11 +147,13 @@ declare enum PlatformKind {
     GGASTRO = "ggastro",
     HENO = "heno",
     IKNOWMED = "iknowmed",
+    MATRIXCARE = "matrixcare",
     NETHEALTH = "nethealth",
     NETSMART = "netsmart",
     NEXTGEN = "nextgen",
     OFFICEALLY = "Office Ally",
     ONCOEMR = "oncoemr",
+    POINTCLICKCARE = "pointclickcare",
     PRACTICEFUSION = "practicefusion",
     PROMPT = "prompt",
     PTEVERYWHERE = "pteverywhere",
@@ -162,6 +164,7 @@ declare enum PlatformKind {
     STRATUS = "stratus",
     THRIVE = "thrive",
     TEBRA = "tebra",
+    TOUCHWORKS = "touchworks",
     TURBOPT = "turbopt",
     WEBPT = "webpt",
     OTHER = "Other"
@@ -197,7 +200,7 @@ declare const inBridge: boolean;
 /**
  * The Bridge SDK version.
  */
-declare const version = "2.8.0";
+declare const version = "2.9.0-beta.0";
 /**
  * Return the current page HTML and href.
  */

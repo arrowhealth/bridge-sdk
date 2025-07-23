@@ -15,11 +15,13 @@ var PlatformKind;
     PlatformKind["GGASTRO"] = "ggastro";
     PlatformKind["HENO"] = "heno";
     PlatformKind["IKNOWMED"] = "iknowmed";
+    PlatformKind["MATRIXCARE"] = "matrixcare";
     PlatformKind["NETHEALTH"] = "nethealth";
     PlatformKind["NETSMART"] = "netsmart";
     PlatformKind["NEXTGEN"] = "nextgen";
     PlatformKind["OFFICEALLY"] = "Office Ally";
     PlatformKind["ONCOEMR"] = "oncoemr";
+    PlatformKind["POINTCLICKCARE"] = "pointclickcare";
     PlatformKind["PRACTICEFUSION"] = "practicefusion";
     PlatformKind["PROMPT"] = "prompt";
     PlatformKind["PTEVERYWHERE"] = "pteverywhere";
@@ -30,6 +32,7 @@ var PlatformKind;
     PlatformKind["STRATUS"] = "stratus";
     PlatformKind["THRIVE"] = "thrive";
     PlatformKind["TEBRA"] = "tebra";
+    PlatformKind["TOUCHWORKS"] = "touchworks";
     PlatformKind["TURBOPT"] = "turbopt";
     PlatformKind["WEBPT"] = "webpt";
     PlatformKind["OTHER"] = "Other";
@@ -86,10 +89,11 @@ function messageListener(event) {
     }));
 }
 
-function send(dest, msgKind, message) {
+function send(dest, sdkVersion, msgKind, message) {
     const messageInternal = {
         event: msgKind,
         eventType: MAGIC_VALUE,
+        sdkVersion: sdkVersion,
         ...message
     };
     dest.postMessage(JSON.stringify(messageInternal), "*");
@@ -101,7 +105,7 @@ const inIframe = !inPopout && window.parent !== window;
 
 const inBridge = (window.name + "").includes("bridge_");
 
-const version = "2.8.0";
+const version = "2.9.0-beta.0";
 
 function getPage(deep = false) {
     return new Promise((resolve => {
@@ -206,7 +210,7 @@ function sendToParent(messageKind, data) {
         console.warn("No app id assigned. Cannot post request.");
         return;
     }
-    send(parentWindow, messageKind, {
+    send(parentWindow, version, messageKind, {
         appId: window.name,
         data: data
     });

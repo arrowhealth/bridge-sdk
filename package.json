@@ -1,6 +1,6 @@
 {
 	"name": "@arrowhealth/bridge-sdk",
-	"version": "2.8.0",
+	"version": "2.9.0-beta.0",
 	"description": "Bridge SDK provides web applications the ability to integrate with the Bridge Platform.",
 	"keywords": [
 		"healthcare",
@@ -10,7 +10,7 @@
 		"payer",
 		"labs"
 	],
-	"homepage": "https://bridge-sdk-docs.arrowhealth.io/2.8.0/index.html",
+	"homepage": "https://bridge-sdk-docs.arrowhealth.io/2.9.0-beta.0/index.html",
 	"repository": "git@github.com:arrowhealth/bridge-sdk.git",
 	"license": "SEE LICENSE",
 	"publishConfig": {
