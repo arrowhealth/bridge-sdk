@@ -20,6 +20,7 @@
         PlatformKind["HENO"] = "heno";
         PlatformKind["IKNOWMED"] = "iknowmed";
         PlatformKind["MATRIXCARE"] = "matrixcare";
+        PlatformKind["MODMED"] = "modmed";
         PlatformKind["NETHEALTH"] = "nethealth";
         PlatformKind["NETSMART"] = "netsmart";
         PlatformKind["NEXTGEN"] = "nextgen";
@@ -86,11 +87,10 @@
             detail: payload
         }));
     }
-    function send(dest, sdkVersion, msgKind, message) {
+    function send(dest, msgKind, message) {
         const messageInternal = {
             event: msgKind,
             eventType: MAGIC_VALUE,
-            sdkVersion: sdkVersion,
             ...message
         };
         dest.postMessage(JSON.stringify(messageInternal), "*");
@@ -98,7 +98,7 @@
     const inPopout = !!(window.opener && window.opener !== window);
     const inIframe = !inPopout && window.parent !== window;
     const inBridge = (window.name + "").includes("bridge_");
-    const version = "2.9.0-beta.0";
+    const version = "2.8.1";
     function getPage(deep = false) {
         return new Promise((resolve => {
             if (!inBridge) resolve(null);
@@ -187,7 +187,7 @@
             console.warn("No app id assigned. Cannot post request.");
             return;
         }
-        send(parentWindow, version, messageKind, {
+        send(parentWindow, messageKind, {
             appId: window.name,
             data: data
         });

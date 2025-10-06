@@ -1,5 +1,9 @@
 type Encounter = {
     /**
+     * The unique identifier for the encounter as reported by the EHR.
+     */
+    id: string;
+    /**
      * Date of the encounter in ISO format (YYYY-MM-DD) as reported by the EHR.
      */
     date: string;
@@ -7,6 +11,10 @@ type Encounter = {
      * The type of the encounter as reported by the EHR.
      */
     type: string;
+    /**
+     * The diagnoses associated with the encounter.
+     */
+    dx: string[];
 };
 
 /**
@@ -148,6 +156,7 @@ declare enum PlatformKind {
     HENO = "heno",
     IKNOWMED = "iknowmed",
     MATRIXCARE = "matrixcare",
+    MODMED = "modmed",
     NETHEALTH = "nethealth",
     NETSMART = "netsmart",
     NEXTGEN = "nextgen",
@@ -200,7 +209,7 @@ declare const inBridge: boolean;
 /**
  * The Bridge SDK version.
  */
-declare const version = "2.9.0-beta.0";
+declare const version = "2.8.1";
 /**
  * Return the current page HTML and href.
  */
