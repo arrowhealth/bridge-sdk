@@ -1,18 +1,18 @@
 type Encounter = {
     /**
-     * The unique identifier for the encounter as reported by the EHR.
+     * The unique identifier for the encounter, as reported by the EHR.
      */
     id: string;
     /**
-     * Date of the encounter in ISO format (YYYY-MM-DD) as reported by the EHR.
+     * Date of the encounter in ISO format (YYYY-MM-DD), as reported by the EHR.
      */
     date: string;
     /**
-     * The type of the encounter as reported by the EHR.
+     * The type of the encounter, as reported by the EHR.
      */
     type: string;
     /**
-     * The diagnoses associated with the encounter.
+     * The diagnoses associated with the encounter, as reported by the EHR.
      */
     dx: string[];
 };
