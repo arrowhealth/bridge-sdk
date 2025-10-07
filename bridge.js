@@ -17,6 +17,7 @@
         PlatformKind["ELATION"] = "Elation";
         PlatformKind["EMPOWER"] = "empower";
         PlatformKind["GGASTRO"] = "ggastro";
+        PlatformKind["HELLONOTE"] = "hellonote";
         PlatformKind["HENO"] = "heno";
         PlatformKind["IKNOWMED"] = "iknowmed";
         PlatformKind["MATRIXCARE"] = "matrixcare";
@@ -98,7 +99,7 @@
     const inPopout = !!(window.opener && window.opener !== window);
     const inIframe = !inPopout && window.parent !== window;
     const inBridge = (window.name + "").includes("bridge_");
-    const version = "2.8.2";
+    const version = "2.9.0";
     function getPage(deep = false) {
         return new Promise((resolve => {
             if (!inBridge) resolve(null);
@@ -189,7 +190,8 @@
         }
         send(parentWindow, messageKind, {
             appId: window.name,
-            data: data
+            data: data,
+            sdkVersion: version
         });
     }
     exports.captureUserEvents = captureUserEvents;

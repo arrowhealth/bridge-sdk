@@ -153,6 +153,7 @@ declare enum PlatformKind {
     ELATION = "Elation",
     EMPOWER = "empower",
     GGASTRO = "ggastro",
+    HELLONOTE = "hellonote",
     HENO = "heno",
     IKNOWMED = "iknowmed",
     MATRIXCARE = "matrixcare",
@@ -209,7 +210,7 @@ declare const inBridge: boolean;
 /**
  * The Bridge SDK version.
  */
-declare const version = "2.8.2";
+declare const version = "2.9.0";
 /**
  * Return the current page HTML and href.
  */

@@ -13,6 +13,7 @@ var PlatformKind;
     PlatformKind["ELATION"] = "Elation";
     PlatformKind["EMPOWER"] = "empower";
     PlatformKind["GGASTRO"] = "ggastro";
+    PlatformKind["HELLONOTE"] = "hellonote";
     PlatformKind["HENO"] = "heno";
     PlatformKind["IKNOWMED"] = "iknowmed";
     PlatformKind["MATRIXCARE"] = "matrixcare";
@@ -105,7 +106,7 @@ const inIframe = !inPopout && window.parent !== window;
 
 const inBridge = (window.name + "").includes("bridge_");
 
-const version = "2.8.2";
+const version = "2.9.0";
 
 function getPage(deep = false) {
     return new Promise((resolve => {
@@ -212,7 +213,8 @@ function sendToParent(messageKind, data) {
     }
     send(parentWindow, messageKind, {
         appId: window.name,
-        data: data
+        data: data,
+        sdkVersion: version
     });
 }
 
