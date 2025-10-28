@@ -210,7 +210,7 @@ declare const inBridge: boolean;
 /**
  * The Bridge SDK version.
  */
-declare const version = "2.9.0";
+declare const version = "2.9.1";
 /**
  * Return the current page HTML and href.
  */

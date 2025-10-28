@@ -54,7 +54,7 @@ var MessageKind;
     MessageKind["HIDE_TILE"] = "bridge::hide_tile";
     MessageKind["LOGIN"] = "bridge::login";
     MessageKind["LOGOUT"] = "bridge::logout";
-    MessageKind["SET_OPEN_ENCOUNTER"] = "bridge::on_open_encounter";
+    MessageKind["SET_OPEN_ENCOUNTER"] = "bridge::set_open_encounter";
     MessageKind["PUSH_NOTIFICATION"] = "bridge::push_notification";
     MessageKind["RELEASE_USER_EVENTS"] = "bridge::release_user_events";
     MessageKind["SET_BADGE_COUNT"] = "bridge::set_badge_count";
@@ -106,7 +106,7 @@ const inIframe = !inPopout && window.parent !== window;
 
 const inBridge = (window.name + "").includes("bridge_");
 
-const version = "2.9.0";
+const version = "2.9.1";
 
 function getPage(deep = false) {
     return new Promise((resolve => {
