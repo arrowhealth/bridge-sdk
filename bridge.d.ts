@@ -143,6 +143,7 @@ type Platform = {
 };
 declare enum PlatformKind {
     ADVANCEDMD = "advancedmd",
+    ATHELAS = "athelas",
     ATHENA = "Athena",
     AZALEA = "azalea",
     AZARA = "azara",
@@ -172,6 +173,7 @@ declare enum PlatformKind {
     SIRRUS = "sirrus",
     STRATAEMR = "strataemr",
     STRATUS = "stratus",
+    STRIDE = "stride",
     THRIVE = "thrive",
     TEBRA = "tebra",
     TOUCHWORKS = "touchworks",
@@ -210,7 +212,7 @@ declare const inBridge: boolean;
 /**
  * The Bridge SDK version.
  */
-declare const version = "2.9.1";
+declare const version = "2.9.2";
 /**
  * Return the current page HTML and href.
  */

@@ -3,6 +3,7 @@ var PlatformKind;
 
 (function(PlatformKind) {
     PlatformKind["ADVANCEDMD"] = "advancedmd";
+    PlatformKind["ATHELAS"] = "athelas";
     PlatformKind["ATHENA"] = "Athena";
     PlatformKind["AZALEA"] = "azalea";
     PlatformKind["AZARA"] = "azara";
@@ -32,6 +33,7 @@ var PlatformKind;
     PlatformKind["SIRRUS"] = "sirrus";
     PlatformKind["STRATAEMR"] = "strataemr";
     PlatformKind["STRATUS"] = "stratus";
+    PlatformKind["STRIDE"] = "stride";
     PlatformKind["THRIVE"] = "thrive";
     PlatformKind["TEBRA"] = "tebra";
     PlatformKind["TOUCHWORKS"] = "touchworks";
@@ -66,11 +68,16 @@ var MessageKind;
 let numSubs = 0;
 
 function on(event, handle) {
-    if (numSubs++ === 0) window.addEventListener("message", messageListener, false);
+    if (numSubs++ === 0) {
+        window.addEventListener("message", messageListener, false);
+    }
     const eventHandler = evt => handle(evt.detail, evt.detail.srcWindow);
     window.addEventListener(event, eventHandler);
     return () => {
-        if (--numSubs === 0) window.removeEventListener(event, eventHandler);
+        window.removeEventListener(event, eventHandler);
+        if (--numSubs === 0) {
+            window.removeEventListener("message", messageListener);
+        }
     };
 }
 
@@ -81,7 +88,7 @@ function messageListener(event) {
     let payload;
     try {
         payload = JSON.parse(event.data);
-    } catch (e) {
+    } catch {
         return;
     }
     if (payload.eventType !== MAGIC_VALUE) return;
@@ -106,41 +113,41 @@ const inIframe = !inPopout && window.parent !== window;
 
 const inBridge = (window.name + "").includes("bridge_");
 
-const version = "2.9.1";
+const version = "2.9.2";
 
 function getPage(deep = false) {
-    return new Promise((resolve => {
+    return new Promise(resolve => {
         if (!inBridge) resolve(null);
-        const off = on(MessageKind.GET_PAGE, (({data: data}) => {
+        const off = on(MessageKind.GET_PAGE, ({data: data}) => {
             off();
             resolve(data);
-        }));
+        });
         sendToParent(MessageKind.GET_PAGE, {
             deep: deep
         });
-    }));
+    });
 }
 
 async function getPatient() {
-    return new Promise((resolve => {
+    return new Promise(resolve => {
         if (!inBridge) resolve(null);
-        const off = on(MessageKind.GET_PATIENT_INFO, (({data: data}) => {
+        const off = on(MessageKind.GET_PATIENT_INFO, ({data: data}) => {
             off();
             resolve(data);
-        }));
+        });
         sendToParent(MessageKind.GET_PATIENT_INFO);
-    }));
+    });
 }
 
 async function getPlatform() {
-    return new Promise((resolve => {
+    return new Promise(resolve => {
         if (!inBridge) resolve(null);
-        const off = on(MessageKind.GET_PLATFORM, (({data: data}) => {
+        const off = on(MessageKind.GET_PLATFORM, ({data: data}) => {
             off();
             resolve(data);
-        }));
+        });
         sendToParent(MessageKind.GET_PLATFORM);
-    }));
+    });
 }
 
 function setBadgeCount(count = 0) {
@@ -180,22 +187,22 @@ function pushNotification(notification) {
 }
 
 function getOpenEncounter() {
-    return new Promise((resolve => {
+    return new Promise(resolve => {
         if (!inBridge) resolve(null);
-        const off = on(MessageKind.GET_OPEN_ENCOUNTER, (({data: data}) => {
+        const off = on(MessageKind.GET_OPEN_ENCOUNTER, ({data: data}) => {
             off();
             resolve(data);
-        }));
+        });
         sendToParent(MessageKind.GET_OPEN_ENCOUNTER);
-    }));
+    });
 }
 
 function onOpenEncounterChanged(cb) {
-    return on(MessageKind.SET_OPEN_ENCOUNTER, (msg => cb(msg.data)));
+    return on(MessageKind.SET_OPEN_ENCOUNTER, msg => cb(msg.data));
 }
 
 function onPatientChanged(cb) {
-    return on(MessageKind.SET_PATIENT_INFO, (msg => cb(msg.data)));
+    return on(MessageKind.SET_PATIENT_INFO, msg => cb(msg.data));
 }
 
 function sendToParent(messageKind, data) {

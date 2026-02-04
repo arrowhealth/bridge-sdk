@@ -2,11 +2,12 @@
 (function(global, factory) {
     typeof exports === "object" && typeof module !== "undefined" ? factory(exports) : typeof define === "function" && define.amd ? define([ "exports" ], factory) : (global = typeof globalThis !== "undefined" ? globalThis : global || self, 
     factory(global.bridge = {}));
-})(this, (function(exports) {
+})(this, function(exports) {
     "use strict";
     exports.PlatformKind = void 0;
     (function(PlatformKind) {
         PlatformKind["ADVANCEDMD"] = "advancedmd";
+        PlatformKind["ATHELAS"] = "athelas";
         PlatformKind["ATHENA"] = "Athena";
         PlatformKind["AZALEA"] = "azalea";
         PlatformKind["AZARA"] = "azara";
@@ -36,6 +37,7 @@
         PlatformKind["SIRRUS"] = "sirrus";
         PlatformKind["STRATAEMR"] = "strataemr";
         PlatformKind["STRATUS"] = "stratus";
+        PlatformKind["STRIDE"] = "stride";
         PlatformKind["THRIVE"] = "thrive";
         PlatformKind["TEBRA"] = "tebra";
         PlatformKind["TOUCHWORKS"] = "touchworks";
@@ -66,11 +68,16 @@
     })(MessageKind || (MessageKind = {}));
     let numSubs = 0;
     function on(event, handle) {
-        if (numSubs++ === 0) window.addEventListener("message", messageListener, false);
+        if (numSubs++ === 0) {
+            window.addEventListener("message", messageListener, false);
+        }
         const eventHandler = evt => handle(evt.detail, evt.detail.srcWindow);
         window.addEventListener(event, eventHandler);
         return () => {
-            if (--numSubs === 0) window.removeEventListener(event, eventHandler);
+            window.removeEventListener(event, eventHandler);
+            if (--numSubs === 0) {
+                window.removeEventListener("message", messageListener);
+            }
         };
     }
     const MAGIC_VALUE = "BRIDGE_EVENT";
@@ -79,7 +86,7 @@
         let payload;
         try {
             payload = JSON.parse(event.data);
-        } catch (e) {
+        } catch {
             return;
         }
         if (payload.eventType !== MAGIC_VALUE) return;
@@ -99,38 +106,38 @@
     const inPopout = !!(window.opener && window.opener !== window);
     const inIframe = !inPopout && window.parent !== window;
     const inBridge = (window.name + "").includes("bridge_");
-    const version = "2.9.1";
+    const version = "2.9.2";
     function getPage(deep = false) {
-        return new Promise((resolve => {
+        return new Promise(resolve => {
             if (!inBridge) resolve(null);
-            const off = on(MessageKind.GET_PAGE, (({data: data}) => {
+            const off = on(MessageKind.GET_PAGE, ({data: data}) => {
                 off();
                 resolve(data);
-            }));
+            });
             sendToParent(MessageKind.GET_PAGE, {
                 deep: deep
             });
-        }));
+        });
     }
     async function getPatient() {
-        return new Promise((resolve => {
+        return new Promise(resolve => {
             if (!inBridge) resolve(null);
-            const off = on(MessageKind.GET_PATIENT_INFO, (({data: data}) => {
+            const off = on(MessageKind.GET_PATIENT_INFO, ({data: data}) => {
                 off();
                 resolve(data);
-            }));
+            });
             sendToParent(MessageKind.GET_PATIENT_INFO);
-        }));
+        });
     }
     async function getPlatform() {
-        return new Promise((resolve => {
+        return new Promise(resolve => {
             if (!inBridge) resolve(null);
-            const off = on(MessageKind.GET_PLATFORM, (({data: data}) => {
+            const off = on(MessageKind.GET_PLATFORM, ({data: data}) => {
                 off();
                 resolve(data);
-            }));
+            });
             sendToParent(MessageKind.GET_PLATFORM);
-        }));
+        });
     }
     function setBadgeCount(count = 0) {
         sendToParent(MessageKind.SET_BADGE_COUNT, count);
@@ -160,20 +167,20 @@
         sendToParent(MessageKind.PUSH_NOTIFICATION, notification);
     }
     function getOpenEncounter() {
-        return new Promise((resolve => {
+        return new Promise(resolve => {
             if (!inBridge) resolve(null);
-            const off = on(MessageKind.GET_OPEN_ENCOUNTER, (({data: data}) => {
+            const off = on(MessageKind.GET_OPEN_ENCOUNTER, ({data: data}) => {
                 off();
                 resolve(data);
-            }));
+            });
             sendToParent(MessageKind.GET_OPEN_ENCOUNTER);
-        }));
+        });
     }
     function onOpenEncounterChanged(cb) {
-        return on(MessageKind.SET_OPEN_ENCOUNTER, (msg => cb(msg.data)));
+        return on(MessageKind.SET_OPEN_ENCOUNTER, msg => cb(msg.data));
     }
     function onPatientChanged(cb) {
-        return on(MessageKind.SET_PATIENT_INFO, (msg => cb(msg.data)));
+        return on(MessageKind.SET_PATIENT_INFO, msg => cb(msg.data));
     }
     function sendToParent(messageKind, data) {
         let parentWindow = window.parent;
@@ -213,4 +220,4 @@
     exports.setBadgeCount = setBadgeCount;
     exports.showTile = showTile;
     exports.version = version;
-}));
+});
