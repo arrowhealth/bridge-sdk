@@ -106,7 +106,7 @@
     const inPopout = !!(window.opener && window.opener !== window);
     const inIframe = !inPopout && window.parent !== window;
     const inBridge = (window.name + "").includes("bridge_");
-    const version = "2.9.2";
+    const version = "2.9.3";
     function getPage(deep = false) {
         return new Promise(resolve => {
             if (!inBridge) resolve(null);
