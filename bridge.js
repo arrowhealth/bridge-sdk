@@ -22,6 +22,7 @@
         PlatformKind["HENO"] = "heno";
         PlatformKind["IKNOWMED"] = "iknowmed";
         PlatformKind["MATRIXCARE"] = "matrixcare";
+        PlatformKind["MEDITECH"] = "meditech";
         PlatformKind["MODMED"] = "modmed";
         PlatformKind["NETHEALTH"] = "nethealth";
         PlatformKind["NETSMART"] = "netsmart";
@@ -35,6 +36,7 @@
         PlatformKind["PTPRACTICEPRO"] = "ptpracticepro";
         PlatformKind["RAINTREE"] = "raintree";
         PlatformKind["SIRRUS"] = "sirrus";
+        PlatformKind["SPRYPT"] = "sprypt";
         PlatformKind["STRATAEMR"] = "strataemr";
         PlatformKind["STRATUS"] = "stratus";
         PlatformKind["STRIDE"] = "stride";
@@ -51,6 +53,7 @@
         MessageKind["CLOSE_APP"] = "bridge::close_app";
         MessageKind["DISABLE_TILE"] = "bridge::disable_tile";
         MessageKind["ENABLE_TILE"] = "bridge::enable_tile";
+        MessageKind["GET_BRIDGE_VERSION"] = "bridge::get_bridge_version";
         MessageKind["GET_OPEN_ENCOUNTER"] = "bridge::get_open_encounter";
         MessageKind["GET_PAGE"] = "bridge::get_page";
         MessageKind["GET_PATIENT_INFO"] = "bridge::get_patient";
@@ -106,10 +109,21 @@
     const inPopout = !!(window.opener && window.opener !== window);
     const inIframe = !inPopout && window.parent !== window;
     const inBridge = (window.name + "").includes("bridge_");
-    const version = "2.9.3";
+    const version = "2.10.1";
+    function getBridgeVersion() {
+        if (!inBridge) throw new Error("not running in Bridge");
+        const cache = getBridgeVersion;
+        return cache.p ??= new Promise(resolve => {
+            const off = on(MessageKind.GET_BRIDGE_VERSION, ({data: data}) => {
+                off();
+                resolve(data);
+            });
+            sendToParent(MessageKind.GET_BRIDGE_VERSION);
+        });
+    }
     function getPage(deep = false) {
+        if (!inBridge) throw new Error("not running in Bridge");
         return new Promise(resolve => {
-            if (!inBridge) resolve(null);
             const off = on(MessageKind.GET_PAGE, ({data: data}) => {
                 off();
                 resolve(data);
@@ -120,8 +134,8 @@
         });
     }
     async function getPatient() {
+        if (!inBridge) throw new Error("not running in Bridge");
         return new Promise(resolve => {
-            if (!inBridge) resolve(null);
             const off = on(MessageKind.GET_PATIENT_INFO, ({data: data}) => {
                 off();
                 resolve(data);
@@ -130,8 +144,8 @@
         });
     }
     async function getPlatform() {
+        if (!inBridge) throw new Error("not running in Bridge");
         return new Promise(resolve => {
-            if (!inBridge) resolve(null);
             const off = on(MessageKind.GET_PLATFORM, ({data: data}) => {
                 off();
                 resolve(data);
@@ -205,6 +219,7 @@
     exports.closeApp = closeApp;
     exports.disableTile = disableTile;
     exports.enableTile = enableTile;
+    exports.getBridgeVersion = getBridgeVersion;
     exports.getOpenEncounter = getOpenEncounter;
     exports.getPage = getPage;
     exports.getPatient = getPatient;

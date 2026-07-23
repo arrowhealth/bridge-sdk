@@ -32,11 +32,11 @@ type Page = {
 };
 
 /**
- * The Patient being viewed in the EHR.
+ * The patient object is delivered to a bridge app via the sdk when a user navigates to a patient page within the EHR
  */
 type Patient = {
     /**
-     * EHR Patient ID
+     * The external facing patient identifier as displayed in the EHR
      */
     id: string;
     /**
@@ -44,28 +44,42 @@ type Patient = {
      */
     altIds?: string[];
     /**
-     * Patient's first name
+     * The given name for the patient
      */
     first?: string;
     /**
-     * Patient's last name
+     * The family name for the patient
      */
     last?: string;
     /**
-     * Patient's date of birth (DD/MM//YYYY)
+     * ISO 8601 format date string representing the date of birth from the EHR. YYYY-MM-DD
      */
     dob?: string;
     /**
-     * Patient's sex
+     * The patient sex as reported by the EHR.
+     *
+     * F: female, M: male, O: other (any other defined value outside of female/male)
      */
-    sex?: 'M' | 'F';
+    sex?: 'F' | 'M' | 'O';
     /**
-   * Additional patient data
-   */
+     * Additional patient data
+     */
     xdata?: {
+        /**
+         * Primary contact email identified for the patient
+         */
         email?: string;
+        /**
+         * Home phone or Primary Phone in the format provided by the EHR
+         */
         phoneHome?: string;
+        /**
+         * Cell phone in the format provided by the EHR
+         */
         phoneCell?: string;
+        /**
+         * {line1: String, line2: String, city: String, state: String, zip: String} as reported by the EHR
+         */
         address?: {
             line1?: string;
             line2?: string;
@@ -77,27 +91,31 @@ type Patient = {
             id: string;
             type: string;
         }[];
+        /**
+         * The name of the physical location associated with the patient in the EHR.
+         * This is not standardized and may even be an internal nickname for the practice. Bridge reports what is in the EHR
+         */
         dept?: string;
         /**
-         * The provider assigned to the patient.
+         * Name of provider associated with the patient if any, in the format provided by the EHR.
          *
          * Prompt: The provider on the most recent active case. `undefined` if no active cases, or no provider on the most recent active case. Format: "<last>, <first>[ <middle>][, <space-delimited credentials>]"
          */
         provider?: string;
         /**
-         * The provider that referred the patient.
+         * Name of provider identified by the EHR as the primary referring provider associated with the patient if any, in the format provided by the EHR.
          *
          * Prompt: The referring provider on the most recent active case. `undefined` if no active cases, or no referring provider on the most recent active case. Format: "<last>, <first>[ <middle>][, <space-delimited credentials>]"
          */
         referringProvider?: string;
         /**
-         * The primary insurance of the patient.
+         * Name of Payer and name of Plan identified as the primary insurance or the first insurance in the list of patient insurances as reported by the EHR. Insurance must be effective.
          *
          * Prompt: This is the first listed active insurance. `undefined` if no active insurances. Format: "<payer name>[ <plan name>]"
          */
         primaryInsurance?: string;
         /**
-         * The primary insurance policy number as provided by the EHR.
+         * Member id associated with the primary insurance as reported by the EHR
          */
         primaryInsurancePolicyNum?: string;
         /**
@@ -105,27 +123,29 @@ type Patient = {
          */
         primaryInsuranceGroupNum?: string;
         /**
-         * The patient's secondary insurance.
+         * Name of Payer and name of Plan identified as the secondary insurance or the second insurance in the list of patient insurances as reported by the EHR. Insurance must be effective.
          *
          * Prompt: This is the second listed active insurance. `undefined` if fewer than 2 insurances. Format: "<payer name>[ <plan name>]"
          */
         secondaryInsurance?: string;
         /**
-         * The secondary insurance policy number as provided by the EHR.
+         * Member id associated with the secondary insurance as reported by the EHR.
          */
         secondaryInsurancePolicyNum?: string;
         /**
-         * The secondary insurance group number as provided by the EHR.
+         * Group ID associated with the secondary insurance as reported by the EHR.
          */
         secondaryInsuranceGroupNum?: string;
         /**
-         * The patient's list of medical diagnoses as provided by the EHR.
+         * A list of strings representing current problems as reported by the EHR. Elements typically include a combination of a code and a description as reported by the EHR.
          *
          * Prompt: List of active cases' visits' services' diagnoses. Sorted alphabetically. Empty array if no active cases.
+         * OncoEMR: Combined problem list (oncology diagnoses + non-oncology diagnoses).
+         * gGastro: Combined problems/diagnoses list + conditions list.
          */
         problems?: string[];
         /**
-         * Last date of service in ISO 8601 format: "YYYY-MM-DD"
+         * The ISO 8601 date of the last date of service as identified in the EHR.
          *
          * Prompt: Most recent visit's (across all cases) date of service. `undefined` if no visits.
          */
@@ -144,25 +164,26 @@ type Platform = {
 declare enum PlatformKind {
     ADVANCEDMD = "advancedmd",
     ATHELAS = "athelas",
-    ATHENA = "Athena",
+    ATHENA = "Athena",// non-standard
     AZALEA = "azalea",
     AZARA = "azara",
     CAREECO = "careeco",
     CLINICIENT = "clinicient",
     CROSSTX = "crosstx",
-    ECW = "eCW",
-    ELATION = "Elation",
+    ECW = "eCW",// non-standard
+    ELATION = "Elation",// non-standard
     EMPOWER = "empower",
     GGASTRO = "ggastro",
     HELLONOTE = "hellonote",
     HENO = "heno",
     IKNOWMED = "iknowmed",
     MATRIXCARE = "matrixcare",
+    MEDITECH = "meditech",
     MODMED = "modmed",
     NETHEALTH = "nethealth",
     NETSMART = "netsmart",
     NEXTGEN = "nextgen",
-    OFFICEALLY = "Office Ally",
+    OFFICEALLY = "Office Ally",// non-standard
     ONCOEMR = "oncoemr",
     POINTCLICKCARE = "pointclickcare",
     PRACTICEFUSION = "practicefusion",
@@ -171,6 +192,7 @@ declare enum PlatformKind {
     PTPRACTICEPRO = "ptpracticepro",
     RAINTREE = "raintree",
     SIRRUS = "sirrus",
+    SPRYPT = "sprypt",
     STRATAEMR = "strataemr",
     STRATUS = "stratus",
     STRIDE = "stride",
@@ -212,7 +234,11 @@ declare const inBridge: boolean;
 /**
  * The Bridge SDK version.
  */
-declare const version = "2.9.3";
+declare const version = "2.10.1";
+/**
+ * The Bridge extension version.
+ */
+declare function getBridgeVersion(): Promise<string>;
 /**
  * Return the current page HTML and href.
  */
@@ -285,5 +311,5 @@ declare function onOpenEncounterChanged(cb: (encounter: Encounter) => void): Uns
  */
 declare function onPatientChanged(cb: (patient: Patient) => void): Unsubscribe;
 
-export { PlatformKind, captureUserEvents, closeApp, disableTile, enableTile, getOpenEncounter, getPage, getPatient, getPlatform, hideTile, inBridge, inIframe, inPopout, onOpenEncounterChanged, onPatientChanged, pushNotification, releaseUserEvents, setBadgeCount, showTile, version };
+export { PlatformKind, captureUserEvents, closeApp, disableTile, enableTile, getBridgeVersion, getOpenEncounter, getPage, getPatient, getPlatform, hideTile, inBridge, inIframe, inPopout, onOpenEncounterChanged, onPatientChanged, pushNotification, releaseUserEvents, setBadgeCount, showTile, version };
 export type { Encounter, Page, Patient, Platform, PushNotification, Unsubscribe };
