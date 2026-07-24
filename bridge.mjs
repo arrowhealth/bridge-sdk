@@ -1,4 +1,28 @@
 /* Bridge SDK provided by Novo Health 2021-present. All rights reserved. */
+class Bus {
+    handlers=new Map;
+    emit(key, data) {
+        for (const handler of [ ...this.handlers.get(key) ?? [] ]) {
+            try {
+                handler(data);
+            } catch (err) {
+                console.error(`bus: handler for ${key} threw`, err);
+            }
+        }
+    }
+    on(key, handler) {
+        let set = this.handlers.get(key);
+        if (!set) this.handlers.set(key, set = new Set);
+        set.add(handler);
+        return () => {
+            set.delete(handler);
+            if (set.size === 0 && this.handlers.get(key) === set) this.handlers.delete(key);
+        };
+    }
+}
+
+var bus$1 = new Bus;
+
 var PlatformKind;
 
 (function(PlatformKind) {
@@ -68,25 +92,47 @@ var MessageKind;
     MessageKind["DEPRECATED_GET_AUTH_USER"] = "bridge::get_auth_user";
 })(MessageKind || (MessageKind = {}));
 
-let numSubs = 0;
+var MessageKind$1 = MessageKind;
 
-function on(event, handle) {
-    if (numSubs++ === 0) {
-        window.addEventListener("message", messageListener, false);
-    }
-    const eventHandler = evt => handle(evt.detail, evt.detail.srcWindow);
-    window.addEventListener(event, eventHandler);
-    return () => {
-        window.removeEventListener(event, eventHandler);
-        if (--numSubs === 0) {
-            window.removeEventListener("message", messageListener);
-        }
-    };
+const version = "2.11.0";
+
+const MAGIC_VALUE$1 = "BRIDGE_EVENT";
+
+const bus = new Bus;
+
+let bridgeReqHandler$1;
+
+function setBridgeReqHandler$1(handler) {
+    bridgeReqHandler$1 = handler;
 }
 
-const MAGIC_VALUE = "BRIDGE_EVENT";
+function send$2(kind, data) {
+    const msg = {
+        event: kind,
+        eventType: MAGIC_VALUE$1,
+        appId: window.name,
+        data: data,
+        sdkVersion: version
+    };
+    window.parent.postMessage(JSON.stringify(msg), "*");
+}
 
-function messageListener(event) {
+function sendAwaitResp$2(kind, data, timeoutMs = 5e3) {
+    return new Promise((resolve, reject) => {
+        const off = bus.on(kind, data => {
+            clearTimeout(timer);
+            off();
+            resolve(data);
+        });
+        const timer = setTimeout(() => {
+            off();
+            reject(new Error(`timeout waiting for ${kind} response from Bridge`));
+        }, timeoutMs);
+        send$2(kind, data);
+    });
+}
+
+window.addEventListener("message", event => {
     if (typeof event.data !== "string") return;
     let payload;
     try {
@@ -94,150 +140,187 @@ function messageListener(event) {
     } catch {
         return;
     }
-    if (payload.eventType !== MAGIC_VALUE) return;
-    payload.srcWindow = event.source;
-    window.dispatchEvent(new CustomEvent(payload.event, {
-        detail: payload
-    }));
+    if (payload.eventType !== MAGIC_VALUE$1) return;
+    if (payload.event === MessageKind$1.SET_OPEN_ENCOUNTER || payload.event === MessageKind$1.SET_PATIENT_INFO) {
+        bridgeReqHandler$1?.(payload.event, payload.data);
+        return;
+    }
+    bus.emit(payload.event, payload.data);
+});
+
+var v1 = Object.freeze({
+    __proto__: null,
+    send: send$2,
+    sendAwaitResp: sendAwaitResp$2,
+    setBridgeReqHandler: setBridgeReqHandler$1
+});
+
+const MAGIC_VALUE = "BRIDGE_EVENT";
+
+let msgId = 0;
+
+const awaitingResp = new Map;
+
+let bridgeReqHandler;
+
+function setBridgeReqHandler(handler) {
+    bridgeReqHandler = handler;
 }
 
-function send(dest, msgKind, message) {
-    const messageInternal = {
-        event: msgKind,
-        eventType: MAGIC_VALUE,
-        ...message
+function send$1(kind, data) {
+    const msg = {
+        id: msgId++,
+        v: 2,
+        kind: kind,
+        magicValue: MAGIC_VALUE,
+        data: data,
+        sdkVersion: version
     };
-    dest.postMessage(JSON.stringify(messageInternal), "*");
+    window.parent.postMessage(msg, "*");
 }
 
-const inPopout = !!(window.opener && window.opener !== window);
-
-const inIframe = !inPopout && window.parent !== window;
-
-const inBridge = (window.name + "").includes("bridge_");
-
-const version = "2.10.1";
-
-function getBridgeVersion() {
-    if (!inBridge) throw new Error("not running in Bridge");
-    const cache = getBridgeVersion;
-    return cache.p ??= new Promise(resolve => {
-        const off = on(MessageKind.GET_BRIDGE_VERSION, ({data: data}) => {
-            off();
+function sendAwaitResp$1(kind, data, timeoutMs = 5e3) {
+    const id = msgId++;
+    return new Promise((resolve, reject) => {
+        const timer = setTimeout(() => {
+            awaitingResp.delete(id);
+            reject(new Error(`timeout waiting for ${kind} response (v2) from Bridge`));
+        }, timeoutMs);
+        const cb = data => {
+            clearTimeout(timer);
+            awaitingResp.delete(id);
             resolve(data);
-        });
-        sendToParent(MessageKind.GET_BRIDGE_VERSION);
+        };
+        awaitingResp.set(id, cb);
+        const msg = {
+            id: id,
+            v: 2,
+            kind: kind,
+            magicValue: MAGIC_VALUE,
+            data: data,
+            sdkVersion: version
+        };
+        window.parent.postMessage(msg, "*");
     });
 }
 
+window.addEventListener("message", ev => {
+    const msg = ev.data;
+    if (msg?.v !== 2 || msg?.magicValue !== MAGIC_VALUE) {
+        return;
+    }
+    if ("id" in msg) {
+        bridgeReqHandler?.(msg.kind, msg.data);
+        return;
+    }
+    if ("respId" in msg) {
+        awaitingResp.get(msg.respId)?.(msg.data);
+        return;
+    }
+});
+
+var v2 = Object.freeze({
+    __proto__: null,
+    send: send$1,
+    sendAwaitResp: sendAwaitResp$1,
+    setBridgeReqHandler: setBridgeReqHandler
+});
+
+const v = (async () => {
+    console.log("probing for v2");
+    try {
+        await sendAwaitResp$1(MessageKind$1.GET_PLATFORM, undefined, 1e3);
+        console.log("got v2");
+        return v2;
+    } catch {
+        console.log("timeout waiting for v2, fallback to v1");
+        return v1;
+    }
+})();
+
+async function send(kind, data) {
+    (await v).send(kind, data);
+}
+
+async function sendAwaitResp(kind, data, timeoutMs = 5e3) {
+    return (await v).sendAwaitResp(kind, data, timeoutMs);
+}
+
+v.then(v => {
+    v.setBridgeReqHandler((kind, data) => bus$1.emit(kind, data));
+});
+
+const inBridge = (window.name + "").includes("bridge_");
+
+function getBridgeVersion() {
+    const cache = getBridgeVersion;
+    return cache.p ??= sendAwaitResp(MessageKind$1.GET_BRIDGE_VERSION);
+}
+
 function getPage(deep = false) {
-    if (!inBridge) throw new Error("not running in Bridge");
-    return new Promise(resolve => {
-        const off = on(MessageKind.GET_PAGE, ({data: data}) => {
-            off();
-            resolve(data);
-        });
-        sendToParent(MessageKind.GET_PAGE, {
-            deep: deep
-        });
+    return sendAwaitResp(MessageKind$1.GET_PAGE, {
+        deep: deep
     });
 }
 
 async function getPatient() {
-    if (!inBridge) throw new Error("not running in Bridge");
-    return new Promise(resolve => {
-        const off = on(MessageKind.GET_PATIENT_INFO, ({data: data}) => {
-            off();
-            resolve(data);
-        });
-        sendToParent(MessageKind.GET_PATIENT_INFO);
-    });
+    return sendAwaitResp(MessageKind$1.GET_PATIENT_INFO);
 }
 
 async function getPlatform() {
-    if (!inBridge) throw new Error("not running in Bridge");
-    return new Promise(resolve => {
-        const off = on(MessageKind.GET_PLATFORM, ({data: data}) => {
-            off();
-            resolve(data);
-        });
-        sendToParent(MessageKind.GET_PLATFORM);
-    });
+    return sendAwaitResp(MessageKind$1.GET_PLATFORM);
 }
 
 function setBadgeCount(count = 0) {
-    sendToParent(MessageKind.SET_BADGE_COUNT, count);
+    send(MessageKind$1.SET_BADGE_COUNT, count);
 }
 
 function showTile() {
-    sendToParent(MessageKind.SHOW_TILE);
+    send(MessageKind$1.SHOW_TILE);
 }
 
 function hideTile() {
-    sendToParent(MessageKind.HIDE_TILE);
+    send(MessageKind$1.HIDE_TILE);
 }
 
 function enableTile() {
-    sendToParent(MessageKind.ENABLE_TILE);
+    send(MessageKind$1.ENABLE_TILE);
 }
 
 function disableTile() {
-    sendToParent(MessageKind.DISABLE_TILE);
+    send(MessageKind$1.DISABLE_TILE);
 }
 
 function captureUserEvents() {
-    sendToParent(MessageKind.CAPTURE_USER_EVENTS);
+    send(MessageKind$1.CAPTURE_USER_EVENTS);
 }
 
 function releaseUserEvents() {
-    sendToParent(MessageKind.RELEASE_USER_EVENTS);
+    send(MessageKind$1.RELEASE_USER_EVENTS);
 }
 
 function closeApp() {
-    sendToParent(MessageKind.CLOSE_APP);
+    send(MessageKind$1.CLOSE_APP);
 }
 
 function pushNotification(notification) {
-    sendToParent(MessageKind.PUSH_NOTIFICATION, notification);
+    send(MessageKind$1.PUSH_NOTIFICATION, {
+        data: notification
+    });
 }
 
 function getOpenEncounter() {
-    return new Promise(resolve => {
-        if (!inBridge) resolve(null);
-        const off = on(MessageKind.GET_OPEN_ENCOUNTER, ({data: data}) => {
-            off();
-            resolve(data);
-        });
-        sendToParent(MessageKind.GET_OPEN_ENCOUNTER);
-    });
+    return sendAwaitResp(MessageKind$1.GET_OPEN_ENCOUNTER);
 }
 
 function onOpenEncounterChanged(cb) {
-    return on(MessageKind.SET_OPEN_ENCOUNTER, msg => cb(msg.data));
+    getOpenEncounter().then(cb);
+    return bus$1.on(MessageKind$1.SET_OPEN_ENCOUNTER, data => cb(data));
 }
 
 function onPatientChanged(cb) {
-    return on(MessageKind.SET_PATIENT_INFO, msg => cb(msg.data));
+    getPatient().then(cb);
+    return bus$1.on(MessageKind$1.SET_PATIENT_INFO, data => cb(data));
 }
 
-function sendToParent(messageKind, data) {
-    let parentWindow = window.parent;
-    if (window.opener) {
-        parentWindow = window.opener;
-    }
-    if (window === parentWindow) {
-        console.warn("Cannot post message to self. No parent window found.");
-        return;
-    }
-    if (!window.name) {
-        console.warn("No app id assigned. Cannot post request.");
-        return;
-    }
-    send(parentWindow, messageKind, {
-        appId: window.name,
-        data: data,
-        sdkVersion: version
-    });
-}
-
-export { PlatformKind, captureUserEvents, closeApp, disableTile, enableTile, getBridgeVersion, getOpenEncounter, getPage, getPatient, getPlatform, hideTile, inBridge, inIframe, inPopout, onOpenEncounterChanged, onPatientChanged, pushNotification, releaseUserEvents, setBadgeCount, showTile, version };
+export { PlatformKind, captureUserEvents, closeApp, disableTile, enableTile, getBridgeVersion, getOpenEncounter, getPage, getPatient, getPlatform, hideTile, inBridge, onOpenEncounterChanged, onPatientChanged, pushNotification, releaseUserEvents, setBadgeCount, showTile };

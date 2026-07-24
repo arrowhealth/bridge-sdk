@@ -9,7 +9,7 @@ Bridge is a platform that allows applications reside directly into any environme
 
 ## Who is this for?
 
-Bridge is for companies who have applications and services HealthCare providers use as part of their business.
+Bridge is for companies who have applications and services that health care providers use as part of their care.
 
 ## Why do I need Bridge?
 
@@ -20,24 +20,26 @@ an API to communicate with Bridge and get the data you need from the EHR.
 
 ### Integrate once, access everywhere
 
-Spend time developing your product, not integrating into EHRs. Bridge is easy and fast to get started with. You can setup your
-first application in less than an hour. Once your application has been published, it will be available in any EHR.
+Spend time developing your product, not integrating into EHRs. Bridge is easy and fast to get started with. You can
+setup your first application in less than an hour. Once your application has been published, it will be available in any
+EHR.
 
 ### Single Sign-On (SSO)
 
-Bridge also allows you to integrate into its authentication layer using well known authentication protocols such as OIDC and SAML. Your application
-can launch without the need for the user to login each time.
+Bridge also allows you to integrate into its authentication layer using well known authentication protocols such as OIDC
+and SAML. Your application can launch without the need for the user to login each time.
 
 ### Real-time interaction and feedback
 
-Using the Bridge SDK you can retrieve and subscribe to patient information as it is being accessed in real-time. You can also
-provide the EHR user with information via notifications, badges and Bridge SmartTiles&trade; that change based on the patient accessed in the EHR.
+Using the Bridge SDK you can retrieve and subscribe to patient information as it is being accessed in real-time. You can
+also provide the EHR user with information via notifications, badges, and dynamic app tiles that change based on the
+patient accessed in the EHR.
 
 ## Setup Guide and API
 
-To get started, follow our setup guide:
+To get started, see our documentation at:
 
-https://arrowhealth.github.io/bridge-sdk/
+https://bridge-sdk-docs.arrowhealth.io/2.11.0/index.html
 
 <div style="height: 30px"></div>
 

@@ -220,21 +220,11 @@ type PushNotification = {
  */
 type Unsubscribe = () => void;
 /**
- * Indicates if application is running inside of popout
- */
-declare const inPopout: boolean;
-/**
- * Indicates if application is running inside of iframe
- */
-declare const inIframe: boolean;
-/**
- * Indicates if application is running inside of Bridge
+ * Indicates if application is running inside of Bridge.
+ *
+ * If not running in Bridge, SDK features are unavailable.
  */
 declare const inBridge: boolean;
-/**
- * The Bridge SDK version.
- */
-declare const version = "2.10.1";
 /**
  * The Bridge extension version.
  */
@@ -244,11 +234,9 @@ declare function getBridgeVersion(): Promise<string>;
  */
 declare function getPage(deep?: boolean): Promise<Page>;
 /**
- * Get the current patient being displayed. This is typically used on application
- * initialization and thereafter onPatientChanged() is used to listen for additional
- * changes.
+ * Get the current patient being viewed in the EHR. If no patient is being viewed, returns `null`.
  */
-declare function getPatient(): Promise<Patient>;
+declare function getPatient(): Promise<Patient | null>;
 declare function getPlatform(): Promise<Platform>;
 /**
  * Sets the badge count on the tile. Setting the value to 0 will cause it to go away.
@@ -299,17 +287,19 @@ declare function getOpenEncounter(): Promise<Encounter | null>;
  * When the user navigates to an open encounter page, `cb` is called with the encounter information.
  * When the user navigates away from an open encounter page, `cb` is called with `null`.
  *
+ * This also immediately obtains the currently viewed open encounter (or `null`) and passes it to `cb`.
+ *
  * @param cb - The callback function to be called when the open encounter changes.
  */
-declare function onOpenEncounterChanged(cb: (encounter: Encounter) => void): Unsubscribe;
+declare function onOpenEncounterChanged(cb: (encounter: Encounter | null) => void): Unsubscribe;
 /**
  * Subscribe to the patient change event.
  * When the user navigates to a patient page, `cb` is called with the patient information.
  * When the user navigates away from a patient page, `cb` with `null`.
  *
- * @param cb - The callback function to be called when the patient changes.
+ * @param cb - The callback function to receive the patient data.
  */
-declare function onPatientChanged(cb: (patient: Patient) => void): Unsubscribe;
+declare function onPatientChanged(cb: (patient: Patient | null) => void): Unsubscribe;
 
-export { PlatformKind, captureUserEvents, closeApp, disableTile, enableTile, getBridgeVersion, getOpenEncounter, getPage, getPatient, getPlatform, hideTile, inBridge, inIframe, inPopout, onOpenEncounterChanged, onPatientChanged, pushNotification, releaseUserEvents, setBadgeCount, showTile, version };
+export { PlatformKind, captureUserEvents, closeApp, disableTile, enableTile, getBridgeVersion, getOpenEncounter, getPage, getPatient, getPlatform, hideTile, inBridge, onOpenEncounterChanged, onPatientChanged, pushNotification, releaseUserEvents, setBadgeCount, showTile };
 export type { Encounter, Page, Patient, Platform, PushNotification, Unsubscribe };
