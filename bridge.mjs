@@ -94,7 +94,7 @@ var MessageKind;
 
 var MessageKind$1 = MessageKind;
 
-const version = "2.11.0";
+const version = "2.11.1";
 
 const MAGIC_VALUE$1 = "BRIDGE_EVENT";
 
@@ -227,13 +227,10 @@ var v2 = Object.freeze({
 });
 
 const v = (async () => {
-    console.log("probing for v2");
     try {
         await sendAwaitResp$1(MessageKind$1.GET_PLATFORM, undefined, 1e3);
-        console.log("got v2");
         return v2;
     } catch {
-        console.log("timeout waiting for v2, fallback to v1");
         return v1;
     }
 })();

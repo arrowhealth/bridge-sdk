@@ -92,7 +92,7 @@
         MessageKind["DEPRECATED_GET_AUTH_USER"] = "bridge::get_auth_user";
     })(MessageKind || (MessageKind = {}));
     var MessageKind$1 = MessageKind;
-    const version = "2.11.0";
+    const version = "2.11.1";
     const MAGIC_VALUE$1 = "BRIDGE_EVENT";
     const bus = new Bus;
     let bridgeReqHandler$1;
@@ -207,13 +207,10 @@
         setBridgeReqHandler: setBridgeReqHandler
     });
     const v = (async () => {
-        console.log("probing for v2");
         try {
             await sendAwaitResp$1(MessageKind$1.GET_PLATFORM, undefined, 1e3);
-            console.log("got v2");
             return v2;
         } catch {
-            console.log("timeout waiting for v2, fallback to v1");
             return v1;
         }
     })();
