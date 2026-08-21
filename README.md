@@ -39,7 +39,7 @@ patient accessed in the EHR.
 
 To get started, see our documentation at:
 
-https://bridge-sdk-docs.arrowhealth.io/2.11.1/index.html
+https://bridge-sdk-docs.arrowhealth.io/2.12.0/index.html
 
 <div style="height: 30px"></div>
 

@@ -12,9 +12,36 @@ type Encounter = {
      */
     type: string;
     /**
+     * The type of the appointment the encounter was created from, as reported by the EHR (e.g. "New
+     * Patient 30"). EHR-defined, and distinct from `type`, though some EHRs report the same in both.
+     */
+    appointmentType?: string;
+    /**
      * The diagnoses associated with the encounter, as reported by the EHR.
      */
     dx: string[];
+    /**
+     * The provider of record on the encounter, as reported by the EHR.
+     *
+     * Not necessarily the logged-in user, and not the claim's rendering provider — that is determined
+     * at billing time and can legitimately differ (e.g. incident-to services rendered by a mid-level
+     * but billed under a supervising physician). That substitution is a billing-time concern; orders
+     * and referrals generally carry the ordering clinician's own identity, which is this field.
+     *
+     * `undefined` if the EHR does not report a provider for the encounter, or if the integration does
+     * not supply one.
+     */
+    provider?: {
+        /**
+         * The provider's name, verbatim as the EHR reports it. The format varies by EHR and may
+         * include credentials.
+         */
+        name: string;
+        /**
+         * The provider's National Provider Identifier, if reported by the EHR.
+         */
+        npi?: string;
+    };
 };
 
 /**
@@ -216,6 +243,11 @@ type PushNotification = {
 };
 
 /**
+ * The Bridge SDK version.
+ */
+declare const version = "2.12.0";
+
+/**
  * An unsubscribe function returned by subscription methods, such as `onPatientChanged()`.
  */
 type Unsubscribe = () => void;
@@ -301,5 +333,5 @@ declare function onOpenEncounterChanged(cb: (encounter: Encounter | null) => voi
  */
 declare function onPatientChanged(cb: (patient: Patient | null) => void): Unsubscribe;
 
-export { PlatformKind, captureUserEvents, closeApp, disableTile, enableTile, getBridgeVersion, getOpenEncounter, getPage, getPatient, getPlatform, hideTile, inBridge, onOpenEncounterChanged, onPatientChanged, pushNotification, releaseUserEvents, setBadgeCount, showTile };
+export { PlatformKind, captureUserEvents, closeApp, disableTile, enableTile, getBridgeVersion, getOpenEncounter, getPage, getPatient, getPlatform, hideTile, inBridge, onOpenEncounterChanged, onPatientChanged, pushNotification, releaseUserEvents, setBadgeCount, showTile, version };
 export type { Encounter, Page, Patient, Platform, PushNotification, Unsubscribe };
