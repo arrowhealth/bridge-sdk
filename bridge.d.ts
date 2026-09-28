@@ -197,6 +197,7 @@ declare enum PlatformKind {
     CAREECO = "careeco",
     CLINICIENT = "clinicient",
     CROSSTX = "crosstx",
+    CUREMD = "curemd",
     ECW = "eCW",// non-standard
     ELATION = "Elation",// non-standard
     EMPOWER = "empower",
@@ -245,7 +246,7 @@ type PushNotification = {
 /**
  * The Bridge SDK version.
  */
-declare const version = "2.12.0";
+declare const version = "2.12.1";
 
 /**
  * An unsubscribe function returned by subscription methods, such as `onPatientChanged()`.

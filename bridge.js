@@ -36,6 +36,7 @@
         PlatformKind["CAREECO"] = "careeco";
         PlatformKind["CLINICIENT"] = "clinicient";
         PlatformKind["CROSSTX"] = "crosstx";
+        PlatformKind["CUREMD"] = "curemd";
         PlatformKind["ECW"] = "eCW";
         PlatformKind["ELATION"] = "Elation";
         PlatformKind["EMPOWER"] = "empower";
@@ -90,7 +91,7 @@
         Kind["DEPRECATED_GET_AUTH_USER"] = "bridge::get_auth_user";
     })(Kind || (Kind = {}));
     const MAGIC_VALUE = "BRIDGE_EVENT";
-    const version = "2.12.0";
+    const version = "2.12.1";
     const bus = new Bus;
     let bridgeReqHandler$1;
     function setBridgeReqHandler$1(handler) {
@@ -276,9 +277,7 @@
         send(Kind.CLOSE_APP);
     }
     function pushNotification(notification) {
-        send(Kind.PUSH_NOTIFICATION, {
-            data: notification
-        });
+        send(Kind.PUSH_NOTIFICATION, notification);
     }
     function getOpenEncounter() {
         return sendAwaitResp(Kind.GET_OPEN_ENCOUNTER);

@@ -34,6 +34,7 @@ var PlatformKind;
     PlatformKind["CAREECO"] = "careeco";
     PlatformKind["CLINICIENT"] = "clinicient";
     PlatformKind["CROSSTX"] = "crosstx";
+    PlatformKind["CUREMD"] = "curemd";
     PlatformKind["ECW"] = "eCW";
     PlatformKind["ELATION"] = "Elation";
     PlatformKind["EMPOWER"] = "empower";
@@ -92,7 +93,7 @@ var Kind;
 
 const MAGIC_VALUE = "BRIDGE_EVENT";
 
-const version = "2.12.0";
+const version = "2.12.1";
 
 const bus = new Bus;
 
@@ -317,9 +318,7 @@ function closeApp() {
 }
 
 function pushNotification(notification) {
-    send(Kind.PUSH_NOTIFICATION, {
-        data: notification
-    });
+    send(Kind.PUSH_NOTIFICATION, notification);
 }
 
 function getOpenEncounter() {
